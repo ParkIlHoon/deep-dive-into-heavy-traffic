@@ -12,3 +12,7 @@ class CannotUnLikePostException(): RuntimeException()
  * 포스트 작성 실패 예외
  */
 class CannotWritePostException(): RuntimeException()
+/**
+ * 포스트 좋아요 삭제 실패 예외
+ */
+class CannotDeletePostLikeException(): RuntimeException()
