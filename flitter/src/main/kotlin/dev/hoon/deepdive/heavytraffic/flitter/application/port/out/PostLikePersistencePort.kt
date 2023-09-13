@@ -18,12 +18,11 @@ interface PostLikePersistencePort {
     /**
      * 삭제
      *
-     * @param postId 포스트 아이디
-     * @param memberId 회원 아이디
+     * @param postLike 삭제할 포스트 좋아요
      * @throws CannotDeletePostLikeException 포스트 좋아요가 존재하지 않거나 삭제에 실패할 경우
      */
     @Throws(CannotDeletePostLikeException::class)
-    fun delete(postId: Long, memberId: Long)
+    fun delete(postLike: PostLike)
     /**
      * 카운트
      *

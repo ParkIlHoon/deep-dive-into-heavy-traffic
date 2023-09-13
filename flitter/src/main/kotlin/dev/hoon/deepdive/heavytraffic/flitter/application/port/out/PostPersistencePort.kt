@@ -1,5 +1,6 @@
 package dev.hoon.deepdive.heavytraffic.flitter.application.port.out
 
+import dev.hoon.deepdive.heavytraffic.flitter.application.port.exception.PostNotFoundException
 import dev.hoon.deepdive.heavytraffic.flitter.domain.post.Post
 
 /**
@@ -13,6 +14,15 @@ interface PostPersistencePort {
      * @return 저장된 포스트
      */
     fun save(post: Post): Post
+    /**
+     * 조회
+     *
+     * @param id 조회할 아이디
+     * @return 아이디에 해당하는 포스트
+     * @throws PostNotFoundException 아이디에 해당하는 포스트가 존재하지 않는 경우
+     */
+    @Throws(PostNotFoundException::class)
+    fun findById(id: Long): Post
     /**
      * 조회
      *
