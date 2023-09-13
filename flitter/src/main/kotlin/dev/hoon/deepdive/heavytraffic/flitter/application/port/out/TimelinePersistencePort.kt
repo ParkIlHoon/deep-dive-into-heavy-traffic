@@ -26,7 +26,7 @@ interface TimelinePersistencePort {
      *
      * @param memberId 회원 아이디
      * @param cursorRequest 커서
-     * @return 타임라인 목록
+     * @return 타임라인 목록(포스팅 일시 역순정렬)
      */
     fun findAllByMemberId(memberId: Long, cursorRequest: CursorRequest): CursorResponse<Timeline>
 }
