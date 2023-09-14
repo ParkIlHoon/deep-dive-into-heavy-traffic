@@ -30,4 +30,11 @@ interface PostPersistencePort {
      * @return 아이디에 해당하는 포스트 목록
      */
     fun findAllByIdIn(ids: List<Long>): List<Post>
+    /**
+     * 조회
+     *
+     * @param memberId 작성자 회원 아이디
+     * @return 작성자가 아이디에 해당하는 포스트 목록
+     */
+    fun findAllByMemberId(memberId: Long): List<Post>
 }

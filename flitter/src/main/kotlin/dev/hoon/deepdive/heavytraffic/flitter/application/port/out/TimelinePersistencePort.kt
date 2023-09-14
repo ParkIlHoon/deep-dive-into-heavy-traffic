@@ -29,4 +29,19 @@ interface TimelinePersistencePort {
      * @return 타임라인 목록(포스팅 일시 역순정렬)
      */
     fun findAllByMemberId(memberId: Long, cursorRequest: CursorRequest): CursorResponse<Timeline>
+    /**
+     * 조회
+     *
+     * @param memberId 회원 아이디
+     * @param postIds 포스트 아이디 목록
+     * @return 회원 아이디와 포스트 아이디에 해당하는 타임라인 목록
+     */
+    fun findAllByMemberIdAndPostIdIn(memberId: Long, postIds: List<Long>): List<Timeline>
+    /**
+     * 삭제
+     *
+     * @param memberId 회원 아이디
+     * @param postIds 포스트 아이디 목록
+     */
+    fun deleteAllByMemberIdAndPostIdIn(memberId: Long, postIds: List<Long>)
 }
