@@ -32,6 +32,15 @@ dependencies {
     // AMQP + RabbitMQ
     implementation("org.springframework.boot:spring-boot-starter-amqp")
     testImplementation("org.springframework.amqp:spring-rabbit-test")
+
+    implementation("com.github.f4b6a3:ulid-creator:5.2.2")
+}
+
+// JPA Entity Lazy loading
+allOpen {
+    annotation("jakarta.persistence.Entity")
+    annotation("jakarta.persistence.Embeddable")
+    annotation("jakarta.persistence.MappedSuperclass")
 }
 
 tasks.withType<KotlinCompile> {
