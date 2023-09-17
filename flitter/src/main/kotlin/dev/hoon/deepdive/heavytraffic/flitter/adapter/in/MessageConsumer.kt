@@ -1,5 +1,6 @@
 package dev.hoon.deepdive.heavytraffic.flitter.adapter.`in`
 
+import dev.hoon.deepdive.heavytraffic.flitter.adapter.common.constants.MessageQueueConstants
 import dev.hoon.deepdive.heavytraffic.flitter.adapter.common.dto.FollowEvent
 import dev.hoon.deepdive.heavytraffic.flitter.adapter.common.dto.PostWroteEvent
 import dev.hoon.deepdive.heavytraffic.flitter.adapter.common.dto.UnFollowEvent
@@ -19,9 +20,9 @@ class MessageConsumer(
 ) {
     @RabbitListener(bindings = [
         QueueBinding(
-            value = Queue(value = "queue.post-wrote"),
-            exchange = Exchange(value = "exchange.direct"),
-            key = ["post-wrote"]
+            value = Queue(value = MessageQueueConstants.POST_WROTE_QUEUE),
+            exchange = Exchange(value = MessageQueueConstants.EXCHANGE_DIRECT),
+            key = [MessageQueueConstants.POST_WROTE_ROUTING_KEY]
         )
     ])
     fun consumePostWroteEvent(@Payload postWroteEvent: PostWroteEvent) {
@@ -30,9 +31,9 @@ class MessageConsumer(
 
     @RabbitListener(bindings = [
         QueueBinding(
-            value = Queue(value = "queue.follow"),
-            exchange = Exchange(value = "exchange.direct"),
-            key = ["follow"]
+            value = Queue(value = MessageQueueConstants.FOLLOW_QUEUE),
+            exchange = Exchange(value = MessageQueueConstants.EXCHANGE_DIRECT),
+            key = [MessageQueueConstants.FOLLOW_ROUTING_KEY]
         )
     ])
     fun consumeFollowEvent(@Payload followEvent: FollowEvent) {
@@ -41,9 +42,9 @@ class MessageConsumer(
 
     @RabbitListener(bindings = [
         QueueBinding(
-            value = Queue(value = "queue.unfollow"),
-            exchange = Exchange(value = "exchange.direct"),
-            key = ["unfollow"]
+            value = Queue(value = MessageQueueConstants.UNFOLLOW_QUEUE),
+            exchange = Exchange(value = MessageQueueConstants.EXCHANGE_DIRECT),
+            key = [MessageQueueConstants.UNFOLLOW_ROUTING_KEY]
         )
     ])
     fun consumeUnFollowEvent(@Payload unFollowEvent: UnFollowEvent) {
