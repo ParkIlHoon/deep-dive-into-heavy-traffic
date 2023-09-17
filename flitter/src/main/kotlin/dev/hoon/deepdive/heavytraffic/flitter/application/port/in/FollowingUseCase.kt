@@ -2,6 +2,7 @@ package dev.hoon.deepdive.heavytraffic.flitter.application.port.`in`
 
 import dev.hoon.deepdive.heavytraffic.flitter.application.port.exception.CannotFollowException
 import dev.hoon.deepdive.heavytraffic.flitter.application.port.exception.CannotUnFollowException
+import java.util.*
 
 /**
  * 팔로잉 유스 케이스
@@ -15,7 +16,7 @@ interface FollowingUseCase {
      * @throws CannotFollowException 팔로우 실패 시
      */
     @Throws(CannotFollowException::class)
-    fun follow(followerId: Long, followId: Long)
+    fun follow(followerId: UUID, followId: UUID)
     /**
      * 언팔로우
      *
@@ -24,5 +25,5 @@ interface FollowingUseCase {
      * @throws CannotUnFollowException 언팔로우 실패 시
      */
     @Throws(CannotUnFollowException::class)
-    fun unFollow(followerId: Long, followId: Long)
+    fun unFollow(followerId: UUID, followId: UUID)
 }

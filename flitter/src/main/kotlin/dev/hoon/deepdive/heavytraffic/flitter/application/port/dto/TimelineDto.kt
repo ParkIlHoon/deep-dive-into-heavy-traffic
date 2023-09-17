@@ -20,7 +20,7 @@ class TimelineDto {
                 TimelineDto.Response(
                     id = timeline.id!!,
                     postId = timeline.postId,
-                    writerId = post.memberId,
+                    writerId = post.writerId,
                     writerNickname = writer.nickname,
                     contents = post.contents,
                     like = post.like,

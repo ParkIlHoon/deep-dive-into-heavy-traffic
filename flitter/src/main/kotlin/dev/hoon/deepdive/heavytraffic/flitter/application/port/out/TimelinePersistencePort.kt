@@ -3,6 +3,7 @@ package dev.hoon.deepdive.heavytraffic.flitter.application.port.out
 import dev.hoon.deepdive.heavytraffic.flitter.application.port.dto.CursorRequest
 import dev.hoon.deepdive.heavytraffic.flitter.application.port.dto.CursorResponse
 import dev.hoon.deepdive.heavytraffic.flitter.domain.timeline.Timeline
+import java.util.*
 
 /**
  * 타임라인 영속성 포트
@@ -28,7 +29,7 @@ interface TimelinePersistencePort {
      * @param cursorRequest 커서
      * @return 타임라인 목록(포스팅 일시 역순정렬)
      */
-    fun findAllByMemberId(memberId: Long, cursorRequest: CursorRequest): CursorResponse<Timeline>
+    fun findAllByMemberId(memberId: UUID, cursorRequest: CursorRequest): CursorResponse<Timeline>
     /**
      * 조회
      *
@@ -36,12 +37,12 @@ interface TimelinePersistencePort {
      * @param postIds 포스트 아이디 목록
      * @return 회원 아이디와 포스트 아이디에 해당하는 타임라인 목록
      */
-    fun findAllByMemberIdAndPostIdIn(memberId: Long, postIds: List<Long>): List<Timeline>
+    fun findAllByMemberIdAndPostIdIn(memberId: UUID, postIds: List<UUID>): List<Timeline>
     /**
      * 삭제
      *
      * @param memberId 회원 아이디
      * @param postIds 포스트 아이디 목록
      */
-    fun deleteAllByMemberIdAndPostIdIn(memberId: Long, postIds: List<Long>)
+    fun deleteAllByMemberIdAndPostIdIn(memberId: UUID, postIds: List<UUID>)
 }
