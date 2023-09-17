@@ -1,5 +1,7 @@
 package dev.hoon.deepdive.heavytraffic.flitter.application.port.out
 
+import java.util.*
+
 /**
  * 메시지 큐 포트
  */
@@ -9,19 +11,19 @@ interface MessageQueuePort {
      *
      * @param post 작성된 포스트
      */
-    fun publishPostWroteEvent(postId: Long, writerId: Long)
+    fun publishPostWroteEvent(postId: UUID, writerId: UUID)
     /**
      * 팔로우 이벤트 발행
      *
      * @param followerId 팔로워 회원 아이디
      * @param followId 팔로우 대상 회원 아이디
      */
-    fun publishFollowEvent(followerId: Long, followId: Long)
+    fun publishFollowEvent(followerId: UUID, followId: UUID)
     /**
      * 언팔로우 이벤트 발행
      *
      * @param followerId 팔로워 회원 아이디
      * @param followId 언팔로우 대상 회원 아이디
      */
-    fun publishUnFollowEvent(followerId: Long, followId: Long)
+    fun publishUnFollowEvent(followerId: UUID, followId: UUID)
 }

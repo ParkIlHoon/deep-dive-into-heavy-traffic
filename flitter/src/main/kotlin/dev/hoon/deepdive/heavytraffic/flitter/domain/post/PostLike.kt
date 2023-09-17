@@ -1,6 +1,7 @@
 package dev.hoon.deepdive.heavytraffic.flitter.domain.post
 
 import java.time.LocalDateTime
+import java.util.*
 
 /**
  * 포스트 좋아요
@@ -11,6 +12,6 @@ import java.time.LocalDateTime
  */
 class PostLike(
     val post: Post,
-    val memberId: Long,
+    val memberId: UUID,
     val createdAt: LocalDateTime = LocalDateTime.now()
 )

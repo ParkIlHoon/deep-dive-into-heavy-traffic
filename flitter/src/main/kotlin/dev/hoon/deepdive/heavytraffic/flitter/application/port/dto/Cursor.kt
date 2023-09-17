@@ -1,11 +1,14 @@
 package dev.hoon.deepdive.heavytraffic.flitter.application.port.dto
 
+import com.github.f4b6a3.ulid.Ulid
+import java.util.*
+
 data class CursorRequest(
-    val key: Long = NO_KEY,
+    val key: UUID = NO_KEY,
     val size: Int = 10
 ) {
     companion object {
-        private const val NO_KEY = -1L
+        private val NO_KEY = Ulid.MIN.toUuid()
     }
 
     fun hasKey() = this.key != NO_KEY

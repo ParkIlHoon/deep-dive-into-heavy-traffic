@@ -1,6 +1,7 @@
 package dev.hoon.deepdive.heavytraffic.flitter.domain.timeline
 
 import java.time.LocalDateTime
+import java.util.*
 
 /**
  * 타임라인
@@ -12,9 +13,9 @@ import java.time.LocalDateTime
  * @property createdAt 생성일시
  */
 class Timeline(
-    val id: Long? = null,
-    val memberId: Long,
-    val postId: Long,
+    val id: UUID? = null,
+    val memberId: UUID,
+    val postId: UUID,
     val postedAt: LocalDateTime,
     val createdAt: LocalDateTime = LocalDateTime.now()
 ) {

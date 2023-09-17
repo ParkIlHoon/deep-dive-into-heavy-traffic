@@ -2,6 +2,7 @@ package dev.hoon.deepdive.heavytraffic.flitter.domain.member
 
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.util.*
 
 /**
  * 회원
@@ -9,15 +10,16 @@ import java.time.LocalDateTime
  * @property id 아이디
  * @property nickname 닉네임
  * @property email 이메일
- * @property birthDay 생일
+ * @property birthday 생일
  * @property createdAt 생성일시
  */
 class Member(
-    val id: Long? = null,
+    val id: UUID? = null,
     var nickname: String,
     val email: String,
-    val birthDay: LocalDate,
-    val createdAt: LocalDateTime = LocalDateTime.now()
+    var birthday: LocalDate,
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+    var updatedAt: LocalDateTime = LocalDateTime.now()
 ) {
     /**
      * 닉네임을 변경합니다.
@@ -31,6 +33,12 @@ class Member(
             nickname = this.nickname
         )
         this.nickname = nickname
+        this.updatedAt = LocalDateTime.now()
         return nicknameHistory
+    }
+
+    fun changeBirthday(newBirthday: LocalDate) {
+        this.birthday = newBirthday
+        this.updatedAt = LocalDateTime.now()
     }
 }

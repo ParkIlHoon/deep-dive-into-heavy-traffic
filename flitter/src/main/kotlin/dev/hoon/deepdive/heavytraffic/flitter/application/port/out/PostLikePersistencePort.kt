@@ -2,6 +2,7 @@ package dev.hoon.deepdive.heavytraffic.flitter.application.port.out
 
 import dev.hoon.deepdive.heavytraffic.flitter.application.port.exception.CannotDeletePostLikeException
 import dev.hoon.deepdive.heavytraffic.flitter.domain.post.PostLike
+import java.util.*
 
 /**
  * 포스트 좋아요 영속성 포트
@@ -29,5 +30,5 @@ interface PostLikePersistencePort {
      * @param postId 포스트 아이디
      * @return 포스트 좋아요 수(최소 0)
      */
-    fun count(postId: Long): Long
+    fun count(postId: UUID): Long
 }

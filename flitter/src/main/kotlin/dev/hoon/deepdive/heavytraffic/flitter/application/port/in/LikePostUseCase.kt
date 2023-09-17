@@ -2,6 +2,7 @@ package dev.hoon.deepdive.heavytraffic.flitter.application.port.`in`
 
 import dev.hoon.deepdive.heavytraffic.flitter.application.port.exception.CannotLikePostException
 import dev.hoon.deepdive.heavytraffic.flitter.application.port.exception.CannotUnLikePostException
+import java.util.*
 
 /**
  * 포스트 좋아요 유스 케이스
@@ -15,7 +16,7 @@ interface LikePostUseCase {
      * @throws CannotLikePostException 좋아요 실패 시
      */
     @Throws(CannotLikePostException::class)
-    fun like(memberId: Long, postId: Long)
+    fun like(memberId: UUID, postId: UUID)
     /**
      * 좋아요 취소
      *
@@ -24,5 +25,5 @@ interface LikePostUseCase {
      * @throws CannotUnLikePostException 좋아요 취소 실패 시
      */
     @Throws(CannotUnLikePostException::class)
-    fun unLike(memberId: Long, postId: Long)
+    fun unLike(memberId: UUID, postId: UUID)
 }
