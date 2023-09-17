@@ -9,13 +9,14 @@ import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
 import org.hibernate.annotations.Comment
 import java.time.LocalDateTime
+import java.util.*
 
 @Entity
 @Table(name = "post_like")
 @Comment("포스트 좋아요")
 class PostLike(
     post: Post,
-    memberId: String
+    memberId: UUID
 ): UUIDPrimaryKey() {
     @ManyToOne(
         targetEntity = Post::class,
@@ -27,9 +28,9 @@ class PostLike(
     var post: Post = post
         protected set
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "BINARY(16)")
     @Comment("좋아요를 누른 회원 아이디")
-    var memberId: String = memberId
+    var memberId: UUID = memberId
         protected set
 
     @Column(nullable = false)

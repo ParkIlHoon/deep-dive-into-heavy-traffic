@@ -4,18 +4,19 @@ import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.entity.UUIDPrimaryKey
 import jakarta.persistence.*
 import org.hibernate.annotations.Comment
 import java.time.LocalDateTime
+import java.util.UUID
 
 @Entity
 @Table(name = "post")
 @Comment("포스트")
 class Post(
-    writerId: String,
+    writerId: UUID,
     contents: String,
 ): UUIDPrimaryKey() {
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "BINARY(16)")
     @Comment("작성자 아이디")
-    var writerId: String = writerId
+    var writerId: UUID = writerId
         protected set
 
     @Column(nullable = false)

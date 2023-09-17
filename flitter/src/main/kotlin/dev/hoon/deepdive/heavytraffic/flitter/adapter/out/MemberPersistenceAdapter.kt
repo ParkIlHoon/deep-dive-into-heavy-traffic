@@ -1,5 +1,6 @@
 package dev.hoon.deepdive.heavytraffic.flitter.adapter.out
 
+import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.mapper.MemberMapper
 import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.repository.MemberRepository
 import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.repository.NicknameHistoryRepository
 import dev.hoon.deepdive.heavytraffic.flitter.application.port.out.MemberPersistencePort
@@ -16,23 +17,39 @@ class MemberPersistenceAdapter(
     private val memberRepository: MemberRepository,
     private val nicknameHistoryRepository: NicknameHistoryRepository
 ): MemberPersistencePort, NicknameHistoryPersistencePort {
-    override fun save(member: Member): Member {
-        TODO("Not yet implemented")
-    }
+    @Transactional
+    override fun save(member: Member): Member =
+        MemberMapper.toEntity(member)
+            .let {
+                memberRepository.save(it)
+            }.let {
+                MemberMapper.toDomain(it)
+            }
 
-    override fun findById(id: UUID): Member {
-        TODO("Not yet implemented")
-    }
+    override fun findById(id: UUID): Member =
+        memberRepository.findById(id)
+            .let {
+                MemberMapper.toDomain(it)
+            }
 
-    override fun findAllByIdIn(ids: List<UUID>): List<Member> {
-        TODO("Not yet implemented")
-    }
+    override fun findAllByIdIn(ids: List<UUID>): List<Member> =
+        memberRepository.findAllByIdIn(ids)
+            .map {
+                MemberMapper.toDomain(it)
+            }
 
-    override fun save(nicknameHistory: NicknameHistory): NicknameHistory {
-        TODO("Not yet implemented")
-    }
+    @Transactional
+    override fun save(nicknameHistory: NicknameHistory): NicknameHistory =
+        MemberMapper.toEntity(nicknameHistory)
+            .let {
+                nicknameHistoryRepository.save(it)
+            }.let {
+                MemberMapper.toDomain(it)
+            }
 
-    override fun findAllByMemberId(memberId: Long): List<NicknameHistory> {
-        TODO("Not yet implemented")
-    }
+    override fun findAllByMemberId(memberId: UUID): List<NicknameHistory> =
+        memberRepository.findById(memberId).nicknameHistories
+            .map {
+                MemberMapper.toDomain(it)
+            }
 }
