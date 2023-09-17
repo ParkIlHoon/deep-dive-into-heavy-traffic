@@ -1,5 +1,6 @@
 package dev.hoon.deepdive.heavytraffic.flitter.adapter.out
 
+import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.mapper.FollowMapper
 import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.repository.FollowRepository
 import dev.hoon.deepdive.heavytraffic.flitter.application.port.out.FollowPersistencePort
 import dev.hoon.deepdive.heavytraffic.flitter.domain.follow.Follow
@@ -12,19 +13,31 @@ import java.util.*
 class FollowPersistenceAdapter(
     private val followRepository: FollowRepository
 ): FollowPersistencePort {
-    override fun save(follow: Follow): Follow {
-        TODO("Not yet implemented")
-    }
+    @Transactional
+    override fun save(follow: Follow): Follow =
+        FollowMapper.toEntity(follow)
+            .let {
+                followRepository.save(it)
+            }.let {
+                FollowMapper.toDomain(it)
+            }
 
-    override fun delete(follow: Follow) {
-        TODO("Not yet implemented")
-    }
+    @Transactional
+    override fun delete(follow: Follow) =
+        FollowMapper.toEntity(follow)
+            .let {
+                followRepository.delete(it)
+            }
 
-    override fun findAllByFollowMemberId(memberId: UUID): List<Follow> {
-        TODO("Not yet implemented")
-    }
+    override fun findAllByFollowMemberId(memberId: UUID): List<Follow> =
+        followRepository.findAllByMemberId(memberId)
+            .map {
+                FollowMapper.toDomain(it)
+            }
 
-    override fun findAllByFollowerMemberId(memberId: UUID): List<Follow> {
-        TODO("Not yet implemented")
-    }
+    override fun findAllByFollowerMemberId(memberId: UUID): List<Follow> =
+        followRepository.findAllByFollowerMemberId(memberId)
+            .map {
+                FollowMapper.toDomain(it)
+            }
 }

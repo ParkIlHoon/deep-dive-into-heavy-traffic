@@ -1,6 +1,7 @@
 package dev.hoon.deepdive.heavytraffic.flitter.application.port.out
 
 import dev.hoon.deepdive.heavytraffic.flitter.domain.member.NicknameHistory
+import java.util.UUID
 
 /**
  * 닉네임 이력 영속성 포트
@@ -19,5 +20,5 @@ interface NicknameHistoryPersistencePort {
      * @param memberId 조회할 회원 아이디
      * @return 회원 아이디에 해당하는 닉네임 이력
      */
-    fun findAllByMemberId(memberId: Long): List<NicknameHistory>
+    fun findAllByMemberId(memberId: UUID): List<NicknameHistory>
 }

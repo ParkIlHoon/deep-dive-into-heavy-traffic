@@ -17,7 +17,7 @@ abstract class UUIDPrimaryKey: Persistable<UUID> {
     @Id
     @Column(columnDefinition = "BINARY(16)")
     @Comment("아이디")
-    private val id: UUID = UlidCreator.getMonotonicUlid().toUuid()
+    private var id: UUID = UlidCreator.getMonotonicUlid().toUuid()
 
     @Transient
     private var _isNew = true
@@ -48,5 +48,10 @@ abstract class UUIDPrimaryKey: Persistable<UUID> {
     @PostPersist
     protected fun load() {
         _isNew = false
+    }
+
+    fun setId(id: UUID?) {
+        this.id = id ?: UlidCreator.getMonotonicUlid().toUuid()
+        this._isNew = id == null
     }
 }

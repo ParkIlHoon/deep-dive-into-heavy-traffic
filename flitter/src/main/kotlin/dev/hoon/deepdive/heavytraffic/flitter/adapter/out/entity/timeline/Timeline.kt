@@ -6,23 +6,24 @@ import jakarta.persistence.Entity
 import jakarta.persistence.Table
 import org.hibernate.annotations.Comment
 import java.time.LocalDateTime
+import java.util.UUID
 
 @Entity
 @Table(name = "timeline")
 @Comment("타임라인")
 class Timeline(
-    memberId: String,
-    postId: String,
+    memberId: UUID,
+    postId: UUID,
     postedAt: LocalDateTime
 ): UUIDPrimaryKey() {
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "BINARY(16)")
     @Comment("회원 아이디")
-    var memberId: String = memberId
+    var memberId: UUID = memberId
         protected set
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "BINARY(16)")
     @Comment("포스트 아이디")
-    var postId: String = postId
+    var postId: UUID = postId
         protected set
 
     @Column(nullable = false)
