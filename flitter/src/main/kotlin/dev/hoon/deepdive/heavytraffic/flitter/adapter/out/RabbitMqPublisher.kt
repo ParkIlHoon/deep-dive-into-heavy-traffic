@@ -11,10 +11,10 @@ import java.util.UUID
 
 @Service
 class RabbitMqPublisher(
-    private val rabbitTemplate: RabbitTemplate
-): MessageQueuePort {
+    private val rabbitTemplate: RabbitTemplate,
+) : MessageQueuePort {
     override fun publishPostWroteEvent(postId: UUID, writerId: UUID) {
-        rabbitTemplate.convertAndSend(MessageQueueConstants.EXCHANGE_DIRECT,MessageQueueConstants.POST_WROTE_ROUTING_KEY, PostWroteEvent(postId, writerId))
+        rabbitTemplate.convertAndSend(MessageQueueConstants.EXCHANGE_DIRECT, MessageQueueConstants.POST_WROTE_ROUTING_KEY, PostWroteEvent(postId, writerId))
     }
 
     override fun publishFollowEvent(followerId: UUID, followId: UUID) {

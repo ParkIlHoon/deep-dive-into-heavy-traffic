@@ -1,7 +1,7 @@
 package dev.hoon.deepdive.heavytraffic.flitter.adapter.out.entity.post
 
 import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.entity.UUIDPrimaryKey
-import jakarta.persistence.*
+import jakarta.persistence.* // ktlint-disable no-wildcard-imports
 import org.hibernate.annotations.Comment
 import java.time.LocalDateTime
 import java.util.UUID
@@ -12,7 +12,7 @@ import java.util.UUID
 class Post(
     writerId: UUID,
     contents: String,
-): UUIDPrimaryKey() {
+) : UUIDPrimaryKey() {
 
     @Column(nullable = false, columnDefinition = "BINARY(16)")
     @Comment("작성자 아이디")
@@ -42,7 +42,7 @@ class Post(
     @OneToMany(
         fetch = FetchType.LAZY,
         cascade = [CascadeType.ALL],
-        mappedBy = "post"
+        mappedBy = "post",
     )
     protected val mutableLikes: MutableList<PostLike> = mutableListOf()
     val likes: List<PostLike> get() = mutableLikes.toList()

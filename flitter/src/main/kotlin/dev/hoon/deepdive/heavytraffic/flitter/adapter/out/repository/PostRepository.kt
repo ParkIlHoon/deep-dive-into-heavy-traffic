@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository
 import java.util.UUID
 
 @Repository
-interface PostRepository: JpaRepository<Post, UUIDPrimaryKey> {
+interface PostRepository : JpaRepository<Post, UUIDPrimaryKey> {
     fun findById(id: UUID): Post
 
     fun findAllByIdIn(ids: List<UUID>): List<Post>

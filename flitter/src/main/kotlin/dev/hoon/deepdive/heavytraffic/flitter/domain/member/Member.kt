@@ -19,7 +19,7 @@ class Member(
     val email: String,
     var birthday: LocalDate,
     val createdAt: LocalDateTime = LocalDateTime.now(),
-    var updatedAt: LocalDateTime = LocalDateTime.now()
+    var updatedAt: LocalDateTime = LocalDateTime.now(),
 ) {
     /**
      * 닉네임을 변경합니다.
@@ -30,7 +30,7 @@ class Member(
     fun changeNickname(nickname: String): NicknameHistory {
         val nicknameHistory = NicknameHistory(
             member = this,
-            nickname = this.nickname
+            nickname = this.nickname,
         )
         this.nickname = nickname
         this.updatedAt = LocalDateTime.now()

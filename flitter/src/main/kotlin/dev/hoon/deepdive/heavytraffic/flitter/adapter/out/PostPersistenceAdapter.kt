@@ -15,50 +15,36 @@ import java.util.*
 @Transactional(readOnly = true)
 class PostPersistenceAdapter(
     private val postRepository: PostRepository,
-    private val postLikeRepository: PostLikeRepository
-): PostPersistencePort, PostLikePersistencePort {
+    private val postLikeRepository: PostLikeRepository,
+) : PostPersistencePort, PostLikePersistencePort {
     @Transactional
     override fun save(postLike: PostLike): PostLike =
         PostMapper.toEntity(postLike)
-            .let {
-                postLikeRepository.save(it)
-            }.let {
-                PostMapper.toDomain(it)
-            }
+            .let { postLikeRepository.save(it) }
+            .let { PostMapper.toDomain(it) }
 
     @Transactional
     override fun delete(postLike: PostLike) =
         PostMapper.toEntity(postLike)
-            .let {
-                postLikeRepository.delete(it)
-            }
+            .let { postLikeRepository.delete(it) }
 
     override fun count(postId: UUID): Long = postLikeRepository.countByPostId(postId)
 
     @Transactional
     override fun save(post: Post): Post =
         PostMapper.toEntity(post)
-            .let {
-                postRepository.save(it)
-            }.let {
-                PostMapper.toDomain(it)
-            }
+            .let { postRepository.save(it) }
+            .let { PostMapper.toDomain(it) }
 
     override fun findById(id: UUID): Post =
         postRepository.findById(id)
-            .let {
-                PostMapper.toDomain(it)
-            }
+            .let { PostMapper.toDomain(it) }
 
     override fun findAllByIdIn(ids: List<UUID>): List<Post> =
         postRepository.findAllByIdIn(ids)
-            .map {
-                PostMapper.toDomain(it)
-            }
+            .map { PostMapper.toDomain(it) }
 
     override fun findAllByMemberId(memberId: UUID): List<Post> =
         postRepository.findAllByWriterId(memberId)
-            .map {
-                PostMapper.toDomain(it)
-            }
+            .map { PostMapper.toDomain(it) }
 }

@@ -14,8 +14,8 @@ import java.util.UUID
 class Timeline(
     memberId: UUID,
     postId: UUID,
-    postedAt: LocalDateTime
-): UUIDPrimaryKey() {
+    postedAt: LocalDateTime,
+) : UUIDPrimaryKey() {
     @Column(nullable = false, columnDefinition = "BINARY(16)")
     @Comment("회원 아이디")
     var memberId: UUID = memberId

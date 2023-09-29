@@ -7,9 +7,8 @@ import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-interface TimelineRepository: JpaRepository<Timeline, UUIDPrimaryKey>, TimelineCustomRepository {
+interface TimelineRepository : JpaRepository<Timeline, UUIDPrimaryKey>, TimelineCustomRepository {
     fun findAllByMemberIdAndPostIdIn(memberId: UUID, postIds: List<UUID>): List<Timeline>
 
     fun deleteAllByMemberIdAndPostIdIn(memberId: UUID, postIds: List<UUID>)
-
 }

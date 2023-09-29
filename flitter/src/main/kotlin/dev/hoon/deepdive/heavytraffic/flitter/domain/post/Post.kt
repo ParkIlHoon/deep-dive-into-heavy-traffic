@@ -18,7 +18,7 @@ class Post(
     var contents: String,
     var like: Long = 0L,
     val createdAt: LocalDateTime = LocalDateTime.now(),
-    var updatedAt: LocalDateTime = LocalDateTime.now()
+    var updatedAt: LocalDateTime = LocalDateTime.now(),
 ) {
     fun updateContents(newContents: String) {
         this.contents = newContents

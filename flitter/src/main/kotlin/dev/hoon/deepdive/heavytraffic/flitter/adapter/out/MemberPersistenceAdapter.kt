@@ -15,41 +15,29 @@ import java.util.*
 @Transactional(readOnly = true)
 class MemberPersistenceAdapter(
     private val memberRepository: MemberRepository,
-    private val nicknameHistoryRepository: NicknameHistoryRepository
-): MemberPersistencePort, NicknameHistoryPersistencePort {
+    private val nicknameHistoryRepository: NicknameHistoryRepository,
+) : MemberPersistencePort, NicknameHistoryPersistencePort {
     @Transactional
     override fun save(member: Member): Member =
         MemberMapper.toEntity(member)
-            .let {
-                memberRepository.save(it)
-            }.let {
-                MemberMapper.toDomain(it)
-            }
+            .let { memberRepository.save(it) }
+            .let { MemberMapper.toDomain(it) }
 
     override fun findById(id: UUID): Member =
         memberRepository.findById(id)
-            .let {
-                MemberMapper.toDomain(it)
-            }
+            .let { MemberMapper.toDomain(it) }
 
     override fun findAllByIdIn(ids: List<UUID>): List<Member> =
         memberRepository.findAllByIdIn(ids)
-            .map {
-                MemberMapper.toDomain(it)
-            }
+            .map { MemberMapper.toDomain(it) }
 
     @Transactional
     override fun save(nicknameHistory: NicknameHistory): NicknameHistory =
         MemberMapper.toEntity(nicknameHistory)
-            .let {
-                nicknameHistoryRepository.save(it)
-            }.let {
-                MemberMapper.toDomain(it)
-            }
+            .let { nicknameHistoryRepository.save(it) }
+            .let { MemberMapper.toDomain(it) }
 
     override fun findAllByMemberId(memberId: UUID): List<NicknameHistory> =
         memberRepository.findById(memberId).nicknameHistories
-            .map {
-                MemberMapper.toDomain(it)
-            }
+            .map { MemberMapper.toDomain(it) }
 }

@@ -1,7 +1,7 @@
 package dev.hoon.deepdive.heavytraffic.flitter.adapter.out.entity.member
 
 import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.entity.UUIDPrimaryKey
-import jakarta.persistence.*
+import jakarta.persistence.* // ktlint-disable no-wildcard-imports
 import org.hibernate.annotations.Comment
 import java.time.LocalDateTime
 
@@ -10,8 +10,8 @@ import java.time.LocalDateTime
 @Comment("회원 닉네임 이력")
 class NicknameHistory(
     member: Member,
-    nickname: String
-): UUIDPrimaryKey() {
+    nickname: String,
+) : UUIDPrimaryKey() {
     @ManyToOne(
         targetEntity = Member::class,
         fetch = FetchType.LAZY,

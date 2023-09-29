@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository
 import java.util.UUID
 
 @Repository
-interface MemberRepository: JpaRepository<Member, UUIDPrimaryKey> {
+interface MemberRepository : JpaRepository<Member, UUIDPrimaryKey> {
 
     fun findById(id: UUID): Member
 

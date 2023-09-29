@@ -21,7 +21,7 @@ import org.springframework.retry.interceptor.RetryOperationsInterceptor
 @EnableRabbit
 @Configuration
 class RabbitMqConfig(
-    private val rabbitMqProperties: RabbitMqProperties
+    private val rabbitMqProperties: RabbitMqProperties,
 ) {
     @Bean
     fun objectMapper() = ObjectMapper().registerKotlinModule()
@@ -45,9 +45,11 @@ class RabbitMqConfig(
             .build()
 
     @Bean
-    fun messageListenerContainerFactory(connectionFactory: ConnectionFactory,
-                                        messageConverter: MessageConverter,
-                                        retryOperationsInterceptor: RetryOperationsInterceptor): SimpleRabbitListenerContainerFactory =
+    fun messageListenerContainerFactory(
+        connectionFactory: ConnectionFactory,
+        messageConverter: MessageConverter,
+        retryOperationsInterceptor: RetryOperationsInterceptor,
+    ): SimpleRabbitListenerContainerFactory =
         SimpleRabbitListenerContainerFactory()
             .apply {
                 setConnectionFactory(connectionFactory)

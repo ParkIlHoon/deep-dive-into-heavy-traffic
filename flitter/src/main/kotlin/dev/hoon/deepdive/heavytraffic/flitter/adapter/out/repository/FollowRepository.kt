@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository
 import java.util.UUID
 
 @Repository
-interface FollowRepository: JpaRepository<Follow, UUIDPrimaryKey> {
+interface FollowRepository : JpaRepository<Follow, UUIDPrimaryKey> {
 
     fun findAllByMemberId(memberId: UUID): List<Follow>
 

@@ -15,6 +15,7 @@ interface PostPersistencePort {
      * @return 저장된 포스트
      */
     fun save(post: Post): Post
+
     /**
      * 조회
      *
@@ -24,6 +25,7 @@ interface PostPersistencePort {
      */
     @Throws(PostNotFoundException::class)
     fun findById(id: UUID): Post
+
     /**
      * 조회
      *
@@ -31,6 +33,7 @@ interface PostPersistencePort {
      * @return 아이디에 해당하는 포스트 목록
      */
     fun findAllByIdIn(ids: List<UUID>): List<Post>
+
     /**
      * 조회
      *

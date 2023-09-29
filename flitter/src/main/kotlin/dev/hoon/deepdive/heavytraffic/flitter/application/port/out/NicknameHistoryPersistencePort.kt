@@ -14,6 +14,7 @@ interface NicknameHistoryPersistencePort {
      * @return 저장된 이력
      */
     fun save(nicknameHistory: NicknameHistory): NicknameHistory
+
     /**
      * 조회
      *

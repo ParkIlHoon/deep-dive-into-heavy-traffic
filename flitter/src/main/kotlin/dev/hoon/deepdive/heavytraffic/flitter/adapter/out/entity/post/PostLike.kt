@@ -16,12 +16,12 @@ import java.util.*
 @Comment("포스트 좋아요")
 class PostLike(
     post: Post,
-    memberId: UUID
-): UUIDPrimaryKey() {
+    memberId: UUID,
+) : UUIDPrimaryKey() {
     @ManyToOne(
         targetEntity = Post::class,
         fetch = FetchType.LAZY,
-        optional = false
+        optional = false,
     )
     @JoinColumn(name = "post_id")
     @Comment("포스트 아이디")

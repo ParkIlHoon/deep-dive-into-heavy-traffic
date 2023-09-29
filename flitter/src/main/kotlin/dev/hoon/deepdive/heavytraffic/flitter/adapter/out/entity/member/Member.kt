@@ -1,11 +1,10 @@
 package dev.hoon.deepdive.heavytraffic.flitter.adapter.out.entity.member
 
 import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.entity.UUIDPrimaryKey
-import jakarta.persistence.*
+import jakarta.persistence.* // ktlint-disable no-wildcard-imports
 import org.hibernate.annotations.Comment
 import java.time.LocalDate
 import java.time.LocalDateTime
-
 
 @Entity
 @Table(name = "member")
@@ -13,8 +12,8 @@ import java.time.LocalDateTime
 class Member(
     nickname: String,
     email: String,
-    birthDay: LocalDate
-): UUIDPrimaryKey() {
+    birthDay: LocalDate,
+) : UUIDPrimaryKey() {
     @Column(nullable = false)
     @Comment("닉네임")
     var nickname: String = nickname
@@ -43,7 +42,7 @@ class Member(
     @OneToMany(
         fetch = FetchType.LAZY,
         cascade = [CascadeType.ALL],
-        mappedBy = "member"
+        mappedBy = "member",
     )
     protected val mutableNicknameHistories: MutableList<NicknameHistory> = mutableListOf()
     val nicknameHistories: List<NicknameHistory> get() = mutableNicknameHistories.toList()

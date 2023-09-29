@@ -1,8 +1,8 @@
 package dev.hoon.deepdive.heavytraffic.flitter.adapter.out.mapper
 
 import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.entity.post.Post as PostEntity
-import dev.hoon.deepdive.heavytraffic.flitter.domain.post.Post as PostDomain
 import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.entity.post.PostLike as PostLikeEntity
+import dev.hoon.deepdive.heavytraffic.flitter.domain.post.Post as PostDomain
 import dev.hoon.deepdive.heavytraffic.flitter.domain.post.PostLike as PostLikeDomain
 
 object PostMapper {
@@ -10,7 +10,7 @@ object PostMapper {
     fun toEntity(domain: PostDomain): PostEntity =
         PostEntity(
             writerId = domain.writerId,
-            contents = domain.contents
+            contents = domain.contents,
         ).apply {
             setId(domain.id)
         }
@@ -22,13 +22,13 @@ object PostMapper {
             contents = entity.contents,
             like = entity.like,
             createdAt = entity.createdAt,
-            updatedAt = entity.updatedAt
+            updatedAt = entity.updatedAt,
         )
 
     fun toEntity(domain: PostLikeDomain): PostLikeEntity =
         PostLikeEntity(
             post = toEntity(domain.post),
-            memberId = domain.memberId
+            memberId = domain.memberId,
         ).apply {
             setId(domain.id)
         }
@@ -38,6 +38,6 @@ object PostMapper {
             id = entity.id,
             post = toDomain(entity.post),
             memberId = entity.memberId,
-            createdAt = entity.createdAt
+            createdAt = entity.createdAt,
         )
 }

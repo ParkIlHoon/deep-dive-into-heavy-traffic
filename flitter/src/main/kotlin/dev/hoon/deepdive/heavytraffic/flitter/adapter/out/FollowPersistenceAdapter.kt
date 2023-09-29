@@ -11,33 +11,24 @@ import java.util.*
 @Service
 @Transactional(readOnly = true)
 class FollowPersistenceAdapter(
-    private val followRepository: FollowRepository
-): FollowPersistencePort {
+    private val followRepository: FollowRepository,
+) : FollowPersistencePort {
     @Transactional
     override fun save(follow: Follow): Follow =
         FollowMapper.toEntity(follow)
-            .let {
-                followRepository.save(it)
-            }.let {
-                FollowMapper.toDomain(it)
-            }
+            .let { followRepository.save(it) }
+            .let { FollowMapper.toDomain(it) }
 
     @Transactional
     override fun delete(follow: Follow) =
         FollowMapper.toEntity(follow)
-            .let {
-                followRepository.delete(it)
-            }
+            .let { followRepository.delete(it) }
 
     override fun findAllByFollowMemberId(memberId: UUID): List<Follow> =
         followRepository.findAllByMemberId(memberId)
-            .map {
-                FollowMapper.toDomain(it)
-            }
+            .map { FollowMapper.toDomain(it) }
 
     override fun findAllByFollowerMemberId(memberId: UUID): List<Follow> =
         followRepository.findAllByFollowerMemberId(memberId)
-            .map {
-                FollowMapper.toDomain(it)
-            }
+            .map { FollowMapper.toDomain(it) }
 }

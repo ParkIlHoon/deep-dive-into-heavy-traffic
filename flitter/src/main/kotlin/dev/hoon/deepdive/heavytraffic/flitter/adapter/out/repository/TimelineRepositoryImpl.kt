@@ -8,13 +8,13 @@ import java.util.*
 
 @Repository
 class TimelineRepositoryImpl(
-    private val jpaQueryFactory: JPAQueryFactory
-): TimelineCustomRepository {
+    private val jpaQueryFactory: JPAQueryFactory,
+) : TimelineCustomRepository {
     override fun findAllByLessThanIdAndMemberIdAndOrderByIdDesc(timelineId: UUID, memberId: UUID, size: Long): List<Timeline> =
         jpaQueryFactory.selectFrom(timeline)
             .where(
                 timeline.memberId.eq(memberId)
-                    .and(timeline.id.lt(timelineId))
+                    .and(timeline.id.lt(timelineId)),
             )
             .orderBy(timeline.id.desc())
             .limit(size)
@@ -23,7 +23,7 @@ class TimelineRepositoryImpl(
     override fun findAllByMemberIdAndOrderByIdDesc(memberId: UUID, size: Long): List<Timeline> =
         jpaQueryFactory.selectFrom(timeline)
             .where(
-                timeline.memberId.eq(memberId)
+                timeline.memberId.eq(memberId),
             )
             .orderBy(timeline.id.desc())
             .limit(size)

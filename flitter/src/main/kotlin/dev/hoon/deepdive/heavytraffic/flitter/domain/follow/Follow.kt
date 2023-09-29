@@ -14,5 +14,5 @@ class Follow(
     val id: UUID? = null,
     val memberId: UUID,
     val followerMemberId: UUID,
-    val createdAt: LocalDateTime = LocalDateTime.now()
+    val createdAt: LocalDateTime = LocalDateTime.now(),
 )

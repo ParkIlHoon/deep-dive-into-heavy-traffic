@@ -14,10 +14,10 @@ class TimelineDto {
         val writerNickname: String,
         var contents: String,
         var like: Long = 0L,
-        val createdAt: LocalDateTime
+        val createdAt: LocalDateTime,
     ) {
         companion object {
-            fun of(timeline: Timeline, post:Post, writer: Member) =
+            fun of(timeline: Timeline, post: Post, writer: Member) =
                 TimelineDto.Response(
                     id = timeline.id!!,
                     postId = timeline.postId,
@@ -25,7 +25,7 @@ class TimelineDto {
                     writerNickname = writer.nickname,
                     contents = post.contents,
                     like = post.like,
-                    createdAt = post.createdAt
+                    createdAt = post.createdAt,
                 )
         }
     }

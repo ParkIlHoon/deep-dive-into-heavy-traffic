@@ -15,6 +15,7 @@ interface MemberPersistencePort {
      * @return 저장된 회원
      */
     fun save(member: Member): Member
+
     /**
      * 회원 조회
      *
@@ -24,6 +25,7 @@ interface MemberPersistencePort {
      */
     @Throws(MemberNotFoundException::class)
     fun findById(id: UUID): Member
+
     /**
      * 회원 목록 조회
      *

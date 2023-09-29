@@ -12,8 +12,8 @@ import java.util.*
 @Transactional(readOnly = true)
 class FollowService(
     private val followPersistencePort: FollowPersistencePort,
-    private val messageQueuePort: MessageQueuePort
-): FollowingUseCase {
+    private val messageQueuePort: MessageQueuePort,
+) : FollowingUseCase {
 
     @Transactional
     override fun follow(followerId: UUID, followId: UUID) {

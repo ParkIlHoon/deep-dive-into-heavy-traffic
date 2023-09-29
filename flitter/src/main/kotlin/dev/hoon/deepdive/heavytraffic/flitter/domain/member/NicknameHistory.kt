@@ -15,5 +15,5 @@ class NicknameHistory(
     val id: UUID? = null,
     val member: Member,
     val nickname: String,
-    val createdAt: LocalDateTime = LocalDateTime.now()
+    val createdAt: LocalDateTime = LocalDateTime.now(),
 )
