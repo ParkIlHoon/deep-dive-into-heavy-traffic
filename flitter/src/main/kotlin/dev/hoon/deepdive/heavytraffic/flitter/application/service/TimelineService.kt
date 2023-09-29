@@ -24,7 +24,7 @@ class TimelineService(
     private val followPersistencePort: FollowPersistencePort
 ): ReadTimelineUseCase, CreateTimelineUseCase, DeleteTimelineUseCase {
     override fun read(memberId: UUID, cursor: CursorRequest): CursorResponse<TimelineDto.Response> {
-        val timelines = timelinePersistencePort.findAllByMemberId(memberId, cursor)
+        val timelines = getTimelineWithCursor(memberId, cursor)
         val posts = postPersistencePort.findAllByIdIn(timelines.body.map { memberId })
         val writers = memberPersistencePort.findAllByIdIn(posts.map { memberId }).toSet()
 
@@ -35,6 +35,17 @@ class TimelineService(
             TimelineDto.Response.of(it, post, writer)
         }
         return CursorResponse(timelines.next, timelineResp)
+    }
+
+    private fun getTimelineWithCursor(memberId: UUID, cursor: CursorRequest): CursorResponse<Timeline> {
+        val timelines = if (cursor.hasKey()) {
+            timelinePersistencePort.findAllByLessThanIdAndMemberIdAndOrderByIdDesc(cursor.key, memberId, cursor.size)
+        } else {
+            timelinePersistencePort.findAllByMemberIdAndOrderByIdDesc(memberId, cursor.size)
+        }
+
+        val nextKey = timelines.minBy { it.id.toString() }.id ?: CursorRequest.NO_KEY
+        return CursorResponse(cursor.next(nextKey), timelines)
     }
 
     @Transactional

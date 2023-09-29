@@ -1,7 +1,5 @@
 package dev.hoon.deepdive.heavytraffic.flitter.application.port.out
 
-import dev.hoon.deepdive.heavytraffic.flitter.application.port.dto.CursorRequest
-import dev.hoon.deepdive.heavytraffic.flitter.application.port.dto.CursorResponse
 import dev.hoon.deepdive.heavytraffic.flitter.domain.timeline.Timeline
 import java.util.*
 
@@ -21,15 +19,24 @@ interface TimelinePersistencePort {
      *
      * @param timelines 저장할 타임라인 목록
      */
-    fun saveAll(timelines: List<Timeline>)
+    fun saveAll(timelines: List<Timeline>): List<Timeline>
+    /**
+     * 조회
+     *
+     * @param timelineId 타임라인 아이디
+     * @param memberId 회원 아이디
+     * @param size 조회 건수
+     * @return 타임라인 목록(포스팅 일시 역순정렬)
+     */
+    fun findAllByLessThanIdAndMemberIdAndOrderByIdDesc(timelineId: UUID, memberId: UUID, size: Long): List<Timeline>
     /**
      * 조회
      *
      * @param memberId 회원 아이디
-     * @param cursorRequest 커서
+     * @param size 조회 건수
      * @return 타임라인 목록(포스팅 일시 역순정렬)
      */
-    fun findAllByMemberId(memberId: UUID, cursorRequest: CursorRequest): CursorResponse<Timeline>
+    fun findAllByMemberIdAndOrderByIdDesc(memberId: UUID, size: Long): List<Timeline>
     /**
      * 조회
      *

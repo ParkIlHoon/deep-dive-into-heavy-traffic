@@ -1,5 +1,6 @@
 package dev.hoon.deepdive.heavytraffic.flitter.adapter.out
 
+import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.mapper.PostMapper
 import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.repository.PostLikeRepository
 import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.repository.PostRepository
 import dev.hoon.deepdive.heavytraffic.flitter.application.port.out.PostLikePersistencePort
@@ -16,31 +17,48 @@ class PostPersistenceAdapter(
     private val postRepository: PostRepository,
     private val postLikeRepository: PostLikeRepository
 ): PostPersistencePort, PostLikePersistencePort {
-    override fun save(postLike: PostLike): PostLike {
-        TODO("Not yet implemented")
-    }
+    @Transactional
+    override fun save(postLike: PostLike): PostLike =
+        PostMapper.toEntity(postLike)
+            .let {
+                postLikeRepository.save(it)
+            }.let {
+                PostMapper.toDomain(it)
+            }
 
-    override fun delete(postLike: PostLike) {
-        TODO("Not yet implemented")
-    }
+    @Transactional
+    override fun delete(postLike: PostLike) =
+        PostMapper.toEntity(postLike)
+            .let {
+                postLikeRepository.delete(it)
+            }
 
-    override fun count(postId: UUID): Long {
-        TODO("Not yet implemented")
-    }
+    override fun count(postId: UUID): Long = postLikeRepository.countByPostId(postId)
 
-    override fun save(post: Post): Post {
-        TODO("Not yet implemented")
-    }
+    @Transactional
+    override fun save(post: Post): Post =
+        PostMapper.toEntity(post)
+            .let {
+                postRepository.save(it)
+            }.let {
+                PostMapper.toDomain(it)
+            }
 
-    override fun findById(id: UUID): Post {
-        TODO("Not yet implemented")
-    }
+    override fun findById(id: UUID): Post =
+        postRepository.findById(id)
+            .let {
+                PostMapper.toDomain(it)
+            }
 
-    override fun findAllByIdIn(ids: List<UUID>): List<Post> {
-        TODO("Not yet implemented")
-    }
+    override fun findAllByIdIn(ids: List<UUID>): List<Post> =
+        postRepository.findAllByIdIn(ids)
+            .map {
+                PostMapper.toDomain(it)
+            }
 
-    override fun findAllByMemberId(memberId: UUID): List<Post> {
-        TODO("Not yet implemented")
-    }
+    override fun findAllByMemberId(memberId: UUID): List<Post> =
+        postRepository.findAllByWriterId(memberId)
+            .map {
+                PostMapper.toDomain(it)
+            }
 }
