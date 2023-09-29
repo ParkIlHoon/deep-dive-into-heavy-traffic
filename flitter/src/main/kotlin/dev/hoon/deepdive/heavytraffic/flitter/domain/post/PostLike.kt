@@ -11,6 +11,7 @@ import java.util.*
  * @property createdAt 생성일시
  */
 class PostLike(
+    val id: UUID? = null,
     val post: Post,
     val memberId: UUID,
     val createdAt: LocalDateTime = LocalDateTime.now()
