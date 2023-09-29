@@ -1,7 +1,11 @@
 package dev.hoon.deepdive.heavytraffic.flitter.application.service
 
+import dev.hoon.deepdive.heavytraffic.flitter.application.port.exception.CannotFollowException
+import dev.hoon.deepdive.heavytraffic.flitter.application.port.exception.CannotUnFollowException
 import dev.hoon.deepdive.heavytraffic.flitter.application.port.`in`.FollowingUseCase
-import dev.hoon.deepdive.heavytraffic.flitter.application.port.out.FollowPersistencePort
+import dev.hoon.deepdive.heavytraffic.flitter.application.port.`in`.UnFollowingUseCase
+import dev.hoon.deepdive.heavytraffic.flitter.application.port.out.FollowPort
+import dev.hoon.deepdive.heavytraffic.flitter.application.port.out.MemberPort
 import dev.hoon.deepdive.heavytraffic.flitter.application.port.out.MessageQueuePort
 import dev.hoon.deepdive.heavytraffic.flitter.domain.follow.Follow
 import org.springframework.stereotype.Service
@@ -11,19 +15,33 @@ import java.util.*
 @Service
 @Transactional(readOnly = true)
 class FollowService(
-    private val followPersistencePort: FollowPersistencePort,
+    private val followPort: FollowPort,
+    private val memberPort: MemberPort,
     private val messageQueuePort: MessageQueuePort,
-) : FollowingUseCase {
+) : FollowingUseCase, UnFollowingUseCase {
 
     @Transactional
     override fun follow(followerId: UUID, followId: UUID) {
-        followPersistencePort.save(Follow(followerMemberId = followerId, memberId = followId))
-        messageQueuePort.publishFollowEvent(followerId, followId)
+        validateMember(followerId) { CannotFollowException(it) }
+        validateMember(followId) { CannotFollowException(it) }
+
+        val follow = followPort.create(Follow(followerMemberId = followerId, memberId = followId))
+        follow.id?.let { messageQueuePort.publishFollowEvent(followerId, followId) }
     }
 
     @Transactional
     override fun unFollow(followerId: UUID, followId: UUID) {
-        followPersistencePort.delete(Follow(followerMemberId = followerId, memberId = followId))
+        validateMember(followerId) { CannotUnFollowException(it) }
+
+        followPort.delete(followerId = followerId, followId = followId)
         messageQueuePort.publishUnFollowEvent(followerId, followId)
+    }
+
+    private fun validateMember(memberId: UUID, thrower: (Exception) -> Exception) {
+        try {
+            memberPort.get(memberId)
+        } catch (e: Exception) {
+            throw thrower(e)
+        }
     }
 }

@@ -1,11 +1,8 @@
 package dev.hoon.deepdive.heavytraffic.flitter.adapter.`in` // ktlint-disable package-name
 
 import dev.hoon.deepdive.heavytraffic.flitter.adapter.common.constants.MessageQueueConstants
-import dev.hoon.deepdive.heavytraffic.flitter.adapter.common.dto.FollowEvent
-import dev.hoon.deepdive.heavytraffic.flitter.adapter.common.dto.PostWroteEvent
-import dev.hoon.deepdive.heavytraffic.flitter.adapter.common.dto.UnFollowEvent
-import dev.hoon.deepdive.heavytraffic.flitter.application.port.`in`.CreateTimelineUseCase
-import dev.hoon.deepdive.heavytraffic.flitter.application.port.`in`.DeleteTimelineUseCase
+import dev.hoon.deepdive.heavytraffic.flitter.adapter.common.dto.* // ktlint-disable no-wildcard-imports
+import dev.hoon.deepdive.heavytraffic.flitter.application.port.`in`.internal.* // ktlint-disable no-wildcard-imports
 import org.springframework.amqp.rabbit.annotation.Exchange
 import org.springframework.amqp.rabbit.annotation.Queue
 import org.springframework.amqp.rabbit.annotation.QueueBinding
@@ -15,8 +12,11 @@ import org.springframework.stereotype.Service
 
 @Service
 class MessageConsumer(
-    private val createTimelineUseCase: CreateTimelineUseCase,
-    private val deleteTimelineUseCase: DeleteTimelineUseCase,
+    private val afterWritePostProcessor: AfterWritePostProcessor,
+    private val afterDeletePostProcessor: AfterDeletePostProcessor,
+    private val afterFollowProcessor: AfterFollowProcessor,
+    private val afterUnFollowProcessor: AfterUnFollowProcessor,
+    private val afterMemberLeaveProcessor: AfterMemberLeaveProcessor,
 ) {
     @RabbitListener(
         bindings = [
@@ -28,7 +28,20 @@ class MessageConsumer(
         ],
     )
     fun consumePostWroteEvent(@Payload postWroteEvent: PostWroteEvent) {
-        createTimelineUseCase.createByPost(postId = postWroteEvent.postId, writerId = postWroteEvent.writerId)
+        afterWritePostProcessor.execute(postId = postWroteEvent.postId, writerId = postWroteEvent.writerId, postedAt = postWroteEvent.postedAt)
+    }
+
+    @RabbitListener(
+        bindings = [
+            QueueBinding(
+                value = Queue(value = MessageQueueConstants.POST_DELETE_QUEUE),
+                exchange = Exchange(value = MessageQueueConstants.EXCHANGE_DIRECT),
+                key = [MessageQueueConstants.POST_DELETE_ROUTING_KEY],
+            ),
+        ],
+    )
+    fun consumePostDeleteEvent(@Payload postDeleteEvent: PostDeleteEvent) {
+        afterDeletePostProcessor.execute(postId = postDeleteEvent.postId)
     }
 
     @RabbitListener(
@@ -41,7 +54,7 @@ class MessageConsumer(
         ],
     )
     fun consumeFollowEvent(@Payload followEvent: FollowEvent) {
-        createTimelineUseCase.createByFollow(followerId = followEvent.followerId, followId = followEvent.followId)
+        afterFollowProcessor.execute(followerId = followEvent.followerId, followId = followEvent.followId)
     }
 
     @RabbitListener(
@@ -54,6 +67,19 @@ class MessageConsumer(
         ],
     )
     fun consumeUnFollowEvent(@Payload unFollowEvent: UnFollowEvent) {
-        deleteTimelineUseCase.deleteByUnFollow(followerId = unFollowEvent.followerId, followId = unFollowEvent.followId)
+        afterUnFollowProcessor.execute(followerId = unFollowEvent.followerId, followId = unFollowEvent.followId)
+    }
+
+    @RabbitListener(
+        bindings = [
+            QueueBinding(
+                value = Queue(value = MessageQueueConstants.MEMBER_LEAVE_QUEUE),
+                exchange = Exchange(value = MessageQueueConstants.EXCHANGE_DIRECT),
+                key = [MessageQueueConstants.MEMBER_LEAVE_ROUTING_KEY],
+            ),
+        ],
+    )
+    fun consumeMemberLeaveEvent(@Payload memberLeaveEvent: MemberLeaveEvent) {
+        afterMemberLeaveProcessor.execute(memberId = memberLeaveEvent.memberId)
     }
 }

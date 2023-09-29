@@ -8,9 +8,12 @@ import java.util.UUID
 
 @Repository
 interface PostRepository : JpaRepository<Post, UUIDPrimaryKey> {
-    fun findById(id: UUID): Post
+    fun findById(id: UUID): Post?
 
     fun findAllByIdIn(ids: List<UUID>): List<Post>
 
     fun findAllByWriterId(writerId: UUID): List<Post>
+
+    fun deleteById(id: UUID)
+    fun deleteAllByWriterId(writerId: UUID)
 }

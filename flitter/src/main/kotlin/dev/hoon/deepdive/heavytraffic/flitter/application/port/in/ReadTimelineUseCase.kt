@@ -9,7 +9,7 @@ import java.util.*
 /**
  * 타임라인 조회 유스 케이스
  */
-interface ReadTimelineUseCase {
+fun interface ReadTimelineUseCase {
     /**
      * 조회
      *

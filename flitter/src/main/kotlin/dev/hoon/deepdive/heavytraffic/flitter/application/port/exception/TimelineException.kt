@@ -3,4 +3,14 @@ package dev.hoon.deepdive.heavytraffic.flitter.application.port.exception // ktl
 /**
  * 타임라인 조회 실패 예외
  */
-class CannotReadTimelineException() : RuntimeException()
+class CannotReadTimelineException(cause: Throwable) : FlitterException(ErrorCode.TIMELINE_NOT_FOUND, cause)
+
+/**
+ * 타임라인 생성 실패 예외
+ */
+class CannotCreateTimelineException(cause: Throwable) : FlitterException(ErrorCode.CANNOT_CREATE_TIMELINE, cause)
+
+/**
+ * 타임라인 삭제 실패 예외
+ */
+class CannotDeleteTimelineException(cause: Throwable) : FlitterException(ErrorCode.CANNOT_DELETE_TIMELINE, cause)

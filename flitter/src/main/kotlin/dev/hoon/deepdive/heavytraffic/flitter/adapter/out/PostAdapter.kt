@@ -3,8 +3,9 @@ package dev.hoon.deepdive.heavytraffic.flitter.adapter.out
 import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.mapper.PostMapper
 import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.repository.PostLikeRepository
 import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.repository.PostRepository
-import dev.hoon.deepdive.heavytraffic.flitter.application.port.out.PostLikePersistencePort
-import dev.hoon.deepdive.heavytraffic.flitter.application.port.out.PostPersistencePort
+import dev.hoon.deepdive.heavytraffic.flitter.application.port.exception.PostNotFoundException
+import dev.hoon.deepdive.heavytraffic.flitter.application.port.out.PostLikePort
+import dev.hoon.deepdive.heavytraffic.flitter.application.port.out.PostPort
 import dev.hoon.deepdive.heavytraffic.flitter.domain.post.Post
 import dev.hoon.deepdive.heavytraffic.flitter.domain.post.PostLike
 import org.springframework.stereotype.Service
@@ -13,12 +14,12 @@ import java.util.*
 
 @Service
 @Transactional(readOnly = true)
-class PostPersistenceAdapter(
+class PostAdapter(
     private val postRepository: PostRepository,
     private val postLikeRepository: PostLikeRepository,
-) : PostPersistencePort, PostLikePersistencePort {
+) : PostPort, PostLikePort {
     @Transactional
-    override fun save(postLike: PostLike): PostLike =
+    override fun create(postLike: PostLike): PostLike =
         PostMapper.toEntity(postLike)
             .let { postLikeRepository.save(it) }
             .let { PostMapper.toDomain(it) }
@@ -31,20 +32,28 @@ class PostPersistenceAdapter(
     override fun count(postId: UUID): Long = postLikeRepository.countByPostId(postId)
 
     @Transactional
-    override fun save(post: Post): Post =
+    override fun create(post: Post): Post =
         PostMapper.toEntity(post)
             .let { postRepository.save(it) }
             .let { PostMapper.toDomain(it) }
 
-    override fun findById(id: UUID): Post =
-        postRepository.findById(id)
-            .let { PostMapper.toDomain(it) }
+    override fun get(id: UUID): Post =
+        PostMapper.toDomain(postRepository.findById(id) ?: throw PostNotFoundException("존재하지 않는 포스트입니다. id = $id"))
 
-    override fun findAllByIdIn(ids: List<UUID>): List<Post> =
+    override fun get(ids: List<UUID>): List<Post> =
         postRepository.findAllByIdIn(ids)
             .map { PostMapper.toDomain(it) }
 
-    override fun findAllByMemberId(memberId: UUID): List<Post> =
+    override fun getByWriter(memberId: UUID): List<Post> =
         postRepository.findAllByWriterId(memberId)
             .map { PostMapper.toDomain(it) }
+
+    @Transactional
+    override fun delete(id: UUID) = postRepository.deleteById(id)
+
+    @Transactional
+    override fun deleteByWriter(writerId: UUID) = postRepository.deleteAllByWriterId(writerId)
+
+    @Transactional
+    override fun deleteByMemberId(memberId: UUID) = postLikeRepository.deleteAllByMemberId(memberId)
 }
