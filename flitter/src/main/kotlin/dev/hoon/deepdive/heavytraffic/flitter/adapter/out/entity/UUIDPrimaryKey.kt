@@ -13,7 +13,7 @@ import org.springframework.data.domain.Persistable
 import java.util.*
 
 @MappedSuperclass
-abstract class UUIDPrimaryKey: Persistable<UUID> {
+abstract class UUIDPrimaryKey : Persistable<UUID> {
     @Id
     @Column(columnDefinition = "BINARY(16)")
     @Comment("아이디")

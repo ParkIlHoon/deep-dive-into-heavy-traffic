@@ -1,7 +1,7 @@
 package dev.hoon.deepdive.heavytraffic.flitter.adapter.out.mapper
 
-import dev.hoon.deepdive.heavytraffic.flitter.domain.timeline.Timeline as TimelineDomain
 import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.entity.timeline.Timeline as TimelineEntity
+import dev.hoon.deepdive.heavytraffic.flitter.domain.timeline.Timeline as TimelineDomain
 
 object TimelineMapper {
 
@@ -9,7 +9,7 @@ object TimelineMapper {
         TimelineEntity(
             memberId = domain.memberId,
             postId = domain.postId,
-            postedAt = domain.postedAt
+            postedAt = domain.postedAt,
         ).apply {
             setId(domain.id)
         }
@@ -20,6 +20,6 @@ object TimelineMapper {
             memberId = entity.memberId,
             postId = entity.postId,
             postedAt = entity.postedAt,
-            createdAt = entity.createdAt
+            createdAt = entity.createdAt,
         )
 }

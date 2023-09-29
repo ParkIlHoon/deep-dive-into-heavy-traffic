@@ -24,6 +24,7 @@ interface PostLikePersistencePort {
      */
     @Throws(CannotDeletePostLikeException::class)
     fun delete(postLike: PostLike)
+
     /**
      * 카운트
      *

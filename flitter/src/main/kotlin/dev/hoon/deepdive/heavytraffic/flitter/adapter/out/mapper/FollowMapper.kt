@@ -1,14 +1,13 @@
 package dev.hoon.deepdive.heavytraffic.flitter.adapter.out.mapper
 
-import dev.hoon.deepdive.heavytraffic.flitter.domain.follow.Follow as Domain
 import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.entity.follow.Follow as Entity
-
+import dev.hoon.deepdive.heavytraffic.flitter.domain.follow.Follow as Domain
 
 object FollowMapper {
     fun toEntity(domain: Domain): Entity =
         Entity(
             memberId = domain.memberId,
-            followerMemberId = domain.followerMemberId
+            followerMemberId = domain.followerMemberId,
         ).apply {
             setId(domain.id)
         }
@@ -18,6 +17,6 @@ object FollowMapper {
             id = entity.id,
             memberId = entity.memberId,
             followerMemberId = entity.followerMemberId,
-            createdAt = entity.createdAt
+            createdAt = entity.createdAt,
         )
 }

@@ -1,4 +1,4 @@
-package dev.hoon.deepdive.heavytraffic.flitter.application.port.`in`
+package dev.hoon.deepdive.heavytraffic.flitter.application.port.`in` // ktlint-disable package-name
 
 import dev.hoon.deepdive.heavytraffic.flitter.application.port.exception.CannotFollowException
 import dev.hoon.deepdive.heavytraffic.flitter.application.port.exception.CannotUnFollowException
@@ -17,6 +17,7 @@ interface FollowingUseCase {
      */
     @Throws(CannotFollowException::class)
     fun follow(followerId: UUID, followId: UUID)
+
     /**
      * 언팔로우
      *

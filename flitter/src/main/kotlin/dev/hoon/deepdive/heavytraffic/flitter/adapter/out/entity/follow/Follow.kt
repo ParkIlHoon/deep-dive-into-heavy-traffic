@@ -13,8 +13,8 @@ import java.util.UUID
 @Comment("팔로우")
 class Follow(
     memberId: UUID,
-    followerMemberId: UUID
-): UUIDPrimaryKey() {
+    followerMemberId: UUID,
+) : UUIDPrimaryKey() {
     @Column(nullable = false, columnDefinition = "BINARY(16)")
     @Comment("회원 아이디")
     var memberId: UUID = memberId

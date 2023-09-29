@@ -14,12 +14,14 @@ interface TimelinePersistencePort {
      * @return 저장된 타임라인
      */
     fun save(timeline: Timeline): Timeline
+
     /**
      * 저장
      *
      * @param timelines 저장할 타임라인 목록
      */
     fun saveAll(timelines: List<Timeline>): List<Timeline>
+
     /**
      * 조회
      *
@@ -29,6 +31,7 @@ interface TimelinePersistencePort {
      * @return 타임라인 목록(포스팅 일시 역순정렬)
      */
     fun findAllByLessThanIdAndMemberIdAndOrderByIdDesc(timelineId: UUID, memberId: UUID, size: Long): List<Timeline>
+
     /**
      * 조회
      *
@@ -37,6 +40,7 @@ interface TimelinePersistencePort {
      * @return 타임라인 목록(포스팅 일시 역순정렬)
      */
     fun findAllByMemberIdAndOrderByIdDesc(memberId: UUID, size: Long): List<Timeline>
+
     /**
      * 조회
      *
@@ -45,6 +49,7 @@ interface TimelinePersistencePort {
      * @return 회원 아이디와 포스트 아이디에 해당하는 타임라인 목록
      */
     fun findAllByMemberIdAndPostIdIn(memberId: UUID, postIds: List<UUID>): List<Timeline>
+
     /**
      * 삭제
      *

@@ -1,4 +1,4 @@
-package dev.hoon.deepdive.heavytraffic.flitter.application.port.`in`
+package dev.hoon.deepdive.heavytraffic.flitter.application.port.`in` // ktlint-disable package-name
 
 import java.util.*
 
@@ -13,6 +13,7 @@ interface CreateTimelineUseCase {
      * @param writerId 작성자 회원 아이디
      */
     fun createByPost(postId: UUID, writerId: UUID)
+
     /**
      * 팔로우로 인한 동작
      *

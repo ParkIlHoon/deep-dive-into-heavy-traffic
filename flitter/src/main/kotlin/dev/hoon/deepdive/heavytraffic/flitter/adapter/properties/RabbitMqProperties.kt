@@ -9,6 +9,4 @@ data class RabbitMqProperties(
     val threadNamePrefix: String,
     val retryCount: Int,
     val defaultRequeueRejected: Boolean,
-
-
 )

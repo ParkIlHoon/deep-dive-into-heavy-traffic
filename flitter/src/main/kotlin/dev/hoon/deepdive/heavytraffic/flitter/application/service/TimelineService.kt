@@ -21,8 +21,8 @@ class TimelineService(
     private val timelinePersistencePort: TimelinePersistencePort,
     private val postPersistencePort: PostPersistencePort,
     private val memberPersistencePort: MemberPersistencePort,
-    private val followPersistencePort: FollowPersistencePort
-): ReadTimelineUseCase, CreateTimelineUseCase, DeleteTimelineUseCase {
+    private val followPersistencePort: FollowPersistencePort,
+) : ReadTimelineUseCase, CreateTimelineUseCase, DeleteTimelineUseCase {
     override fun read(memberId: UUID, cursor: CursorRequest): CursorResponse<TimelineDto.Response> {
         val timelines = getTimelineWithCursor(memberId, cursor)
         val posts = postPersistencePort.findAllByIdIn(timelines.body.map { memberId })
@@ -52,9 +52,8 @@ class TimelineService(
     override fun createByPost(postId: UUID, writerId: UUID) {
         val post = postPersistencePort.findById(postId)
         post.id?.let {
-            val timelines = followPersistencePort.findAllByFollowMemberId(writerId).map {
-                Timeline(memberId = it.followerMemberId, postId = post.id, postedAt = post.createdAt)
-            }
+            val timelines = followPersistencePort.findAllByFollowMemberId(writerId)
+                .map { Timeline(memberId = it.followerMemberId, postId = post.id, postedAt = post.createdAt) }
             timelinePersistencePort.saveAll(timelines)
         }
     }
@@ -62,14 +61,11 @@ class TimelineService(
     @Transactional
     override fun createByFollow(followerId: UUID, followId: UUID) {
         val posts = postPersistencePort.findAllByMemberId(followId)
-        val alreadyExistPostIds = timelinePersistencePort.findAllByMemberIdAndPostIdIn(followerId, posts.map { it.id!! }).map {
-            t -> t.postId
-        }
-        val timelines = posts.filter {
-            !alreadyExistPostIds.contains(it.id)
-        }.map {
-            Timeline(memberId = followerId, postId = it.id!!, postedAt = it.createdAt)
-        }
+        val alreadyExistPostIds = timelinePersistencePort.findAllByMemberIdAndPostIdIn(followerId, posts.map { it.id!! })
+            .map { it.postId }
+        val timelines = posts
+            .filter { !alreadyExistPostIds.contains(it.id) }
+            .map { Timeline(memberId = followerId, postId = it.id!!, postedAt = it.createdAt) }
         timelinePersistencePort.saveAll(timelines)
     }
 

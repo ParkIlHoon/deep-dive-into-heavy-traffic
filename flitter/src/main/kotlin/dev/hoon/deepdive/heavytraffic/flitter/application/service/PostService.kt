@@ -17,8 +17,8 @@ import java.util.*
 class PostService(
     private val postPersistencePort: PostPersistencePort,
     private val postLikePersistencePort: PostLikePersistencePort,
-    private val messageQueuePort: MessageQueuePort
-): WritePostUseCase, LikePostUseCase {
+    private val messageQueuePort: MessageQueuePort,
+) : WritePostUseCase, LikePostUseCase {
 
     @Transactional
     override fun write(postDto: PostDto.Request) {

@@ -17,6 +17,5 @@ class Timeline(
     val memberId: UUID,
     val postId: UUID,
     val postedAt: LocalDateTime,
-    val createdAt: LocalDateTime = LocalDateTime.now()
-) {
-}
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+)

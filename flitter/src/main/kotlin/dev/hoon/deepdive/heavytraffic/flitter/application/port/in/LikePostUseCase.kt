@@ -1,4 +1,4 @@
-package dev.hoon.deepdive.heavytraffic.flitter.application.port.`in`
+package dev.hoon.deepdive.heavytraffic.flitter.application.port.`in` // ktlint-disable package-name
 
 import dev.hoon.deepdive.heavytraffic.flitter.application.port.exception.CannotLikePostException
 import dev.hoon.deepdive.heavytraffic.flitter.application.port.exception.CannotUnLikePostException
@@ -17,6 +17,7 @@ interface LikePostUseCase {
      */
     @Throws(CannotLikePostException::class)
     fun like(memberId: UUID, postId: UUID)
+
     /**
      * 좋아요 취소
      *

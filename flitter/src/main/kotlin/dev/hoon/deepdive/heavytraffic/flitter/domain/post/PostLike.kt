@@ -14,5 +14,5 @@ class PostLike(
     val id: UUID? = null,
     val post: Post,
     val memberId: UUID,
-    val createdAt: LocalDateTime = LocalDateTime.now()
+    val createdAt: LocalDateTime = LocalDateTime.now(),
 )

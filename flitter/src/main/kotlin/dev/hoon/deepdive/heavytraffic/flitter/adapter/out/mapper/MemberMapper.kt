@@ -1,9 +1,9 @@
 package dev.hoon.deepdive.heavytraffic.flitter.adapter.out.mapper
 
-import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.entity.member.NicknameHistory as NicknameHistoryEntity
-import dev.hoon.deepdive.heavytraffic.flitter.domain.member.NicknameHistory as NicknameHistoryDomain
 import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.entity.member.Member as MemberEntity
+import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.entity.member.NicknameHistory as NicknameHistoryEntity
 import dev.hoon.deepdive.heavytraffic.flitter.domain.member.Member as MemberDomain
+import dev.hoon.deepdive.heavytraffic.flitter.domain.member.NicknameHistory as NicknameHistoryDomain
 
 object MemberMapper {
 
@@ -11,7 +11,7 @@ object MemberMapper {
         MemberEntity(
             nickname = domain.nickname,
             email = domain.email,
-            birthDay = domain.birthday
+            birthDay = domain.birthday,
         ).apply {
             setId(domain.id)
         }
@@ -23,13 +23,13 @@ object MemberMapper {
             email = entity.email,
             birthday = entity.birthDay,
             createdAt = entity.createdAt,
-            updatedAt = entity.updatedAt
+            updatedAt = entity.updatedAt,
         )
 
     fun toEntity(domain: NicknameHistoryDomain): NicknameHistoryEntity =
         NicknameHistoryEntity(
             member = toEntity(domain.member),
-            nickname = domain.nickname
+            nickname = domain.nickname,
         )
 
     fun toDomain(entity: NicknameHistoryEntity): NicknameHistoryDomain =
@@ -37,6 +37,6 @@ object MemberMapper {
             id = entity.id,
             member = toDomain(entity.member),
             nickname = entity.nickname,
-            createdAt = entity.createdAt
+            createdAt = entity.createdAt,
         )
 }

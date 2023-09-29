@@ -1,4 +1,4 @@
-package dev.hoon.deepdive.heavytraffic.flitter.application.port.`in`
+package dev.hoon.deepdive.heavytraffic.flitter.application.port.`in` // ktlint-disable package-name
 
 import dev.hoon.deepdive.heavytraffic.flitter.application.port.dto.CursorRequest
 import dev.hoon.deepdive.heavytraffic.flitter.application.port.dto.CursorResponse

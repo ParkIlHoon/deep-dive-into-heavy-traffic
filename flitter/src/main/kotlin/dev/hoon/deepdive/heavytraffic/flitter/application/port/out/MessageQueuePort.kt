@@ -12,6 +12,7 @@ interface MessageQueuePort {
      * @param post 작성된 포스트
      */
     fun publishPostWroteEvent(postId: UUID, writerId: UUID)
+
     /**
      * 팔로우 이벤트 발행
      *
@@ -19,6 +20,7 @@ interface MessageQueuePort {
      * @param followId 팔로우 대상 회원 아이디
      */
     fun publishFollowEvent(followerId: UUID, followId: UUID)
+
     /**
      * 언팔로우 이벤트 발행
      *

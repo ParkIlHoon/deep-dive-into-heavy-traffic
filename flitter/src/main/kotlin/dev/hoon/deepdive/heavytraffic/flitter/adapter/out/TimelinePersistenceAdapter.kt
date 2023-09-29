@@ -11,8 +11,8 @@ import java.util.*
 @Service
 @Transactional(readOnly = true)
 class TimelinePersistenceAdapter(
-    private val timelineRepository: TimelineRepository
-): TimelinePersistencePort {
+    private val timelineRepository: TimelineRepository,
+) : TimelinePersistencePort {
     @Transactional
     override fun save(timeline: Timeline): Timeline =
         TimelineMapper.toEntity(timeline)
