@@ -1,5 +1,6 @@
 package dev.hoon.deepdive.heavytraffic.flitter.application.port.out
 
+import java.time.LocalDateTime
 import java.util.*
 
 /**
@@ -11,7 +12,7 @@ interface MessageQueuePort {
      *
      * @param post 작성된 포스트
      */
-    fun publishPostWroteEvent(postId: UUID, writerId: UUID)
+    fun publishPostWroteEvent(postId: UUID, writerId: UUID, postedAt: LocalDateTime)
 
     /**
      * 팔로우 이벤트 발행
@@ -28,4 +29,11 @@ interface MessageQueuePort {
      * @param followId 언팔로우 대상 회원 아이디
      */
     fun publishUnFollowEvent(followerId: UUID, followId: UUID)
+
+    /**
+     * 회원 탈퇴 이벤트 발행
+     *
+     * @param memberId 탈퇴 회원 아이디
+     */
+    fun publishMemberLeaveEvent(memberId: UUID)
 }

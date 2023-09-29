@@ -12,4 +12,8 @@ interface FollowRepository : JpaRepository<Follow, UUIDPrimaryKey> {
     fun findAllByMemberId(memberId: UUID): List<Follow>
 
     fun findAllByFollowerMemberId(memberId: UUID): List<Follow>
+
+    fun deleteByFollowerMemberIdAndMemberId(followerId: UUID, followId: UUID)
+
+    fun deleteAllByMemberId(followId: UUID)
 }

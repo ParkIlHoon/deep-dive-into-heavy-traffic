@@ -10,4 +10,5 @@ import java.util.*
 interface PostLikeRepository : JpaRepository<PostLike, UUIDPrimaryKey> {
 
     fun countByPostId(postId: UUID): Long
+    fun deleteAllByMemberId(memberId: UUID)
 }

@@ -4,9 +4,9 @@ import dev.hoon.deepdive.heavytraffic.flitter.domain.member.NicknameHistory
 import java.util.UUID
 
 /**
- * 닉네임 이력 영속성 포트
+ * 닉네임 이력 포트
  */
-interface NicknameHistoryPersistencePort {
+interface NicknameHistoryPort {
     /**
      * 저장
      *

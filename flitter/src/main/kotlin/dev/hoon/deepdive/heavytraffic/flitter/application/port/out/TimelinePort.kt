@@ -4,9 +4,9 @@ import dev.hoon.deepdive.heavytraffic.flitter.domain.timeline.Timeline
 import java.util.*
 
 /**
- * 타임라인 영속성 포트
+ * 타임라인 포트
  */
-interface TimelinePersistencePort {
+interface TimelinePort {
     /**
      * 저장
      *
@@ -30,7 +30,7 @@ interface TimelinePersistencePort {
      * @param size 조회 건수
      * @return 타임라인 목록(포스팅 일시 역순정렬)
      */
-    fun findAllByLessThanIdAndMemberIdAndOrderByIdDesc(timelineId: UUID, memberId: UUID, size: Long): List<Timeline>
+    fun get(timelineId: UUID, memberId: UUID, size: Long): List<Timeline>
 
     /**
      * 조회
@@ -39,7 +39,15 @@ interface TimelinePersistencePort {
      * @param size 조회 건수
      * @return 타임라인 목록(포스팅 일시 역순정렬)
      */
-    fun findAllByMemberIdAndOrderByIdDesc(memberId: UUID, size: Long): List<Timeline>
+    fun get(memberId: UUID, size: Long): List<Timeline>
+
+    /**
+     * 조회
+     *
+     * @param memberId 회원 아이디
+     * @return 타임라인 목록
+     */
+    fun get(memberId: UUID): List<Timeline>
 
     /**
      * 조회
@@ -57,4 +65,19 @@ interface TimelinePersistencePort {
      * @param postIds 포스트 아이디 목록
      */
     fun deleteAllByMemberIdAndPostIdIn(memberId: UUID, postIds: List<UUID>)
+
+    /**
+     * 삭제
+     *
+     * @param postId 포스트 아이디
+     */
+    fun deleteAllByPostId(postId: UUID)
+
+    /**
+     * 삭제
+     *
+     * @param memberId 회원 아이디
+     */
+    fun deleteAllByMemberId(memberId: UUID)
+    fun deleteAllByPostIdIn(postIds: List<UUID>)
 }

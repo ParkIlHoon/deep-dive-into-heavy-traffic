@@ -6,7 +6,7 @@ import dev.hoon.deepdive.heavytraffic.flitter.application.port.exception.CannotW
 /**
  * 포스트 작성 유스 케이스
  */
-interface WritePostUseCase {
+fun interface WritePostUseCase {
     /**
      * 작성
      *
