@@ -9,6 +9,11 @@ data class CursorRequest(
 ) {
     companion object {
         val NO_KEY = Ulid.MIN.toUuid()
+
+        fun of(key: UUID?, size: Long?) = CursorRequest(
+            key = key ?: NO_KEY,
+            size = size ?: 10,
+        )
     }
 
     fun hasKey() = this.key != NO_KEY

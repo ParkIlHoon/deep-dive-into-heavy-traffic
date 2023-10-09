@@ -12,6 +12,9 @@ interface TimelineRepository : JpaRepository<Timeline, UUIDPrimaryKey>, Timeline
 
     fun deleteAllByMemberIdAndPostIdIn(memberId: UUID, postIds: List<UUID>)
     fun findAllByMemberId(memberId: UUID): List<Timeline>
-
     fun deleteAllByPostIdIn(postIds: List<UUID>)
+
+    fun deleteAllByPostId(postId: UUID)
+
+    fun deleteAllByMemberId(memberId: UUID)
 }
