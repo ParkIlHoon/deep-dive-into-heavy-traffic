@@ -45,13 +45,11 @@ class TimelineAdapter(
     override fun deleteAllByMemberIdAndPostIdIn(memberId: UUID, postIds: List<UUID>) =
         timelineRepository.deleteAllByMemberIdAndPostIdIn(memberId, postIds)
 
-    override fun deleteAllByPostId(postId: UUID) {
-        TODO("Not yet implemented")
-    }
+    override fun deleteAllByPostId(postId: UUID) =
+        timelineRepository.deleteAllByPostId(postId)
 
-    override fun deleteAllByMemberId(memberId: UUID) {
-        TODO("Not yet implemented")
-    }
+    override fun deleteAllByMemberId(memberId: UUID) =
+        timelineRepository.deleteAllByMemberId(memberId)
 
     @Transactional
     override fun deleteAllByPostIdIn(postIds: List<UUID>) = timelineRepository.deleteAllByPostIdIn(postIds)
