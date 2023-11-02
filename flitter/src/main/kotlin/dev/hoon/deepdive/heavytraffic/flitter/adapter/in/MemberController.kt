@@ -1,4 +1,4 @@
-package dev.hoon.deepdive.heavytraffic.flitter.adapter.`in`
+package dev.hoon.deepdive.heavytraffic.flitter.adapter.`in` // ktlint-disable package-name
 
 import dev.hoon.deepdive.heavytraffic.flitter.adapter.common.dto.ApiResponse
 import dev.hoon.deepdive.heavytraffic.flitter.application.port.dto.MemberDto
