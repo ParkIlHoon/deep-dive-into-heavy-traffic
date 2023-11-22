@@ -55,8 +55,8 @@ CREATE TABLE `member_nickname_history` (
                                            `member_id` binary(16) NOT NULL COMMENT '회원 아이디',
                                            `nickname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '닉네임',
                                            PRIMARY KEY (`id`),
-                                           KEY `FKsu3xlv9fjwrr8gadt9dgvaov5` (`member_id`),
-                                           CONSTRAINT `FKsu3xlv9fjwrr8gadt9dgvaov5` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`)
+                                           KEY `fk_member_nickname_history_member` (`member_id`),
+                                           CONSTRAINT `fk_member_nickname_history_member` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='회원 닉네임 이력';
 
 
@@ -68,6 +68,6 @@ CREATE TABLE `post_like` (
                              `member_id` binary(16) NOT NULL COMMENT '좋아요를 누른 회원 아이디',
                              `post_id` binary(16) NOT NULL COMMENT '포스트 아이디',
                              PRIMARY KEY (`id`),
-                             KEY `FKj7iy0k7n3d0vkh8o7ibjna884` (`post_id`),
-                             CONSTRAINT `FKj7iy0k7n3d0vkh8o7ibjna884` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`)
+                             KEY `fk_post_like_post` (`post_id`),
+                             CONSTRAINT `fk_post_like_post` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='포스트 좋아요';
