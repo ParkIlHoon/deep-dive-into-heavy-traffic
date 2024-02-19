@@ -1,8 +1,8 @@
 package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.dto
 
-import dev.hoon.deepdive.heavytraffic.flitter.api.domain.member.Member
-import dev.hoon.deepdive.heavytraffic.flitter.api.domain.post.Post
-import dev.hoon.deepdive.heavytraffic.flitter.api.domain.timeline.Timeline
+import dev.hoon.deepdive.heavytraffic.flitter.domain.member.Member
+import dev.hoon.deepdive.heavytraffic.flitter.domain.post.Post
+import dev.hoon.deepdive.heavytraffic.flitter.domain.timeline.Timeline
 import io.swagger.v3.oas.annotations.media.Schema
 import java.time.LocalDateTime
 import java.util.UUID
@@ -28,7 +28,7 @@ class TimelineDto {
         companion object {
             fun of(timeline: Timeline, post: Post, writer: Member) =
                 Response(
-                    id = timeline.id!!,
+                    id = timeline.id,
                     postId = timeline.postId,
                     writerId = post.writerId,
                     writerNickname = writer.nickname,

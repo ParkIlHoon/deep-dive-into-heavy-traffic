@@ -5,7 +5,7 @@ import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.internal
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MemberPort
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.PostPort
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.TimelinePort
-import dev.hoon.deepdive.heavytraffic.flitter.api.domain.timeline.Timeline
+import dev.hoon.deepdive.heavytraffic.flitter.domain.timeline.Timeline
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
@@ -28,7 +28,7 @@ class AfterFollowService(
         val posts = postPort.getByWriter(followId)
 
         // 3. 팔로워의 타임라인에 포스트 추가
-        val timelines = posts.map { Timeline(memberId = followerId, postId = it.id!!, postedAt = it.createdAt) }
+        val timelines = posts.map { Timeline(memberId = followerId, postId = it.id, postedAt = it.createdAt) }
         timelinePort.saveAll(timelines)
     }
 

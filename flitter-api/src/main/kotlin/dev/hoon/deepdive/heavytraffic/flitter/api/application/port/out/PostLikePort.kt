@@ -1,6 +1,6 @@
 package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out
 
-import dev.hoon.deepdive.heavytraffic.flitter.api.domain.post.PostLike
+import dev.hoon.deepdive.heavytraffic.flitter.domain.post.PostLike
 import java.util.*
 
 /**

@@ -1,7 +1,7 @@
 package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out
 
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.PostNotFoundException
-import dev.hoon.deepdive.heavytraffic.flitter.api.domain.post.Post
+import dev.hoon.deepdive.heavytraffic.flitter.domain.post.Post
 import java.util.*
 
 /**

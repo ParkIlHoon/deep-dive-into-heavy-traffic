@@ -1,6 +1,6 @@
 package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out
 
-import dev.hoon.deepdive.heavytraffic.flitter.api.domain.timeline.Timeline
+import dev.hoon.deepdive.heavytraffic.flitter.domain.timeline.Timeline
 import java.util.*
 
 /**

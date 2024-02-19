@@ -6,7 +6,7 @@ import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.FollowPor
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MemberPort
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.PostPort
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.TimelinePort
-import dev.hoon.deepdive.heavytraffic.flitter.api.domain.timeline.Timeline
+import dev.hoon.deepdive.heavytraffic.flitter.domain.timeline.Timeline
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime

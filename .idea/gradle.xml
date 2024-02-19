@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/flitter-api" />
+            <option value="$PROJECT_DIR$/flitter-domain" />
             <option value="$PROJECT_DIR$/flitter-worker" />
           </set>
         </option>

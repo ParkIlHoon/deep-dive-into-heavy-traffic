@@ -6,7 +6,7 @@ import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.MemberJo
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.MemberLeaveUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MemberPort
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MessageQueuePort
-import dev.hoon.deepdive.heavytraffic.flitter.api.domain.member.Member
+import dev.hoon.deepdive.heavytraffic.flitter.domain.member.Member
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
@@ -24,15 +24,15 @@ class MemberService(
                 Member(
                     nickname = nickname,
                     email = email,
-                    birthday = birthday,
+                    birthDay = birthday,
                 ),
             )
         }
         return MemberDto.Response(
-            id = member.id!!,
+            id = member.id,
             nickname = member.nickname,
             email = member.email,
-            birthday = member.birthday,
+            birthday = member.birthDay,
             createdAt = member.createdAt,
             updatedAt = member.updatedAt,
         )

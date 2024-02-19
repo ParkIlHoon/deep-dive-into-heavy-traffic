@@ -1,7 +1,7 @@
 package dev.hoon.deepdive.heavytraffic.flitter.api.adapter.out.repository
 
-import dev.hoon.deepdive.heavytraffic.flitter.api.adapter.out.entity.UUIDPrimaryKey
-import dev.hoon.deepdive.heavytraffic.flitter.api.adapter.out.entity.follow.Follow
+import dev.hoon.deepdive.heavytraffic.flitter.domain.UUIDPrimaryKey
+import dev.hoon.deepdive.heavytraffic.flitter.domain.follow.Follow
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import java.util.UUID

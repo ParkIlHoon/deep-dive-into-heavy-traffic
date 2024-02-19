@@ -1,9 +1,8 @@
 package dev.hoon.deepdive.heavytraffic.flitter.api.adapter.out
 
-import dev.hoon.deepdive.heavytraffic.flitter.api.adapter.out.mapper.FollowMapper
 import dev.hoon.deepdive.heavytraffic.flitter.api.adapter.out.repository.FollowRepository
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.FollowPort
-import dev.hoon.deepdive.heavytraffic.flitter.api.domain.follow.Follow
+import dev.hoon.deepdive.heavytraffic.flitter.domain.follow.Follow
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
@@ -14,10 +13,7 @@ class FollowAdapter(
     private val followRepository: FollowRepository,
 ) : FollowPort {
     @Transactional
-    override fun create(follow: Follow): Follow =
-        FollowMapper.toEntity(follow)
-            .let { followRepository.save(it) }
-            .let { FollowMapper.toDomain(it) }
+    override fun create(follow: Follow): Follow = followRepository.save(follow)
 
     @Transactional
     override fun delete(followerId: UUID, followId: UUID) = followRepository.deleteByFollowerMemberIdAndMemberId(followerId, followId)
@@ -25,11 +21,7 @@ class FollowAdapter(
     @Transactional
     override fun delete(followId: UUID) = followRepository.deleteAllByMemberId(followId)
 
-    override fun getByFollowMemberId(memberId: UUID): List<Follow> =
-        followRepository.findAllByMemberId(memberId)
-            .map { FollowMapper.toDomain(it) }
+    override fun getByFollowMemberId(memberId: UUID): List<Follow> = followRepository.findAllByMemberId(memberId)
 
-    override fun getByFollowerMemberId(memberId: UUID): List<Follow> =
-        followRepository.findAllByFollowerMemberId(memberId)
-            .map { FollowMapper.toDomain(it) }
+    override fun getByFollowerMemberId(memberId: UUID): List<Follow> = followRepository.findAllByFollowerMemberId(memberId)
 }

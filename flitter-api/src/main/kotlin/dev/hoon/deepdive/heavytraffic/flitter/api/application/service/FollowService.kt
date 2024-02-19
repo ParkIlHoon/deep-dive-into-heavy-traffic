@@ -7,7 +7,7 @@ import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.UnFollow
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.FollowPort
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MemberPort
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MessageQueuePort
-import dev.hoon.deepdive.heavytraffic.flitter.api.domain.follow.Follow
+import dev.hoon.deepdive.heavytraffic.flitter.domain.follow.Follow
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
@@ -25,8 +25,8 @@ class FollowService(
         validateMember(followerId) { CannotFollowException(it) }
         validateMember(followId) { CannotFollowException(it) }
 
-        val follow = followPort.create(Follow(followerMemberId = followerId, memberId = followId))
-        follow.id?.let { messageQueuePort.publishFollowEvent(followerId, followId) }
+        followPort.create(Follow(followerMemberId = followerId, memberId = followId))
+            .let { messageQueuePort.publishFollowEvent(followerId, followId) }
     }
 
     @Transactional
