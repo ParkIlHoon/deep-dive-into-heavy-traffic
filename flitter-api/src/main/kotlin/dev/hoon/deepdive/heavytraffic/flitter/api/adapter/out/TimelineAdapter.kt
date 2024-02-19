@@ -12,34 +12,9 @@ import java.util.*
 class TimelineAdapter(
     private val timelineRepository: TimelineRepository,
 ) : TimelinePort {
-    @Transactional
-    override fun save(timeline: Timeline): Timeline = timelineRepository.save(timeline)
-
-    @Transactional
-    override fun saveAll(timelines: List<Timeline>): List<Timeline> = timelineRepository.saveAll(timelines)
-
     override fun get(timelineId: UUID, memberId: UUID, size: Long): List<Timeline> =
         timelineRepository.findAllByLessThanIdAndMemberIdAndOrderByIdDesc(timelineId, memberId, size)
 
     override fun get(memberId: UUID, size: Long): List<Timeline> =
         timelineRepository.findAllByMemberIdAndOrderByIdDesc(memberId, size)
-
-    override fun get(memberId: UUID): List<Timeline> =
-        timelineRepository.findAllByMemberId(memberId)
-
-    override fun findAllByMemberIdAndPostIdIn(memberId: UUID, postIds: List<UUID>): List<Timeline> =
-        timelineRepository.findAllByMemberIdAndPostIdIn(memberId, postIds)
-
-    @Transactional
-    override fun deleteAllByMemberIdAndPostIdIn(memberId: UUID, postIds: List<UUID>) =
-        timelineRepository.deleteAllByMemberIdAndPostIdIn(memberId, postIds)
-
-    override fun deleteAllByPostId(postId: UUID) =
-        timelineRepository.deleteAllByPostId(postId)
-
-    override fun deleteAllByMemberId(memberId: UUID) =
-        timelineRepository.deleteAllByMemberId(memberId)
-
-    @Transactional
-    override fun deleteAllByPostIdIn(postIds: List<UUID>) = timelineRepository.deleteAllByPostIdIn(postIds)
 }

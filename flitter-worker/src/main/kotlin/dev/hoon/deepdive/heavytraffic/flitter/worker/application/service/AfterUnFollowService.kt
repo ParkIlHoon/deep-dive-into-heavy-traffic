@@ -1,9 +1,9 @@
-package dev.hoon.deepdive.heavytraffic.flitter.api.application.service
+package dev.hoon.deepdive.heavytraffic.flitter.worker.application.service
 
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotUnFollowException
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.internal.AfterUnFollowProcessor
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.FollowPort
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MemberPort
+import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.exception.CannotUnFollowException
+import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.FollowPort
+import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.MemberPort
+import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in`.AfterUnFollowProcessor
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*

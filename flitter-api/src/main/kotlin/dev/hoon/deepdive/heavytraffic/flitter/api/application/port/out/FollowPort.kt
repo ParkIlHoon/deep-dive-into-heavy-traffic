@@ -7,10 +7,4 @@ interface FollowPort {
     fun create(follow: Follow): Follow
 
     fun delete(followerId: UUID, followId: UUID)
-
-    fun delete(followId: UUID)
-
-    fun getByFollowMemberId(memberId: UUID): List<Follow>
-
-    fun getByFollowerMemberId(memberId: UUID): List<Follow>
 }
