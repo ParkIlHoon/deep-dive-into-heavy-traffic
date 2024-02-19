@@ -14,6 +14,7 @@ class Member(
     email: String,
     birthDay: LocalDate,
 ) : UUIDPrimaryKey() {
+
     @Column(nullable = false)
     @Comment("닉네임")
     var nickname: String = nickname
