@@ -1,6 +1,6 @@
-package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception
+package dev.hoon.deepdive.heavytraffic.flitter.core.exception
 
-enum class ErrorCode(
+enum class FlitterErrorCode(
     val code: Int,
     val message: String,
 ) {

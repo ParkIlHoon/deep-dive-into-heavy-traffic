@@ -6,12 +6,11 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":flitter-core"))
+
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-
-    // ULID
-    implementation("com.github.f4b6a3:ulid-creator:5.2.2")
 
     // Query DSL
     implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")

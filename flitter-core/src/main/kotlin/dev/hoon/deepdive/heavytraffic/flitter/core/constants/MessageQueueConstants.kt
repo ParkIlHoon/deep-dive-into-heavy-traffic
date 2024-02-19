@@ -1,4 +1,4 @@
-package dev.hoon.deepdive.heavytraffic.flitter.api.adapter.common.constants
+package dev.hoon.deepdive.heavytraffic.flitter.core.constants
 
 class MessageQueueConstants {
     companion object {

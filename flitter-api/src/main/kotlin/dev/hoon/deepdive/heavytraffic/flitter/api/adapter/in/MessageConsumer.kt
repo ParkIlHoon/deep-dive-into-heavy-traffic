@@ -1,8 +1,8 @@
 package dev.hoon.deepdive.heavytraffic.flitter.api.adapter.`in` // ktlint-disable package-name
 
-import dev.hoon.deepdive.heavytraffic.flitter.api.adapter.common.constants.MessageQueueConstants
-import dev.hoon.deepdive.heavytraffic.flitter.api.adapter.common.dto.*
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.internal.*
+import dev.hoon.deepdive.heavytraffic.flitter.core.constants.MessageQueueConstants
+import dev.hoon.deepdive.heavytraffic.flitter.core.event.*
 import org.springframework.amqp.rabbit.annotation.Exchange
 import org.springframework.amqp.rabbit.annotation.Queue
 import org.springframework.amqp.rabbit.annotation.QueueBinding

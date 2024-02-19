@@ -1,6 +1,7 @@
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 dependencies {
+    implementation(project(":flitter-core"))
     implementation(project(":flitter-domain"))
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -12,14 +13,14 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-amqp")
     testImplementation("org.springframework.amqp:spring-rabbit-test")
 
-    // ULID
-    implementation("com.github.f4b6a3:ulid-creator:5.2.2")
-
     // Query DSL
     implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
     kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
     kapt("jakarta.persistence:jakarta.persistence-api")
     kapt("jakarta.annotation:jakarta.annotation-api")
+
+    // Spring Doc
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
 
     // Flyway
     implementation("org.flywaydb:flyway-core")
