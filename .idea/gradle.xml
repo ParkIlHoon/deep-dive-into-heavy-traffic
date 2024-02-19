@@ -10,6 +10,16 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/flitter-api" />
+            <option value="$PROJECT_DIR$/flitter-worker" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/flitter-worker" />
+        <option name="gradleJvm" value="17" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/flitter-worker" />
           </set>
         </option>
       </GradleProjectSettings>
