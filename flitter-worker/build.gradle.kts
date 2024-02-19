@@ -1,6 +1,7 @@
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 dependencies {
+    implementation(project(":flitter-core"))
     implementation(project(":flitter-domain"))
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -11,9 +12,6 @@ dependencies {
     // AMQP + RabbitMQ
     implementation("org.springframework.boot:spring-boot-starter-amqp")
     testImplementation("org.springframework.amqp:spring-rabbit-test")
-
-    // ULID
-    implementation("com.github.f4b6a3:ulid-creator:5.2.2")
 
     // Query DSL
     implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")

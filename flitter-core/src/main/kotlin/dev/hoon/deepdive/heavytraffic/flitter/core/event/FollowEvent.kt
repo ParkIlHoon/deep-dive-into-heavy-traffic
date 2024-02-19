@@ -1,4 +1,4 @@
-package dev.hoon.deepdive.heavytraffic.flitter.api.adapter.common.dto
+package dev.hoon.deepdive.heavytraffic.flitter.core.event
 
 import java.util.*
 

@@ -1,6 +1,6 @@
 package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.dto
 
-import com.github.f4b6a3.ulid.Ulid
+import dev.hoon.deepdive.heavytraffic.flitter.core.utils.IdGenerator
 import java.util.*
 
 data class CursorRequest(
@@ -8,7 +8,7 @@ data class CursorRequest(
     val size: Long = 10
 ) {
     companion object {
-        val NO_KEY = Ulid.MIN.toUuid()
+        val NO_KEY = IdGenerator.min()
 
         fun of(key: UUID?, size: Long?) = CursorRequest(
             key = key ?: NO_KEY,

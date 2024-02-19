@@ -1,11 +1,11 @@
 package dev.hoon.deepdive.heavytraffic.flitter.api.adapter.out
 
-import dev.hoon.deepdive.heavytraffic.flitter.api.adapter.common.constants.MessageQueueConstants
-import dev.hoon.deepdive.heavytraffic.flitter.api.adapter.common.dto.FollowEvent
-import dev.hoon.deepdive.heavytraffic.flitter.api.adapter.common.dto.MemberLeaveEvent
-import dev.hoon.deepdive.heavytraffic.flitter.api.adapter.common.dto.PostWroteEvent
-import dev.hoon.deepdive.heavytraffic.flitter.api.adapter.common.dto.UnFollowEvent
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MessageQueuePort
+import dev.hoon.deepdive.heavytraffic.flitter.core.constants.MessageQueueConstants
+import dev.hoon.deepdive.heavytraffic.flitter.core.event.FollowEvent
+import dev.hoon.deepdive.heavytraffic.flitter.core.event.MemberLeaveEvent
+import dev.hoon.deepdive.heavytraffic.flitter.core.event.PostWroteEvent
+import dev.hoon.deepdive.heavytraffic.flitter.core.event.UnFollowEvent
 import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime

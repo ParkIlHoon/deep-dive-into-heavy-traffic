@@ -1,6 +1,6 @@
 package dev.hoon.deepdive.heavytraffic.flitter.domain
 
-import com.github.f4b6a3.ulid.UlidCreator
+import dev.hoon.deepdive.heavytraffic.flitter.core.utils.IdGenerator
 import jakarta.persistence.Column
 import jakarta.persistence.Id
 import jakarta.persistence.MappedSuperclass
@@ -17,7 +17,7 @@ abstract class UUIDPrimaryKey : Persistable<UUID> {
     @Id
     @Column(columnDefinition = "BINARY(16)")
     @Comment("아이디")
-    private var id: UUID = UlidCreator.getMonotonicUlid().toUuid()
+    private var id: UUID = IdGenerator.generate()
 
     @Transient
     private var _isNew = true
@@ -51,7 +51,7 @@ abstract class UUIDPrimaryKey : Persistable<UUID> {
     }
 
     fun setId(id: UUID?) {
-        this.id = id ?: UlidCreator.getMonotonicUlid().toUuid()
+        this.id = id ?: IdGenerator.generate()
         this._isNew = id == null
     }
 }
