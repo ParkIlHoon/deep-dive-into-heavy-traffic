@@ -1,4 +1,4 @@
-package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.internal // ktlint-disable package-name
+package dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in` // ktlint-disable package-name
 
 import java.time.LocalDateTime
 import java.util.UUID

@@ -1,11 +1,11 @@
-package dev.hoon.deepdive.heavytraffic.flitter.api.application.service
+package dev.hoon.deepdive.heavytraffic.flitter.worker.application.service
 
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotFollowException
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.internal.AfterFollowProcessor
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MemberPort
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.PostPort
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.TimelinePort
+import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.MemberPort
 import dev.hoon.deepdive.heavytraffic.flitter.domain.timeline.Timeline
+import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.exception.CannotFollowException
+import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in`.AfterFollowProcessor
+import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.PostPort
+import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.TimelinePort
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*

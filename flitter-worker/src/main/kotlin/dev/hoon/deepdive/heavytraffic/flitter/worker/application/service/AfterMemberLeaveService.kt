@@ -1,10 +1,10 @@
-package dev.hoon.deepdive.heavytraffic.flitter.api.application.service
+package dev.hoon.deepdive.heavytraffic.flitter.worker.application.service
 
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.internal.AfterMemberLeaveProcessor
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.FollowPort
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.PostLikePort
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.PostPort
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.TimelinePort
+import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.FollowPort
+import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.PostLikePort
+import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.PostPort
+import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.TimelinePort
+import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in`.AfterMemberLeaveProcessor
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*

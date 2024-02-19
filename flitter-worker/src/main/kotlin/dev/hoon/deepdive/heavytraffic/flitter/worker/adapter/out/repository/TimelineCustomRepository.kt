@@ -1,12 +1,9 @@
-package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out
+package dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.out.repository
 
 import dev.hoon.deepdive.heavytraffic.flitter.domain.timeline.Timeline
 import java.util.*
 
-/**
- * 타임라인 포트
- */
-interface TimelinePort {
+interface TimelineCustomRepository {
     /**
      * 조회
      *
@@ -15,7 +12,7 @@ interface TimelinePort {
      * @param size 조회 건수
      * @return 타임라인 목록(포스팅 일시 역순정렬)
      */
-    fun get(timelineId: UUID, memberId: UUID, size: Long): List<Timeline>
+    fun findAllByLessThanIdAndMemberIdAndOrderByIdDesc(timelineId: UUID, memberId: UUID, size: Long): List<Timeline>
 
     /**
      * 조회
@@ -24,5 +21,5 @@ interface TimelinePort {
      * @param size 조회 건수
      * @return 타임라인 목록(포스팅 일시 역순정렬)
      */
-    fun get(memberId: UUID, size: Long): List<Timeline>
+    fun findAllByMemberIdAndOrderByIdDesc(memberId: UUID, size: Long): List<Timeline>
 }

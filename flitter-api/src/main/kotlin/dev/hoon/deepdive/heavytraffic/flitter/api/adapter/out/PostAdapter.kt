@@ -23,8 +23,6 @@ class PostAdapter(
     @Transactional
     override fun delete(postLike: PostLike) = postLikeRepository.delete(postLike)
 
-    override fun count(postId: UUID): Long = postLikeRepository.countByPostId(postId)
-
     @Transactional
     override fun create(post: Post): Post = postRepository.save(post)
 
@@ -34,15 +32,6 @@ class PostAdapter(
     override fun get(ids: List<UUID>): List<Post> =
         postRepository.findAllByIdIn(ids)
 
-    override fun getByWriter(memberId: UUID): List<Post> =
-        postRepository.findAllByWriterId(memberId)
-
     @Transactional
     override fun delete(id: UUID) = postRepository.deleteById(id)
-
-    @Transactional
-    override fun deleteByWriter(writerId: UUID) = postRepository.deleteAllByWriterId(writerId)
-
-    @Transactional
-    override fun deleteByMemberId(memberId: UUID) = postLikeRepository.deleteAllByMemberId(memberId)
 }

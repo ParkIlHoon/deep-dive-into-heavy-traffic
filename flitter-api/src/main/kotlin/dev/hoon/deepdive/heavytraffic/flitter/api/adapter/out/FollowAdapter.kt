@@ -17,11 +17,4 @@ class FollowAdapter(
 
     @Transactional
     override fun delete(followerId: UUID, followId: UUID) = followRepository.deleteByFollowerMemberIdAndMemberId(followerId, followId)
-
-    @Transactional
-    override fun delete(followId: UUID) = followRepository.deleteAllByMemberId(followId)
-
-    override fun getByFollowMemberId(memberId: UUID): List<Follow> = followRepository.findAllByMemberId(memberId)
-
-    override fun getByFollowerMemberId(memberId: UUID): List<Follow> = followRepository.findAllByFollowerMemberId(memberId)
 }
