@@ -1,16 +1,14 @@
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
+plugins {
+    kotlin("kapt")
+    kotlin("plugin.jpa")
+}
+
 dependencies {
-    implementation(project(":flitter-domain"))
-
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    runtimeOnly("com.h2database:h2")
-    runtimeOnly("com.mysql:mysql-connector-j")
+    implementation("org.springframework.boot:spring-boot-starter-web")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-
-    // AMQP + RabbitMQ
-    implementation("org.springframework.boot:spring-boot-starter-amqp")
-    testImplementation("org.springframework.amqp:spring-rabbit-test")
 
     // ULID
     implementation("com.github.f4b6a3:ulid-creator:5.2.2")
@@ -22,10 +20,17 @@ dependencies {
     kapt("jakarta.annotation:jakarta.annotation-api")
 }
 
+// JPA Entity Lazy loading
+allOpen {
+    annotation("jakarta.persistence.Entity")
+    annotation("jakarta.persistence.Embeddable")
+    annotation("jakarta.persistence.MappedSuperclass")
+}
+
 tasks.withType<Jar> {
     enabled = true
 }
 
 tasks.withType<BootJar> {
-    enabled = true
+    enabled = false
 }

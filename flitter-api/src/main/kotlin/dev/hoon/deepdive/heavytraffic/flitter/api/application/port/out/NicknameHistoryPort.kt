@@ -1,6 +1,6 @@
 package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out
 
-import dev.hoon.deepdive.heavytraffic.flitter.api.domain.member.NicknameHistory
+import dev.hoon.deepdive.heavytraffic.flitter.domain.member.NicknameHistory
 import java.util.UUID
 
 /**

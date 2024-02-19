@@ -13,8 +13,8 @@ import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MemberPor
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MessageQueuePort
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.PostLikePort
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.PostPort
-import dev.hoon.deepdive.heavytraffic.flitter.api.domain.post.Post
-import dev.hoon.deepdive.heavytraffic.flitter.api.domain.post.PostLike
+import dev.hoon.deepdive.heavytraffic.flitter.domain.post.Post
+import dev.hoon.deepdive.heavytraffic.flitter.domain.post.PostLike
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
@@ -32,8 +32,8 @@ class PostService(
     override fun write(postDto: PostDto.Request) {
         validateMember(memberId = postDto.memberId) { CannotWritePostException(it) }
 
-        val post = postPort.create(Post(writerId = postDto.memberId, contents = postDto.contents))
-        post.id?.let { messageQueuePort.publishPostWroteEvent(postId = it, writerId = post.writerId, postedAt = post.createdAt) }
+        postPort.create(Post(writerId = postDto.memberId, contents = postDto.contents))
+            .let { messageQueuePort.publishPostWroteEvent(postId = it.id, writerId = it.writerId, postedAt = it.createdAt) }
     }
 
     @Transactional

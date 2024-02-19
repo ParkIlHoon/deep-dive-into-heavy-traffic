@@ -1,7 +1,7 @@
 package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out
 
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.MemberNotFoundException
-import dev.hoon.deepdive.heavytraffic.flitter.api.domain.member.Member
+import dev.hoon.deepdive.heavytraffic.flitter.domain.member.Member
 import java.util.*
 
 /**

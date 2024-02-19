@@ -8,7 +8,7 @@ import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.ReadTime
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MemberPort
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.PostPort
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.TimelinePort
-import dev.hoon.deepdive.heavytraffic.flitter.api.domain.timeline.Timeline
+import dev.hoon.deepdive.heavytraffic.flitter.domain.timeline.Timeline
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
@@ -45,7 +45,7 @@ class TimelineService(
             timelinePort.get(memberId, cursor.size)
         }
 
-        val nextKey = timelines.minBy { it.id.toString() }.id ?: CursorRequest.NO_KEY
+        val nextKey = timelines.minBy { it.id.toString() }.id
         return CursorResponse(cursor.next(nextKey), timelines)
     }
 

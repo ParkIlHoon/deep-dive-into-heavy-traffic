@@ -1,8 +1,8 @@
 package dev.hoon.deepdive.heavytraffic.flitter.api.adapter.out.repository
 
 import com.querydsl.jpa.impl.JPAQueryFactory
-import dev.hoon.deepdive.heavytraffic.flitter.adapter.out.entity.timeline.QTimeline.timeline
-import dev.hoon.deepdive.heavytraffic.flitter.api.adapter.out.entity.timeline.Timeline
+import dev.hoon.deepdive.heavytraffic.flitter.domain.timeline.QTimeline.timeline
+import dev.hoon.deepdive.heavytraffic.flitter.domain.timeline.Timeline
 import org.springframework.stereotype.Repository
 import java.util.*
 
