@@ -196,3 +196,7 @@ cflitter/src/main/kotlin/dev/hoon/deepdive/heavytraffic/flitter/application/serv
 _flitter/src/main/kotlin/dev/hoon/deepdive/heavytraffic/flitter/adapter/in/TimelineController.kt,d/a/da41079758ec3563363ec88cfca5a27a753b1898
 ‘
 aflitter/src/main/kotlin/dev/hoon/deepdive/heavytraffic/flitter/adapter/configuration/DocConfig.kt,2/5/25b31c62969a3db6dcd5bc66ac0bda52492b1817
+L
+dummy-maker/build.gradle.kts,f/2/f2021d50a9eea39170b863e9ecc776fdc47f8fc4
+
+Odummy-maker/src/main/kotlin/dev/hoon/deepdive/heavytraffic/dummymaker/Member.kt,3/c/3cbff79518da5473fb7cec2f5785cbfdce2f254a
