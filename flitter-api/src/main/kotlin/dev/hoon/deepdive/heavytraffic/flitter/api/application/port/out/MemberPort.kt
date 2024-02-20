@@ -35,6 +35,22 @@ interface MemberPort {
     fun get(ids: List<UUID>): List<Member>
 
     /**
+     * 닉네임으로 회원 조회
+     *
+     * @param nickname 조회할 닉네임
+     * @return 닉네임에 해당하는 회원
+     */
+    fun getByNickname(nickname: String): Member?
+
+    /**
+     * 이메일로 회원 조회
+     *
+     * @param email 조회할 이메일
+     * @return 이메일에 해당하는 회원
+     */
+    fun getByEmail(email: String): Member?
+
+    /**
      * 삭제
      *
      * @param id 삭제할 회원 아이디

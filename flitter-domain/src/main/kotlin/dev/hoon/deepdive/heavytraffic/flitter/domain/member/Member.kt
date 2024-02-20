@@ -12,7 +12,7 @@ import java.time.LocalDateTime
 class Member(
     nickname: String,
     email: String,
-    birthDay: LocalDate,
+    birthday: LocalDate,
 ) : UUIDPrimaryKey() {
 
     @Column(nullable = false)
@@ -27,7 +27,7 @@ class Member(
 
     @Column(nullable = false)
     @Comment("생일")
-    var birthDay: LocalDate = birthDay
+    var birthday: LocalDate = birthday
         protected set
 
     @Column(nullable = false)
@@ -65,7 +65,7 @@ class Member(
     }
 
     fun changeBirthday(newBirthday: LocalDate) {
-        this.birthDay = newBirthday
+        this.birthday = newBirthday
         this.updatedAt = LocalDateTime.now()
     }
 }

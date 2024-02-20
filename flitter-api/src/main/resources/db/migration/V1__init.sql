@@ -12,7 +12,7 @@ CREATE TABLE `follow` (
 -- flitter.`member` definition
 
 CREATE TABLE `member` (
-                          `birth_day` date NOT NULL COMMENT '생일',
+                          `birthday` date NOT NULL COMMENT '생일',
                           `created_at` datetime(6) NOT NULL COMMENT '생성일시',
                           `updated_at` datetime(6) NOT NULL COMMENT '수정일시',
                           `id` binary(16) NOT NULL COMMENT '아이디',

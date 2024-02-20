@@ -14,4 +14,8 @@ interface MemberRepository : JpaRepository<Member, UUIDPrimaryKey> {
     fun findAllByIdIn(ids: List<UUID>): List<Member>
 
     fun deleteById(id: UUID)
+
+    fun findByNickname(nickname: String): Member?
+
+    fun findByEmail(email: String): Member?
 }
