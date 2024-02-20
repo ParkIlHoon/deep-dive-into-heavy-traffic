@@ -26,6 +26,12 @@ class MemberAdapter(
     override fun get(ids: List<UUID>): List<Member> =
         memberRepository.findAllByIdIn(ids)
 
+    override fun getByNickname(nickname: String): Member? =
+        memberRepository.findByNickname(nickname)
+
+    override fun getByEmail(email: String): Member? =
+        memberRepository.findByEmail(email)
+
     @Transactional
     override fun delete(id: UUID) = memberRepository.deleteById(id)
 

@@ -19,5 +19,8 @@ open class FlitterException : RuntimeException {
     constructor(flitterErrorCode: FlitterErrorCode, message: String?, cause: Throwable?) : super(message, cause) {
         this.flitterErrorCode = flitterErrorCode
     }
+
+    fun getErrorCode() = this.flitterErrorCode.code
+    fun getErrorMessage() = message
 }
 

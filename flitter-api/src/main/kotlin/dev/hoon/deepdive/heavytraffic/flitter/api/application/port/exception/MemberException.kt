@@ -13,7 +13,10 @@ class MemberNotFoundException(message: String) : FlitterException(FlitterErrorCo
 /**
  * 회원 가입 실패 예외
  */
-class CannotJoinException(cause: Throwable) : FlitterException(FlitterErrorCode.CANNOT_JOIN, cause)
+class CannotJoinException: FlitterException {
+    constructor(message: String?) : super(FlitterErrorCode.CANNOT_JOIN, message)
+    constructor(throwable: Throwable) : super(FlitterErrorCode.CANNOT_JOIN, throwable.message, throwable)
+}
 
 /**
  * 회원 탈퇴 실패 예외

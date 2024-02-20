@@ -6,6 +6,7 @@ import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.MemberJo
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.MemberLeaveUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -24,7 +25,7 @@ class MemberController(
 
     @Operation(summary = "회원 가입")
     @PostMapping
-    fun join(@RequestBody joinRequest: MemberDto.JoinRequest) =
+    fun join(@Valid @RequestBody joinRequest: MemberDto.JoinRequest) =
         ApiResponse.success(memberJoinUseCase.join(joinRequest))
 
     @Operation(summary = "회원 탈퇴")
