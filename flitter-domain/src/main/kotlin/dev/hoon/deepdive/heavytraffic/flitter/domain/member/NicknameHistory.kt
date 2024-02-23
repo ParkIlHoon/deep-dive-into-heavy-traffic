@@ -23,7 +23,7 @@ class NicknameHistory(
         protected set
 
     @Column(nullable = false)
-    @Comment("닉네임")
+    @Comment("기존 닉네임")
     var nickname: String = nickname
         protected set
 

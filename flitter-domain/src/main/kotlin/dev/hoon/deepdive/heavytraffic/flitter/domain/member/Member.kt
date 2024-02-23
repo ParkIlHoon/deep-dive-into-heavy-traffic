@@ -54,14 +54,15 @@ class Member(
      * @param nickname 변경할 닉네임
      * @return 기존 닉네임 히스토리
      */
-    fun changeNickname(nickname: String): NicknameHistory {
+    fun changeNickname(nickname: String): Member {
         val nicknameHistory = NicknameHistory(
             member = this,
             nickname = this.nickname,
         )
         this.nickname = nickname
         this.updatedAt = LocalDateTime.now()
-        return nicknameHistory
+        this.mutableNicknameHistories.add(nicknameHistory)
+        return this
     }
 
     fun changeBirthday(newBirthday: LocalDate) {

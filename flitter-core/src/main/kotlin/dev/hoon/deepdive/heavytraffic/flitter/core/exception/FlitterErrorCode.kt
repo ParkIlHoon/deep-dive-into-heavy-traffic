@@ -7,6 +7,7 @@ enum class FlitterErrorCode(
     MEMBER_NOT_FOUND(10000, "존재하지 않는 회원입니다."),
     CANNOT_JOIN(10001, "회원가입에 실패했습니다."),
     CANNOT_LEAVE(10002, "회원탈퇴에 실패했습니다."),
+    CANNOT_CHANGE_NICKNAME(10003, "닉네임을 변경할 수 없습니다."),
 
     CANNOT_FOLLOW(20000, "팔로우하지 못했습니다."),
     CANNOT_UNFOLLOW(25000, "언팔로우하지 못했습니다."),
