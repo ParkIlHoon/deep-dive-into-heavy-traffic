@@ -19,6 +19,11 @@ class CannotJoinException: FlitterException {
 }
 
 /**
+ * 닉네임 변경 실패 예외
+ */
+class CannotChangeNicknameException(message: String) : FlitterException(FlitterErrorCode.CANNOT_CHANGE_NICKNAME, message)
+
+/**
  * 회원 탈퇴 실패 예외
  */
 class CannotLeaveException(cause: Throwable) : FlitterException(FlitterErrorCode.CANNOT_LEAVE, cause)

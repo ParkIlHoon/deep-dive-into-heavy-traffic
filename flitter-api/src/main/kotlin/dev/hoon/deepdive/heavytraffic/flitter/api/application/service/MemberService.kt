@@ -1,8 +1,10 @@
 package dev.hoon.deepdive.heavytraffic.flitter.api.application.service
 
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.dto.MemberDto
+import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotChangeNicknameException
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotJoinException
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotLeaveException
+import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.MemberChangeNicknameUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.MemberJoinUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.MemberLeaveUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MemberPort
@@ -17,7 +19,7 @@ import java.util.*
 class MemberService(
     private val memberPort: MemberPort,
     private val messageQueuePort: MessageQueuePort,
-) : MemberJoinUseCase, MemberLeaveUseCase {
+) : MemberJoinUseCase, MemberChangeNicknameUseCase, MemberLeaveUseCase {
     @Transactional
     override fun join(memberJoinRequest: MemberDto.JoinRequest): MemberDto.Response {
         // 유효성 체크
@@ -60,5 +62,20 @@ class MemberService(
         } catch (e: Exception) {
             throw thrower(e)
         }
+    }
+
+    @Transactional
+    override fun changeNickname(id: UUID, newNickname: String): MemberDto.Response {
+        memberPort.getByNickname(newNickname)?.let { throw CannotChangeNicknameException("이미 사용중인 닉네임입니다.") }
+        val member = memberPort.get(id).changeNickname(newNickname)
+        println(member.nicknameHistories[0])
+        return MemberDto.Response(
+            id = member.id,
+            nickname = member.nickname,
+            email = member.email,
+            birthday = member.birthday,
+            createdAt = member.createdAt,
+            updatedAt = member.updatedAt,
+        )
     }
 }

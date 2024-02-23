@@ -35,4 +35,11 @@ class MemberDto {
         val createdAt: LocalDateTime,
         var updatedAt: LocalDateTime,
     )
+
+    @Schema(name = "닉네임 변경 요청 DTO")
+    data class ChangeNicknameRequest(
+        @field:NotBlank(message = "닉네임을 입력해주세요")
+        @Schema(title = "닉네임")
+        val nickname: String
+    )
 }
