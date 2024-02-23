@@ -68,7 +68,6 @@ class MemberService(
     override fun changeNickname(id: UUID, newNickname: String): MemberDto.Response {
         memberPort.getByNickname(newNickname)?.let { throw CannotChangeNicknameException("이미 사용중인 닉네임입니다.") }
         val member = memberPort.get(id).changeNickname(newNickname)
-        println(member.nicknameHistories[0])
         return MemberDto.Response(
             id = member.id,
             nickname = member.nickname,
