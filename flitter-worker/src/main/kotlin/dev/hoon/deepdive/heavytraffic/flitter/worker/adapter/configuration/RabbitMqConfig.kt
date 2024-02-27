@@ -24,9 +24,6 @@ class RabbitMqConfig(
     private val rabbitMqProperties: RabbitMqProperties,
 ) {
     @Bean
-    fun objectMapper() = ObjectMapper().registerKotlinModule()
-
-    @Bean
     fun messageConverter(objectMapper: ObjectMapper) = Jackson2JsonMessageConverter(objectMapper)
 
     @Bean
