@@ -3,7 +3,6 @@ package dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.out.repository
 import com.querydsl.jpa.impl.JPAQueryFactory
 import dev.hoon.deepdive.heavytraffic.flitter.domain.timeline.QTimeline.timeline
 import dev.hoon.deepdive.heavytraffic.flitter.domain.timeline.Timeline
-import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.out.repository.TimelineCustomRepository
 import org.springframework.stereotype.Repository
 import java.util.*
 

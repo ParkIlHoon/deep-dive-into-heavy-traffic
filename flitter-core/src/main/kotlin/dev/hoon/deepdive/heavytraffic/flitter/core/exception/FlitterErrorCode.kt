@@ -20,5 +20,9 @@ enum class FlitterErrorCode(
 
     TIMELINE_NOT_FOUND(40000, "타입라인을 찾지 못했습니다."),
     CANNOT_CREATE_TIMELINE(40001, "타입라인을 생성하지 못했습니다."),
-    CANNOT_DELETE_TIMELINE(40002, "타입라인을 삭제하지 못했습니다."),
+    CANNOT_DELETE_TIMELINE(40002, "타입라인을 삭제하지 못했습니다.");
+
+    companion object {
+        fun valueOf(code: Int): FlitterErrorCode = values().first { it.code == code }
+    }
 }

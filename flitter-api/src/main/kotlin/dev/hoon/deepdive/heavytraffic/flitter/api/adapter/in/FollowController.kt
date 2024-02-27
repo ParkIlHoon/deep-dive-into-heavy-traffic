@@ -1,8 +1,8 @@
 package dev.hoon.deepdive.heavytraffic.flitter.api.adapter.`in` // ktlint-disable package-name
 
-import dev.hoon.deepdive.heavytraffic.flitter.api.adapter.common.dto.ApiResponse
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.FollowingUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.UnFollowingUseCase
+import dev.hoon.deepdive.heavytraffic.flitter.core.dto.ApiResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -20,9 +20,9 @@ class FollowController(
     private val unFollowingUseCase: UnFollowingUseCase
 ) {
     @Operation(summary = "팔로우")
-    @PostMapping("/{from}/{to}")
-    fun follow(@PathVariable("from") followerId: UUID, @PathVariable("to") followId: UUID) =
-        ApiResponse.success(followingUseCase.follow(followerId, followId))
+    @PostMapping("/{followerMemberId}/{memberId}")
+    fun follow(@PathVariable("followerMemberId") followerMemberId: UUID, @PathVariable("memberId") memberId: UUID) =
+        ApiResponse.success(followingUseCase.follow(followerMemberId, memberId))
 
     @Operation(summary = "언팔로우")
     @DeleteMapping("/{from}/{to}")

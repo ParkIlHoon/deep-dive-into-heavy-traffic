@@ -6,7 +6,8 @@ import dev.hoon.deepdive.heavytraffic.flitter.core.exception.FlitterException
 /**
  * 팔로우 실패 예외
  */
-class CannotFollowException(cause: Throwable) : FlitterException(FlitterErrorCode.CANNOT_FOLLOW, cause)
+class CannotFollowException(cause: Throwable) : FlitterException(FlitterErrorCode.CANNOT_FOLLOW, cause) {
+}
 
 /**
  * 언팔로우 실패 예외

@@ -2,7 +2,6 @@ package dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.out.repository
 
 import dev.hoon.deepdive.heavytraffic.flitter.domain.UUIDPrimaryKey
 import dev.hoon.deepdive.heavytraffic.flitter.domain.timeline.Timeline
-import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.out.repository.TimelineCustomRepository
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import java.util.*

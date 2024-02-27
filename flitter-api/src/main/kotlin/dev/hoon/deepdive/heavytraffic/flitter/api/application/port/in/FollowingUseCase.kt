@@ -10,10 +10,10 @@ fun interface FollowingUseCase {
     /**
      * 팔로우
      *
-     * @param followerId 팔로워 회원 아이디
-     * @param followId 팔로우 대상 회원 아이디
+     * @param followerMemberId 팔로워 회원 아이디
+     * @param memberId 팔로우 대상 회원 아이디
      * @throws CannotFollowException 팔로우 실패 시
      */
     @Throws(CannotFollowException::class)
-    fun follow(followerId: UUID, followId: UUID)
+    fun follow(followerMemberId: UUID, memberId: UUID)
 }

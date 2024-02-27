@@ -8,6 +8,16 @@ import java.time.LocalDateTime
 import java.util.UUID
 
 class TimelineDto {
+    @Schema(name = "타임라인 생성 요청 DTO")
+    data class CreateRequest(
+        @Schema(title = "회원 아이디")
+        val memberId: UUID,
+        @Schema(title = "포스트 아이디")
+        val postId: UUID,
+        @Schema(title = "포스트 일시")
+        val postedAt: LocalDateTime
+    )
+
     @Schema(name = "타임라인 응답 DTO")
     data class Response(
         @Schema(title = "타임라인 아이디")

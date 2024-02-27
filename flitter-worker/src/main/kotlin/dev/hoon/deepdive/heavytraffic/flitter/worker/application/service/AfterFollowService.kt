@@ -1,9 +1,9 @@
 package dev.hoon.deepdive.heavytraffic.flitter.worker.application.service
 
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.MemberPort
-import dev.hoon.deepdive.heavytraffic.flitter.domain.timeline.Timeline
+import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.dto.TimelineDto
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.exception.CannotFollowException
-import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in`.AfterFollowProcessor
+import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in`.FollowUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.PostPort
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.TimelinePort
 import org.springframework.stereotype.Service
@@ -16,20 +16,24 @@ class AfterFollowService(
     private val memberPort: MemberPort,
     private val postPort: PostPort,
     private val timelinePort: TimelinePort,
-) : AfterFollowProcessor {
+) : FollowUseCase {
 
     @Transactional
-    override fun execute(followerId: UUID, followId: UUID) {
+    override fun executeFollowAfterTask(followerMemberId: UUID, memberId: UUID) {
         // 1. 회원 유효성 체크
-        validateMember(followerId) { CannotFollowException(it) }
-        validateMember(followId) { CannotFollowException(it) }
+        validateMember(followerMemberId) { CannotFollowException("유효하지 않은 팔로워입니다.", it) }
+        validateMember(memberId) { CannotFollowException("유효하지 않은 팔로우 대상입니다.", it) }
 
-        // 2. 팔로우 회원 포스트 조회
-        val posts = postPort.getByWriter(followId)
+        try {
+            // 2. 팔로우 대상 회원 포스트 조회
+            val timelines = postPort.getByWriter(memberId)
+                .map { TimelineDto.CreateRequest(memberId = followerMemberId, postId = it.id, postedAt = it.createdAt) }
 
-        // 3. 팔로워의 타임라인에 포스트 추가
-        val timelines = posts.map { Timeline(memberId = followerId, postId = it.id, postedAt = it.createdAt) }
-        timelinePort.saveAll(timelines)
+            // 3. 팔로워의 타임라인에 포스트 추가
+            timelinePort.createTimelines(timelines)
+        } catch (e: Exception) {
+            throw CannotFollowException(e)
+        }
     }
 
     private fun validateMember(memberId: UUID, thrower: (Exception) -> Exception) {

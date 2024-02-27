@@ -1,6 +1,6 @@
 package dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out
 
-import dev.hoon.deepdive.heavytraffic.flitter.domain.timeline.Timeline
+import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.dto.TimelineDto
 import java.util.*
 
 /**
@@ -12,7 +12,7 @@ interface TimelinePort {
      *
      * @param timelines 저장할 타임라인 목록
      */
-    fun saveAll(timelines: List<Timeline>): List<Timeline>
+    fun createTimelines(timelines: List<TimelineDto.CreateRequest>)
 
     /**
      * 삭제

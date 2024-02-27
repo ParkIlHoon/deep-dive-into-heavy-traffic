@@ -25,4 +25,6 @@ interface TimelinePort {
      * @return 타임라인 목록(포스팅 일시 역순정렬)
      */
     fun get(memberId: UUID, size: Long): List<Timeline>
+
+    fun create(timelines: List<Timeline>)
 }

@@ -5,10 +5,7 @@ import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.Can
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotLikePostException
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotUnLikePostException
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotWritePostException
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.DeletePostUseCase
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.LikePostUseCase
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.UnlikePostUseCase
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.WritePostUseCase
+import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.*
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MemberPort
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MessageQueuePort
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.PostLikePort
@@ -26,7 +23,17 @@ class PostService(
     private val postLikePort: PostLikePort,
     private val memberPort: MemberPort,
     private val messageQueuePort: MessageQueuePort,
-) : WritePostUseCase, DeletePostUseCase, LikePostUseCase, UnlikePostUseCase {
+) : ReadPostUseCase, WritePostUseCase, DeletePostUseCase, LikePostUseCase, UnlikePostUseCase {
+    override fun readAllByWriter(writerId: UUID): List<PostDto.Response> =
+        postPort.getByWriter(writerId)
+            .map { PostDto.Response(
+                id = it.id,
+                writerId = it.writerId,
+                contents = it.contents,
+                like = it.like,
+                createdAt = it.createdAt,
+                updatedAt = it.updatedAt
+            ) }
 
     @Transactional
     override fun write(postDto: PostDto.Request) {

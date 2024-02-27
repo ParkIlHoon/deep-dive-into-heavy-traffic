@@ -1,6 +1,6 @@
 package dev.hoon.deepdive.heavytraffic.flitter.api.adapter.common.exception
 
-import dev.hoon.deepdive.heavytraffic.flitter.api.adapter.common.dto.ApiResponse
+import dev.hoon.deepdive.heavytraffic.flitter.core.dto.ApiResponse
 import dev.hoon.deepdive.heavytraffic.flitter.core.exception.FlitterException
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException

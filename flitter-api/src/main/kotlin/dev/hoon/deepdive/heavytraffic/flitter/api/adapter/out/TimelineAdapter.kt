@@ -17,4 +17,9 @@ class TimelineAdapter(
 
     override fun get(memberId: UUID, size: Long): List<Timeline> =
         timelineRepository.findAllByMemberIdAndOrderByIdDesc(memberId, size)
+
+    @Transactional
+    override fun create(timelines: List<Timeline>) {
+        timelineRepository.saveAll(timelines)
+    }
 }

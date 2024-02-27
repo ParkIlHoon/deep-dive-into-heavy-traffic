@@ -1,10 +1,10 @@
 -- flitter.follow definition
 
 CREATE TABLE `follow` (
-                          `created_at` datetime(6) NOT NULL COMMENT '생성일시',
-                          `follower_member_id` binary(16) NOT NULL COMMENT '팔로워 회원 아이디',
                           `id` binary(16) NOT NULL COMMENT '아이디',
                           `member_id` binary(16) NOT NULL COMMENT '회원 아이디',
+                          `follower_member_id` binary(16) NOT NULL COMMENT '팔로워 회원 아이디',
+                          `created_at` datetime(6) NOT NULL COMMENT '생성일시',
                           PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='팔로우';
 

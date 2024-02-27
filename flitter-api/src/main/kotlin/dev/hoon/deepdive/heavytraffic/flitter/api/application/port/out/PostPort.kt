@@ -35,6 +35,14 @@ interface PostPort {
     fun get(ids: List<UUID>): List<Post>
 
     /**
+     * 조회
+     *
+     * @param writerId 조회할 작성자 회원 아이디
+     * @return 작성자 아이디에 해당하는 포스트 목록
+     */
+    fun getByWriter(writerId: UUID): List<Post>
+
+    /**
      * 삭제
      *
      * @param id 삭제할 포스트 아이디
