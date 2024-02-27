@@ -17,10 +17,10 @@ interface MessageQueuePort {
     /**
      * 팔로우 이벤트 발행
      *
-     * @param followerId 팔로워 회원 아이디
-     * @param followId 팔로우 대상 회원 아이디
+     * @param followerMemberId 팔로워 회원 아이디
+     * @param memberId 팔로우 대상 회원 아이디
      */
-    fun publishFollowEvent(followerId: UUID, followId: UUID)
+    fun publishFollowEvent(followerMemberId: UUID, memberId: UUID)
 
     /**
      * 언팔로우 이벤트 발행

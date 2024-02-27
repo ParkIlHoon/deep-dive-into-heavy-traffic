@@ -2,6 +2,9 @@
 CREATE UNIQUE INDEX `uk_member_nickname` ON `member` (`nickname`);
 CREATE UNIQUE INDEX `uk_member_email` ON `member` (`email`);
 
+-- follow 테이블 유니크키 조건
+CREATE UNIQUE INDEX `uk_follow_member_id_follower_member_id` ON `follow` (`member_id`, `follower_member_id`);
+
 -- 특정 회원의 타임라인 탐색/정렬을 위한 인덱스
 CREATE INDEX `idx_timeline_member` ON `timeline` (`member_id`, `posted_at`);
 

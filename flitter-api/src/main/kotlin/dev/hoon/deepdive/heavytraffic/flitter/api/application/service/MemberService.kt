@@ -5,6 +5,7 @@ import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.Can
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotJoinException
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotLeaveException
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.MemberChangeNicknameUseCase
+import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.ReadMemberUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.MemberJoinUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.MemberLeaveUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MemberPort
@@ -19,7 +20,18 @@ import java.util.*
 class MemberService(
     private val memberPort: MemberPort,
     private val messageQueuePort: MessageQueuePort,
-) : MemberJoinUseCase, MemberChangeNicknameUseCase, MemberLeaveUseCase {
+) : ReadMemberUseCase, MemberJoinUseCase, MemberChangeNicknameUseCase, MemberLeaveUseCase {
+    override fun read(memberId: UUID): MemberDto.Response {
+        val member = memberPort.get(memberId)
+        return MemberDto.Response(
+            id = member.id,
+            nickname = member.nickname,
+            email = member.email,
+            birthday = member.birthday,
+            createdAt = member.createdAt,
+            updatedAt = member.updatedAt,
+        )
+    }
     @Transactional
     override fun join(memberJoinRequest: MemberDto.JoinRequest): MemberDto.Response {
         // 유효성 체크

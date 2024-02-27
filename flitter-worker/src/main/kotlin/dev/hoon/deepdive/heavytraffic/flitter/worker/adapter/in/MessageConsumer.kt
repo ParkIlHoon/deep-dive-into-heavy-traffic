@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service
 class MessageConsumer(
     private val afterWritePostProcessor: AfterWritePostProcessor,
     private val afterDeletePostProcessor: AfterDeletePostProcessor,
-    private val afterFollowProcessor: AfterFollowProcessor,
     private val afterUnFollowProcessor: AfterUnFollowProcessor,
     private val afterMemberLeaveProcessor: AfterMemberLeaveProcessor,
 ) {
@@ -42,19 +41,6 @@ class MessageConsumer(
     )
     fun consumePostDeleteEvent(@Payload postDeleteEvent: PostDeleteEvent) {
         afterDeletePostProcessor.execute(postId = postDeleteEvent.postId)
-    }
-
-    @RabbitListener(
-        bindings = [
-            QueueBinding(
-                value = Queue(value = MessageQueueConstants.FOLLOW_QUEUE),
-                exchange = Exchange(value = MessageQueueConstants.EXCHANGE_DIRECT),
-                key = [MessageQueueConstants.FOLLOW_ROUTING_KEY],
-            ),
-        ],
-    )
-    fun consumeFollowEvent(@Payload followEvent: FollowEvent) {
-        afterFollowProcessor.execute(followerId = followEvent.followerId, followId = followEvent.followId)
     }
 
     @RabbitListener(

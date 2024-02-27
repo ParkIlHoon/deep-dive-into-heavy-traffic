@@ -32,6 +32,9 @@ class PostAdapter(
     override fun get(ids: List<UUID>): List<Post> =
         postRepository.findAllByIdIn(ids)
 
+    override fun getByWriter(writerId: UUID): List<Post> =
+        postRepository.findAllByWriterId(writerId)
+
     @Transactional
     override fun delete(id: UUID) = postRepository.deleteById(id)
 }

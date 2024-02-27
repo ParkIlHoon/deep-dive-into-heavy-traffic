@@ -1,4 +1,4 @@
-package dev.hoon.deepdive.heavytraffic.flitter.api.adapter.configuration
+package dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.configuration
 
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.core.JsonParser

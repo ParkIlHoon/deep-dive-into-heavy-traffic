@@ -18,6 +18,15 @@ dependencies {
     kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
     kapt("jakarta.persistence:jakarta.persistence-api")
     kapt("jakarta.annotation:jakarta.annotation-api")
+
+    // Open Feign
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+    }
 }
 
 tasks.withType<Jar> {

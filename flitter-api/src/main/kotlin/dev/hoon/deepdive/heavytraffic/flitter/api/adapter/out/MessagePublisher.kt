@@ -19,8 +19,8 @@ class MessagePublisher(
         rabbitTemplate.convertAndSend(MessageQueueConstants.EXCHANGE_DIRECT, MessageQueueConstants.POST_WROTE_ROUTING_KEY, PostWroteEvent(postId, writerId, postedAt))
     }
 
-    override fun publishFollowEvent(followerId: UUID, followId: UUID) {
-        rabbitTemplate.convertAndSend(MessageQueueConstants.EXCHANGE_DIRECT, MessageQueueConstants.FOLLOW_ROUTING_KEY, FollowEvent(followerId, followId))
+    override fun publishFollowEvent(followerMemberId: UUID, memberId: UUID) {
+        rabbitTemplate.convertAndSend(MessageQueueConstants.EXCHANGE_DIRECT, MessageQueueConstants.FOLLOW_ROUTING_KEY, FollowEvent(followerMemberId, memberId))
     }
 
     override fun publishUnFollowEvent(followerId: UUID, followId: UUID) {

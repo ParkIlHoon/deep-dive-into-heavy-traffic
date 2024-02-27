@@ -4,7 +4,7 @@ import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.Follow
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.MemberPort
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.PostPort
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.TimelinePort
-import dev.hoon.deepdive.heavytraffic.flitter.domain.timeline.Timeline
+import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.dto.TimelineDto
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.exception.CannotWritePostException
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in`.AfterWritePostProcessor
 import org.springframework.stereotype.Service
@@ -30,8 +30,8 @@ class AfterWritePostService(
         val followerIds = followPort.getByFollowMemberId(writerId).map { it.followerMemberId }
 
         // 3. 타임라인 생성
-        val timelines = followerIds.map { Timeline(memberId = it, postId = postId, postedAt = postedAt) }
-        timelinePort.saveAll(timelines)
+        val timelines = followerIds.map { TimelineDto.CreateRequest(memberId = it, postId = postId, postedAt = postedAt) }
+        timelinePort.createTimelines(timelines)
     }
 
     private fun validateMember(memberId: UUID, thrower: (Exception) -> Exception) {

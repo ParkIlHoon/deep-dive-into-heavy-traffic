@@ -2,8 +2,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
-    id("org.springframework.boot") version "3.1.3" apply false
-    id("io.spring.dependency-management") version "1.1.3" apply false
+    id("org.springframework.boot") version "3.2.3" apply false
+    id("io.spring.dependency-management") version "1.1.4" apply false
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.spring") version "1.8.22" apply false
     kotlin("plugin.jpa") version "1.8.22" apply false
@@ -17,6 +17,8 @@ allprojects {
     repositories {
         mavenCentral()
     }
+
+    extra["springCloudVersion"] = "2023.0.0"
 }
 
 subprojects {
