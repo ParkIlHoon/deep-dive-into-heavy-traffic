@@ -8,5 +8,4 @@ import org.springframework.context.annotation.Configuration
  */
 @Configuration
 @EnableFeignClients(basePackages = ["dev.hoon.deepdive.heavytraffic.flitter"])
-class FeignConfig {
-}
+class FeignConfig

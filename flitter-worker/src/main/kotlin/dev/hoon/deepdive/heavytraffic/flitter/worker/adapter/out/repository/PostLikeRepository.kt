@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.out.repository
 
 import dev.hoon.deepdive.heavytraffic.flitter.domain.UUIDPrimaryKey
@@ -8,7 +10,5 @@ import java.util.*
 
 @Repository
 interface PostLikeRepository : JpaRepository<PostLike, UUIDPrimaryKey> {
-
-    fun countByPostId(postId: UUID): Long
     fun deleteAllByMemberId(memberId: UUID)
 }

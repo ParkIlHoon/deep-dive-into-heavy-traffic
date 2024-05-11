@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.api.adapter.out
 
 import dev.hoon.deepdive.heavytraffic.flitter.api.adapter.out.repository.MemberRepository
@@ -20,17 +22,13 @@ class MemberAdapter(
     @Transactional
     override fun create(member: Member): Member = memberRepository.save(member)
 
-    override fun get(id: UUID): Member =
-        memberRepository.findById(id) ?: throw MemberNotFoundException("존재하지 않는 사용자입니다. id = $id")
+    override fun get(id: UUID): Member = memberRepository.findById(id) ?: throw MemberNotFoundException("존재하지 않는 사용자입니다. id = $id")
 
-    override fun get(ids: List<UUID>): List<Member> =
-        memberRepository.findAllByIdIn(ids)
+    override fun get(ids: List<UUID>): List<Member> = memberRepository.findAllByIdIn(ids)
 
-    override fun getByNickname(nickname: String): Member? =
-        memberRepository.findByNickname(nickname)
+    override fun getByNickname(nickname: String): Member? = memberRepository.findByNickname(nickname)
 
-    override fun getByEmail(email: String): Member? =
-        memberRepository.findByEmail(email)
+    override fun getByEmail(email: String): Member? = memberRepository.findByEmail(email)
 
     @Transactional
     override fun delete(id: UUID) = memberRepository.deleteById(id)

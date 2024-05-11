@@ -1,4 +1,6 @@
-package dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in` // ktlint-disable package-name
+@file:Suppress("ktlint:standard:package-name")
+
+package dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in`
 
 import java.util.UUID
 

@@ -1,7 +1,9 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.domain.post
 
 import dev.hoon.deepdive.heavytraffic.flitter.domain.UUIDPrimaryKey
-import jakarta.persistence.* // ktlint-disable no-wildcard-imports
+import jakarta.persistence.*
 import org.hibernate.annotations.Comment
 import java.time.LocalDateTime
 import java.util.UUID
@@ -13,7 +15,6 @@ class Post(
     writerId: UUID,
     contents: String,
 ) : UUIDPrimaryKey() {
-
     @Column(nullable = false, columnDefinition = "BINARY(16)")
     @Comment("작성자 아이디")
     var writerId: UUID = writerId

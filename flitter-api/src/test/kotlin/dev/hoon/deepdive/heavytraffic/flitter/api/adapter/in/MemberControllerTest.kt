@@ -1,8 +1,10 @@
 package dev.hoon.deepdive.heavytraffic.flitter.api.adapter.`in`
 
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.dto.MemberDto
+import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.MemberChangeNicknameUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.MemberJoinUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.MemberLeaveUseCase
+import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.ReadMemberUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.core.utils.IdGenerator
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -20,6 +22,10 @@ class MemberControllerTest {
 
     @Mock
     private lateinit var memberLeaveUseCase: MemberLeaveUseCase
+    @Mock
+    private lateinit var readMemberUseCase: ReadMemberUseCase
+    @Mock
+    private lateinit var memberChangeNicknameUseCase: MemberChangeNicknameUseCase
 
     @Test
     fun `join success`() {
@@ -41,7 +47,7 @@ class MemberControllerTest {
         val memberJoinUseCase = mock<MemberJoinUseCase>() {
             on { join(anyVararg(MemberDto.JoinRequest::class)) } doReturn mockResponse
         }
-        val memberController = MemberController(memberJoinUseCase, memberLeaveUseCase)
+        val memberController = MemberController(memberJoinUseCase, readMemberUseCase, memberChangeNicknameUseCase, memberLeaveUseCase)
 
         // when
         val apiResponse = memberController.join(mockRequest)

@@ -1,4 +1,6 @@
-package dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in` // ktlint-disable package-name
+@file:Suppress("ktlint:standard:package-name")
+
+package dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in`
 
 import java.time.LocalDateTime
 import java.util.UUID
@@ -16,5 +18,9 @@ fun interface AfterWritePostProcessor {
      * @param writerId 작성자 회원 아이디
      * @param postedAt 포스팅 일시
      */
-    fun execute(postId: UUID, writerId: UUID, postedAt: LocalDateTime)
+    fun execute(
+        postId: UUID,
+        writerId: UUID,
+        postedAt: LocalDateTime,
+    )
 }

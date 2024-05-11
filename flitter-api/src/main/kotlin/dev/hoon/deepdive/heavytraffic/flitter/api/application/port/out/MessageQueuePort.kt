@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out
 
 import java.time.LocalDateTime
@@ -12,7 +14,11 @@ interface MessageQueuePort {
      *
      * @param post 작성된 포스트
      */
-    fun publishPostWroteEvent(postId: UUID, writerId: UUID, postedAt: LocalDateTime)
+    fun publishPostWroteEvent(
+        postId: UUID,
+        writerId: UUID,
+        postedAt: LocalDateTime,
+    )
 
     /**
      * 팔로우 이벤트 발행
@@ -20,15 +26,21 @@ interface MessageQueuePort {
      * @param followerMemberId 팔로워 회원 아이디
      * @param memberId 팔로우 대상 회원 아이디
      */
-    fun publishFollowEvent(followerMemberId: UUID, memberId: UUID)
+    fun publishFollowEvent(
+        followerMemberId: UUID,
+        memberId: UUID,
+    )
 
     /**
      * 언팔로우 이벤트 발행
      *
-     * @param followerId 팔로워 회원 아이디
-     * @param followId 언팔로우 대상 회원 아이디
+     * @param followerMemberId 팔로워 회원 아이디
+     * @param memberId 언팔로우 대상 회원 아이디
      */
-    fun publishUnFollowEvent(followerId: UUID, followId: UUID)
+    fun publishUnFollowEvent(
+        followerMemberId: UUID,
+        memberId: UUID,
+    )
 
     /**
      * 회원 탈퇴 이벤트 발행

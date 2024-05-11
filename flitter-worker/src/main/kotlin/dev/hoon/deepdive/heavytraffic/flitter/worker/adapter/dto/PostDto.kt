@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.dto
 
 import java.time.LocalDateTime
@@ -10,6 +12,6 @@ class PostDto {
         val contents: String,
         val like: Long,
         val createdAt: LocalDateTime,
-        val updatedAt: LocalDateTime
+        val updatedAt: LocalDateTime,
     )
 }

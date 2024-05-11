@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler
  */
 @ControllerAdvice
 class GlobalExceptionHandler {
-
     @ExceptionHandler(MethodArgumentNotValidException::class)
     fun handleMethodArgumentNotValidException(exception: MethodArgumentNotValidException): ResponseEntity<ApiResponse<Unit>> {
-        val message = exception.bindingResult.allErrors.map {
-            it.defaultMessage
-        }.joinToString()
+        val message =
+            exception.bindingResult.allErrors.map {
+                it.defaultMessage
+            }.joinToString()
         return ResponseEntity.ok(ApiResponse.fail(message))
     }
 

@@ -7,8 +7,17 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import java.util.UUID
 
+/**
+ * 포스트 API FeignClient
+ */
 @FeignClient(name = "post-api", url = "\${application.feign.post-api.url}")
+@SuppressWarnings("kotlin:S6517")
 interface PostClient {
+    /**
+     * 포스트 목록 조회
+     */
     @GetMapping("/api/v1.0/posts")
-    fun getPost(@RequestParam("writerId") writerId: UUID): ApiResponse<List<PostDto.Response>>
+    fun getPostByWriter(
+        @RequestParam("writerId") writerId: UUID,
+    ): ApiResponse<List<PostDto.Response>>
 }

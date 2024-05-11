@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.api.adapter.out
 
 import dev.hoon.deepdive.heavytraffic.flitter.api.adapter.out.repository.PostLikeRepository
@@ -26,14 +28,11 @@ class PostAdapter(
     @Transactional
     override fun create(post: Post): Post = postRepository.save(post)
 
-    override fun get(id: UUID): Post =
-        postRepository.findById(id) ?: throw PostNotFoundException("존재하지 않는 포스트입니다. id = $id")
+    override fun get(id: UUID): Post = postRepository.findById(id) ?: throw PostNotFoundException("존재하지 않는 포스트입니다. id = $id")
 
-    override fun get(ids: List<UUID>): List<Post> =
-        postRepository.findAllByIdIn(ids)
+    override fun get(ids: List<UUID>): List<Post> = postRepository.findAllByIdIn(ids)
 
-    override fun getByWriter(writerId: UUID): List<Post> =
-        postRepository.findAllByWriterId(writerId)
+    override fun getByWriter(writerId: UUID): List<Post> = postRepository.findAllByWriterId(writerId)
 
     @Transactional
     override fun delete(id: UUID) = postRepository.deleteById(id)

@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:package-name")
+
 package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`
 
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.dto.MemberDto
@@ -16,5 +18,8 @@ fun interface MemberChangeNicknameUseCase {
      * @throws CannotChangeNicknameException 닉네임 변경 실패시
      */
     @Throws(CannotChangeNicknameException::class)
-    fun changeNickname(id: UUID, newNickname: String): MemberDto.Response
+    fun changeNickname(
+        id: UUID,
+        newNickname: String,
+    ): MemberDto.Response
 }

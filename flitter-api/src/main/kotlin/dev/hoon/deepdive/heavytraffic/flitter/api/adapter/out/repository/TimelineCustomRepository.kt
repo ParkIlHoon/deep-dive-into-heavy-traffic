@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.api.adapter.out.repository
 
 import dev.hoon.deepdive.heavytraffic.flitter.domain.timeline.Timeline
@@ -12,7 +14,11 @@ interface TimelineCustomRepository {
      * @param size 조회 건수
      * @return 타임라인 목록(포스팅 일시 역순정렬)
      */
-    fun findAllByLessThanIdAndMemberIdAndOrderByIdDesc(timelineId: UUID, memberId: UUID, size: Long): List<Timeline>
+    fun findAllByLessThanIdAndMemberIdAndOrderByIdDesc(
+        timelineId: UUID,
+        memberId: UUID,
+        size: Long,
+    ): List<Timeline>
 
     /**
      * 조회
@@ -21,5 +27,8 @@ interface TimelineCustomRepository {
      * @param size 조회 건수
      * @return 타임라인 목록(포스팅 일시 역순정렬)
      */
-    fun findAllByMemberIdAndOrderByIdDesc(memberId: UUID, size: Long): List<Timeline>
+    fun findAllByMemberIdAndOrderByIdDesc(
+        memberId: UUID,
+        size: Long,
+    ): List<Timeline>
 }

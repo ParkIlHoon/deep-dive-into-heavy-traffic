@@ -1,4 +1,6 @@
-package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in` // ktlint-disable package-name
+@file:Suppress("ktlint:standard:no-wildcard-imports", "ktlint:standard:package-name")
+
+package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`
 
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotLeaveException
 import java.util.*

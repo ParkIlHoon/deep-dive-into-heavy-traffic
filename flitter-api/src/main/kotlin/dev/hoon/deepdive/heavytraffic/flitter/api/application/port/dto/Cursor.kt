@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.dto
 
 import dev.hoon.deepdive.heavytraffic.flitter.core.utils.IdGenerator
@@ -5,12 +7,15 @@ import java.util.*
 
 data class CursorRequest(
     val key: UUID = NO_KEY,
-    val size: Long = 10
+    val size: Long = 10,
 ) {
     companion object {
         val NO_KEY = IdGenerator.min()
 
-        fun of(key: UUID?, size: Long?) = CursorRequest(
+        fun of(
+            key: UUID?,
+            size: Long?,
+        ) = CursorRequest(
             key = key ?: NO_KEY,
             size = size ?: 10,
         )

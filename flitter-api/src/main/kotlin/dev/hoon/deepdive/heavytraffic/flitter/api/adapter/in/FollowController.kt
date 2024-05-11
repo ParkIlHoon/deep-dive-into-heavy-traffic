@@ -1,4 +1,6 @@
-package dev.hoon.deepdive.heavytraffic.flitter.api.adapter.`in` // ktlint-disable package-name
+@file:Suppress("ktlint:standard:package-name")
+
+package dev.hoon.deepdive.heavytraffic.flitter.api.adapter.`in`
 
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.FollowingUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.UnFollowingUseCase
@@ -17,15 +19,19 @@ import java.util.UUID
 @RequestMapping("/api/v1.0/follow")
 class FollowController(
     private val followingUseCase: FollowingUseCase,
-    private val unFollowingUseCase: UnFollowingUseCase
+    private val unFollowingUseCase: UnFollowingUseCase,
 ) {
     @Operation(summary = "팔로우")
     @PostMapping("/{followerMemberId}/{memberId}")
-    fun follow(@PathVariable("followerMemberId") followerMemberId: UUID, @PathVariable("memberId") memberId: UUID) =
-        ApiResponse.success(followingUseCase.follow(followerMemberId, memberId))
+    fun follow(
+        @PathVariable("followerMemberId") followerMemberId: UUID,
+        @PathVariable("memberId") memberId: UUID,
+    ): ApiResponse<Unit> = ApiResponse.success(followingUseCase.follow(followerMemberId, memberId))
 
     @Operation(summary = "언팔로우")
-    @DeleteMapping("/{from}/{to}")
-    fun unfollow(@PathVariable("from") followerId: UUID, @PathVariable("to") followId: UUID) =
-        ApiResponse.success(unFollowingUseCase.unFollow(followerId, followId))
+    @DeleteMapping("/{followerMemberId}/{memberId}")
+    fun unfollow(
+        @PathVariable("followerMemberId") followerMemberId: UUID,
+        @PathVariable("memberId") memberId: UUID,
+    ): ApiResponse<Unit> = ApiResponse.success(unFollowingUseCase.unFollow(followerMemberId, memberId))
 }

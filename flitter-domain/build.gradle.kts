@@ -17,6 +17,8 @@ dependencies {
     kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
     kapt("jakarta.persistence:jakarta.persistence-api")
     kapt("jakarta.annotation:jakarta.annotation-api")
+
+    kapt("org.hibernate:hibernate-jpamodelgen:6.4.4.Final")
 }
 
 // JPA Entity Lazy loading

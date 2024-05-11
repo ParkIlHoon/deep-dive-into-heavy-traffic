@@ -8,7 +8,6 @@ import java.util.UUID
 
 @Repository
 interface MemberRepository : JpaRepository<Member, UUIDPrimaryKey> {
-
     fun findById(id: UUID): Member?
 
     fun findAllByIdIn(ids: List<UUID>): List<Member>

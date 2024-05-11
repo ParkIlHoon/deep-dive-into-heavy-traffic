@@ -1,7 +1,6 @@
 package dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.configuration
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.properties.RabbitMqProperties
 import org.springframework.amqp.core.AcknowledgeMode
 import org.springframework.amqp.rabbit.annotation.EnableRabbit
@@ -27,12 +26,14 @@ class RabbitMqConfig(
     fun messageConverter(objectMapper: ObjectMapper) = Jackson2JsonMessageConverter(objectMapper)
 
     @Bean
-    fun rabbitTemplate(connectionFactory: ConnectionFactory, messageConverter: MessageConverter) =
-        RabbitTemplate(connectionFactory)
-            .apply {
-                isChannelTransacted = true
-                setMessageConverter(messageConverter)
-            }
+    fun rabbitTemplate(
+        connectionFactory: ConnectionFactory,
+        messageConverter: MessageConverter,
+    ) = RabbitTemplate(connectionFactory)
+        .apply {
+            isChannelTransacted = true
+            setMessageConverter(messageConverter)
+        }
 
     @Bean
     fun retryOperationsInterceptor(rabbitTemplate: RabbitTemplate): RetryOperationsInterceptor =

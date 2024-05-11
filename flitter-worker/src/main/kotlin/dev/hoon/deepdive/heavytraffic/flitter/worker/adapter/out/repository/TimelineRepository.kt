@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.out.repository
 
 import dev.hoon.deepdive.heavytraffic.flitter.domain.UUIDPrimaryKey
@@ -8,10 +10,6 @@ import java.util.*
 
 @Repository
 interface TimelineRepository : JpaRepository<Timeline, UUIDPrimaryKey>, TimelineCustomRepository {
-    fun findAllByMemberIdAndPostIdIn(memberId: UUID, postIds: List<UUID>): List<Timeline>
-
-    fun deleteAllByMemberIdAndPostIdIn(memberId: UUID, postIds: List<UUID>)
-    fun findAllByMemberId(memberId: UUID): List<Timeline>
     fun deleteAllByPostIdIn(postIds: List<UUID>)
 
     fun deleteAllByPostId(postId: UUID)

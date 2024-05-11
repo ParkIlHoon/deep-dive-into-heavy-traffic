@@ -15,5 +15,4 @@ interface PostRepository : JpaRepository<Post, UUIDPrimaryKey> {
     fun findAllByWriterId(writerId: UUID): List<Post>
 
     fun deleteById(id: UUID)
-    fun deleteAllByWriterId(writerId: UUID)
 }

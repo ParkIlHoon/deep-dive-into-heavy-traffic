@@ -1,4 +1,6 @@
-package dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.`in` // ktlint-disable package-name
+@file:Suppress("ktlint:standard:no-wildcard-imports", "ktlint:standard:package-name")
+
+package dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.`in`
 
 import dev.hoon.deepdive.heavytraffic.flitter.core.constants.MessageQueueConstants
 import dev.hoon.deepdive.heavytraffic.flitter.core.event.*
@@ -14,7 +16,6 @@ import org.springframework.stereotype.Service
 class MessageConsumer(
     private val afterWritePostProcessor: AfterWritePostProcessor,
     private val afterDeletePostProcessor: AfterDeletePostProcessor,
-    private val afterUnFollowProcessor: AfterUnFollowProcessor,
     private val afterMemberLeaveProcessor: AfterMemberLeaveProcessor,
 ) {
     @RabbitListener(
@@ -26,8 +27,14 @@ class MessageConsumer(
             ),
         ],
     )
-    fun consumePostWroteEvent(@Payload postWroteEvent: PostWroteEvent) {
-        afterWritePostProcessor.execute(postId = postWroteEvent.postId, writerId = postWroteEvent.writerId, postedAt = postWroteEvent.postedAt)
+    fun consumePostWroteEvent(
+        @Payload postWroteEvent: PostWroteEvent,
+    ) {
+        afterWritePostProcessor.execute(
+            postId = postWroteEvent.postId,
+            writerId = postWroteEvent.writerId,
+            postedAt = postWroteEvent.postedAt,
+        )
     }
 
     @RabbitListener(
@@ -39,21 +46,10 @@ class MessageConsumer(
             ),
         ],
     )
-    fun consumePostDeleteEvent(@Payload postDeleteEvent: PostDeleteEvent) {
+    fun consumePostDeleteEvent(
+        @Payload postDeleteEvent: PostDeleteEvent,
+    ) {
         afterDeletePostProcessor.execute(postId = postDeleteEvent.postId)
-    }
-
-    @RabbitListener(
-        bindings = [
-            QueueBinding(
-                value = Queue(value = MessageQueueConstants.UNFOLLOW_QUEUE),
-                exchange = Exchange(value = MessageQueueConstants.EXCHANGE_DIRECT),
-                key = [MessageQueueConstants.UNFOLLOW_ROUTING_KEY],
-            ),
-        ],
-    )
-    fun consumeUnFollowEvent(@Payload unFollowEvent: UnFollowEvent) {
-        afterUnFollowProcessor.execute(followerId = unFollowEvent.followerId, followId = unFollowEvent.followId)
     }
 
     @RabbitListener(
@@ -65,7 +61,9 @@ class MessageConsumer(
             ),
         ],
     )
-    fun consumeMemberLeaveEvent(@Payload memberLeaveEvent: MemberLeaveEvent) {
+    fun consumeMemberLeaveEvent(
+        @Payload memberLeaveEvent: MemberLeaveEvent,
+    ) {
         afterMemberLeaveProcessor.execute(memberId = memberLeaveEvent.memberId)
     }
 }

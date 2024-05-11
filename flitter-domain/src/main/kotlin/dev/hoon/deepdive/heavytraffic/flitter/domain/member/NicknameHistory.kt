@@ -1,7 +1,9 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.domain.member
 
 import dev.hoon.deepdive.heavytraffic.flitter.domain.UUIDPrimaryKey
-import jakarta.persistence.* // ktlint-disable no-wildcard-imports
+import jakarta.persistence.*
 import org.hibernate.annotations.Comment
 import java.time.LocalDateTime
 

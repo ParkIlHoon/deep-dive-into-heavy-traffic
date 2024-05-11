@@ -4,7 +4,6 @@ package dev.hoon.deepdive.heavytraffic.flitter.core.exception
  * Flitter 상위 예외
  */
 open class FlitterException : RuntimeException {
-
     private val flitterErrorCode: FlitterErrorCode
 
     constructor(flitterErrorCode: FlitterErrorCode) : super(flitterErrorCode.message) {
@@ -21,6 +20,6 @@ open class FlitterException : RuntimeException {
     }
 
     fun getErrorCode() = this.flitterErrorCode.code
+
     fun getErrorMessage() = message
 }
-
