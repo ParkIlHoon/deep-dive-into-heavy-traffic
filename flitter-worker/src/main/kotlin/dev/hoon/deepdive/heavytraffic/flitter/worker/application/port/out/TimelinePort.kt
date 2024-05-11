@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out
 
 import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.dto.TimelineDto
@@ -27,5 +29,8 @@ interface TimelinePort {
      * @param memberId 회원 아이디
      */
     fun deleteAllByMemberId(memberId: UUID)
+
     fun deleteAllByPostIdIn(postIds: List<UUID>)
+
+    fun deleteTimelines(deleteTargets: List<TimelineDto.DeleteRequest>)
 }

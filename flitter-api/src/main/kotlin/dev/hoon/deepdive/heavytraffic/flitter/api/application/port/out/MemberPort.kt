@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out
 
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.MemberNotFoundException

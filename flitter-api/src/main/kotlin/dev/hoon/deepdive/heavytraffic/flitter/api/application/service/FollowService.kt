@@ -1,6 +1,11 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.api.application.service
 
+import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.AlreadyFollowException
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotFollowException
+import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotUnFollowException
+import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.NotFollowException
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.FollowingUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.UnFollowingUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.FollowPort
@@ -16,9 +21,12 @@ class FollowService(
     private val followPort: FollowPort,
     private val messageQueuePort: MessageQueuePort,
 ) : FollowingUseCase, UnFollowingUseCase {
-
     @Transactional
-    override fun follow(followerMemberId: UUID, memberId: UUID) {
+    override fun follow(
+        followerMemberId: UUID,
+        memberId: UUID,
+    ) {
+        followPort.find(followerMemberId, memberId)?.let { throw AlreadyFollowException() }
         try {
             followPort.create(Follow(followerMemberId = followerMemberId, memberId = memberId))
                 .let { messageQueuePort.publishFollowEvent(followerMemberId, memberId) }
@@ -28,8 +36,16 @@ class FollowService(
     }
 
     @Transactional
-    override fun unFollow(followerId: UUID, followId: UUID) {
-        followPort.delete(followerId = followerId, followId = followId)
-        messageQueuePort.publishUnFollowEvent(followerId, followId)
+    override fun unFollow(
+        followerMemberId: UUID,
+        memberId: UUID,
+    ) {
+        val follow = followPort.find(followerMemberId, memberId) ?: throw NotFollowException()
+        try {
+            followPort.delete(follow)
+                .let { messageQueuePort.publishUnFollowEvent(followerMemberId, memberId) }
+        } catch (e: Exception) {
+            throw CannotUnFollowException(e)
+        }
     }
 }

@@ -1,7 +1,9 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.domain.member
 
 import dev.hoon.deepdive.heavytraffic.flitter.domain.UUIDPrimaryKey
-import jakarta.persistence.* // ktlint-disable no-wildcard-imports
+import jakarta.persistence.*
 import org.hibernate.annotations.Comment
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -14,7 +16,6 @@ class Member(
     email: String,
     birthday: LocalDate,
 ) : UUIDPrimaryKey() {
-
     @Column(nullable = false)
     @Comment("닉네임")
     var nickname: String = nickname
@@ -55,10 +56,11 @@ class Member(
      * @return 기존 닉네임 히스토리
      */
     fun changeNickname(nickname: String): Member {
-        val nicknameHistory = NicknameHistory(
-            member = this,
-            nickname = this.nickname,
-        )
+        val nicknameHistory =
+            NicknameHistory(
+                member = this,
+                nickname = this.nickname,
+            )
         this.nickname = nickname
         this.updatedAt = LocalDateTime.now()
         this.mutableNicknameHistories.add(nicknameHistory)

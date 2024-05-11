@@ -22,17 +22,18 @@ import org.springframework.retry.interceptor.RetryOperationsInterceptor
 class RabbitMqConfig(
     private val rabbitMqProperties: RabbitMqProperties,
 ) {
-
     @Bean
     fun messageConverter(objectMapper: ObjectMapper) = Jackson2JsonMessageConverter(objectMapper)
 
     @Bean
-    fun rabbitTemplate(connectionFactory: ConnectionFactory, messageConverter: MessageConverter) =
-        RabbitTemplate(connectionFactory)
-            .apply {
-                isChannelTransacted = true
-                setMessageConverter(messageConverter)
-            }
+    fun rabbitTemplate(
+        connectionFactory: ConnectionFactory,
+        messageConverter: MessageConverter,
+    ) = RabbitTemplate(connectionFactory)
+        .apply {
+            isChannelTransacted = true
+            setMessageConverter(messageConverter)
+        }
 
     @Bean
     fun retryOperationsInterceptor(rabbitTemplate: RabbitTemplate): RetryOperationsInterceptor =

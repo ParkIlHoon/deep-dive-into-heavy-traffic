@@ -1,10 +1,15 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out
 
 import dev.hoon.deepdive.heavytraffic.flitter.domain.follow.Follow
 import java.util.*
 
 interface FollowPort {
-    fun delete(followerId: UUID, followId: UUID)
+    fun delete(
+        followerId: UUID,
+        followId: UUID,
+    )
 
     fun delete(followId: UUID)
 

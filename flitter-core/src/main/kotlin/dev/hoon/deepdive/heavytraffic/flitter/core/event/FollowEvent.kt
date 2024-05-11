@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.core.event
 
 import java.util.*
@@ -10,5 +12,5 @@ import java.util.*
  */
 data class FollowEvent(
     val followerMemberId: UUID,
-    val memberId: UUID
+    val memberId: UUID,
 )

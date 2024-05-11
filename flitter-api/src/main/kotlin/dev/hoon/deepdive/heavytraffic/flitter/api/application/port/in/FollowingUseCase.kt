@@ -1,5 +1,8 @@
-package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in` // ktlint-disable package-name
+@file:Suppress("ktlint:standard:no-wildcard-imports", "ktlint:standard:package-name")
 
+package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`
+
+import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.AlreadyFollowException
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotFollowException
 import java.util.*
 
@@ -12,8 +15,12 @@ fun interface FollowingUseCase {
      *
      * @param followerMemberId 팔로워 회원 아이디
      * @param memberId 팔로우 대상 회원 아이디
+     * @throws AlreadyFollowException 이미 팔로우 중일 경우
      * @throws CannotFollowException 팔로우 실패 시
      */
-    @Throws(CannotFollowException::class)
-    fun follow(followerMemberId: UUID, memberId: UUID)
+    @Throws(AlreadyFollowException::class, CannotFollowException::class)
+    fun follow(
+        followerMemberId: UUID,
+        memberId: UUID,
+    )
 }

@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.domain
 
 import dev.hoon.deepdive.heavytraffic.flitter.core.utils.IdGenerator
@@ -19,6 +21,7 @@ abstract class UUIDPrimaryKey : Persistable<UUID> {
     @Comment("아이디")
     private var id: UUID = IdGenerator.generate()
 
+    @Suppress("ktlint:standard:backing-property-naming")
     @Transient
     private var _isNew = true
 

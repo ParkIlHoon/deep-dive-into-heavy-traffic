@@ -1,11 +1,13 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.out
 
-import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.out.repository.PostLikeRepository
-import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.out.repository.PostRepository
 import dev.hoon.deepdive.heavytraffic.flitter.domain.post.Post
 import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.dto.PostDto
 import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.exception.FlitterApiException
 import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.out.feign.PostClient
+import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.out.repository.PostLikeRepository
+import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.out.repository.PostRepository
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.exception.PostNotFoundException
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.PostLikePort
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.PostPort
@@ -20,11 +22,10 @@ class PostAdapter(
     private val postRepository: PostRepository,
     private val postLikeRepository: PostLikeRepository,
 ) : PostPort, PostLikePort {
-    override fun get(id: UUID): Post =
-        postRepository.findById(id) ?: throw PostNotFoundException("존재하지 않는 포스트입니다. id = $id")
+    override fun get(id: UUID): Post = postRepository.findById(id) ?: throw PostNotFoundException("존재하지 않는 포스트입니다. id = $id")
 
     override fun getByWriter(memberId: UUID): List<PostDto.Response> {
-        val apiResponse = postClient.getPost(memberId)
+        val apiResponse = postClient.getPostByWriter(memberId)
         if (!apiResponse.header.successful) {
             throw FlitterApiException(apiResponse.header.resultCode, apiResponse.header.resultMessage)
         }

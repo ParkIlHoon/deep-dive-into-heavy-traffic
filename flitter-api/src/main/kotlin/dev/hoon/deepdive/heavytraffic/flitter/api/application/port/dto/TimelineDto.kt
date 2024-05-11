@@ -15,7 +15,15 @@ class TimelineDto {
         @Schema(title = "포스트 아이디")
         val postId: UUID,
         @Schema(title = "포스트 일시")
-        val postedAt: LocalDateTime
+        val postedAt: LocalDateTime,
+    )
+
+    @Schema(name = "타임라인 삭제 요청 DTO")
+    data class DeleteRequest(
+        @Schema(title = "회원 아이디")
+        val memberId: UUID,
+        @Schema(title = "포스트 아이디")
+        val postId: UUID,
     )
 
     @Schema(name = "타임라인 응답 DTO")
@@ -36,16 +44,19 @@ class TimelineDto {
         val createdAt: LocalDateTime,
     ) {
         companion object {
-            fun of(timeline: Timeline, post: Post, writer: Member) =
-                Response(
-                    id = timeline.id,
-                    postId = timeline.postId,
-                    writerId = post.writerId,
-                    writerNickname = writer.nickname,
-                    contents = post.contents,
-                    like = post.like,
-                    createdAt = post.createdAt,
-                )
+            fun of(
+                timeline: Timeline,
+                post: Post,
+                writer: Member,
+            ) = Response(
+                id = timeline.id,
+                postId = timeline.postId,
+                writerId = post.writerId,
+                writerNickname = writer.nickname,
+                contents = post.contents,
+                like = post.like,
+                createdAt = post.createdAt,
+            )
         }
     }
 }

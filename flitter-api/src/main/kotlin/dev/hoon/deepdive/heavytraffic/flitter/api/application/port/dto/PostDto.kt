@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.dto
 
 import io.swagger.v3.oas.annotations.media.Schema
@@ -26,6 +28,6 @@ class PostDto {
         @Schema(name = "생성일시")
         val createdAt: LocalDateTime,
         @Schema(name = "수정일시")
-        val updatedAt: LocalDateTime
+        val updatedAt: LocalDateTime,
     )
 }

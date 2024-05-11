@@ -1,4 +1,6 @@
-package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in` // ktlint-disable package-name
+@file:Suppress("ktlint:standard:package-name")
+
+package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`
 
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.dto.PostDto
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotWritePostException

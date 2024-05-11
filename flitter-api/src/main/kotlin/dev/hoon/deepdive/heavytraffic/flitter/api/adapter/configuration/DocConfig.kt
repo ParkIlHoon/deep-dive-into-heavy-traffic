@@ -24,6 +24,7 @@ class DocConfig {
         )
 
     @Bean
+    @SuppressWarnings("kotlin:S100", "ktlint:standard:function-naming")
     fun apiV1_0(): GroupedOpenApi =
         GroupedOpenApi.builder()
             .group("v1.0")

@@ -1,4 +1,6 @@
-package dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in` // ktlint-disable package-name
+@file:Suppress("ktlint:standard:package-name")
+
+package dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in`
 
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.exception.CannotFollowException
 import java.util.UUID
@@ -17,5 +19,8 @@ fun interface FollowUseCase {
      * @throws CannotFollowException 팔로우 후처리 작업 실패 시
      */
     @Throws(CannotFollowException::class)
-    fun executeFollowAfterTask(followerMemberId: UUID, memberId: UUID)
+    fun executeFollowAfterTask(
+        followerMemberId: UUID,
+        memberId: UUID,
+    )
 }

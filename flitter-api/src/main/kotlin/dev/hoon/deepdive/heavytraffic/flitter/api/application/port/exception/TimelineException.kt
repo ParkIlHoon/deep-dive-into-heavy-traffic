@@ -3,8 +3,6 @@ package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception
 import dev.hoon.deepdive.heavytraffic.flitter.core.exception.FlitterErrorCode
 import dev.hoon.deepdive.heavytraffic.flitter.core.exception.FlitterException
 
-// ktlint-disable filename
-
 /**
  * 타임라인 조회 실패 예외
  */

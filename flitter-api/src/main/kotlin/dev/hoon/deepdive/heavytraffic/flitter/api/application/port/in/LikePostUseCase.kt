@@ -1,4 +1,6 @@
-package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in` // ktlint-disable package-name
+@file:Suppress("ktlint:standard:no-wildcard-imports", "ktlint:standard:package-name")
+
+package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`
 
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotLikePostException
 import java.util.*
@@ -15,5 +17,8 @@ fun interface LikePostUseCase {
      * @throws CannotLikePostException 좋아요 실패 시
      */
     @Throws(CannotLikePostException::class)
-    fun like(memberId: UUID, postId: UUID)
+    fun like(
+        memberId: UUID,
+        postId: UUID,
+    )
 }

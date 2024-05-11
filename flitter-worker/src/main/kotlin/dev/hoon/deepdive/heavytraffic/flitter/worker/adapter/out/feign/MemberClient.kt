@@ -11,6 +11,7 @@ import java.util.UUID
  * 회원 API FeignClient
  */
 @FeignClient(name = "member-api", url = "\${application.feign.member-api.url}")
+@SuppressWarnings("kotlin:S6517")
 interface MemberClient {
     /**
      * 회원 조회
@@ -18,5 +19,7 @@ interface MemberClient {
      * @return 회원 아이디에 해당하는 회원 정보가 담긴 API 응답 객체
      */
     @GetMapping("/api/v1.0/members/{memberId}")
-    fun getMember(@PathVariable("memberId") memberId: UUID): ApiResponse<MemberDto.Response>
+    fun getMember(
+        @PathVariable("memberId") memberId: UUID,
+    ): ApiResponse<MemberDto.Response>
 }

@@ -10,7 +10,9 @@ enum class FlitterErrorCode(
     CANNOT_CHANGE_NICKNAME(10003, "닉네임을 변경할 수 없습니다."),
 
     CANNOT_FOLLOW(20000, "팔로우하지 못했습니다."),
+    ALREADY_FOLLOW(20001, "이미 팔로우중입니다."),
     CANNOT_UNFOLLOW(25000, "언팔로우하지 못했습니다."),
+    NOT_FOLLOW(25001, "팔로우하지 않았습니다."),
 
     POST_NOT_FOUND(30000, "존재하지 않는 포스트입니다."),
     CANNOT_WRITE_POST(30001, "포스트를 작성하지 못했습니다."),
@@ -20,7 +22,8 @@ enum class FlitterErrorCode(
 
     TIMELINE_NOT_FOUND(40000, "타입라인을 찾지 못했습니다."),
     CANNOT_CREATE_TIMELINE(40001, "타입라인을 생성하지 못했습니다."),
-    CANNOT_DELETE_TIMELINE(40002, "타입라인을 삭제하지 못했습니다.");
+    CANNOT_DELETE_TIMELINE(40002, "타입라인을 삭제하지 못했습니다."),
+    ;
 
     companion object {
         fun valueOf(code: Int): FlitterErrorCode = values().first { it.code == code }

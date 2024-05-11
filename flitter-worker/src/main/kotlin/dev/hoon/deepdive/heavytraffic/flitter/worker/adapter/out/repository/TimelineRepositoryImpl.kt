@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.out.repository
 
 import com.querydsl.jpa.impl.JPAQueryFactory
@@ -10,7 +12,11 @@ import java.util.*
 class TimelineRepositoryImpl(
     private val jpaQueryFactory: JPAQueryFactory,
 ) : TimelineCustomRepository {
-    override fun findAllByLessThanIdAndMemberIdAndOrderByIdDesc(timelineId: UUID, memberId: UUID, size: Long): List<Timeline> =
+    override fun findAllByLessThanIdAndMemberIdAndOrderByIdDesc(
+        timelineId: UUID,
+        memberId: UUID,
+        size: Long,
+    ): List<Timeline> =
         jpaQueryFactory.selectFrom(timeline)
             .where(
                 timeline.memberId.eq(memberId)
@@ -20,7 +26,10 @@ class TimelineRepositoryImpl(
             .limit(size)
             .fetch()
 
-    override fun findAllByMemberIdAndOrderByIdDesc(memberId: UUID, size: Long): List<Timeline> =
+    override fun findAllByMemberIdAndOrderByIdDesc(
+        memberId: UUID,
+        size: Long,
+    ): List<Timeline> =
         jpaQueryFactory.selectFrom(timeline)
             .where(
                 timeline.memberId.eq(memberId),

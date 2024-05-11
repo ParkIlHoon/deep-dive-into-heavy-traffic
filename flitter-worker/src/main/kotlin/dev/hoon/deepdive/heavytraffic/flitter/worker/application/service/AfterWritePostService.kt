@@ -1,12 +1,14 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.worker.application.service
 
+import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.dto.TimelineDto
+import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.exception.CannotWritePostException
+import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in`.AfterWritePostProcessor
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.FollowPort
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.MemberPort
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.PostPort
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.TimelinePort
-import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.dto.TimelineDto
-import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.exception.CannotWritePostException
-import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in`.AfterWritePostProcessor
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
@@ -21,7 +23,11 @@ class AfterWritePostService(
     private val timelinePort: TimelinePort,
 ) : AfterWritePostProcessor {
     @Transactional
-    override fun execute(postId: UUID, writerId: UUID, postedAt: LocalDateTime) {
+    override fun execute(
+        postId: UUID,
+        writerId: UUID,
+        postedAt: LocalDateTime,
+    ) {
         // 1. 포스트와 작성자 유효성 검증
         validatePost(postId) { CannotWritePostException(it) }
         validateMember(writerId) { CannotWritePostException(it) }
@@ -34,7 +40,10 @@ class AfterWritePostService(
         timelinePort.createTimelines(timelines)
     }
 
-    private fun validateMember(memberId: UUID, thrower: (Exception) -> Exception) {
+    private fun validateMember(
+        memberId: UUID,
+        thrower: (Exception) -> Exception,
+    ) {
         try {
             memberPort.get(memberId)
         } catch (e: Exception) {
@@ -42,7 +51,10 @@ class AfterWritePostService(
         }
     }
 
-    private fun validatePost(postId: UUID, thrower: (Exception) -> Exception) {
+    private fun validatePost(
+        postId: UUID,
+        thrower: (Exception) -> Exception,
+    ) {
         try {
             postPort.get(postId)
         } catch (e: Exception) {

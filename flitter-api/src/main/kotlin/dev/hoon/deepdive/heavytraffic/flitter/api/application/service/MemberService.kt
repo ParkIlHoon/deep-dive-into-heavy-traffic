@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.api.application.service
 
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.dto.MemberDto
@@ -5,9 +7,9 @@ import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.Can
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotJoinException
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotLeaveException
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.MemberChangeNicknameUseCase
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.ReadMemberUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.MemberJoinUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.MemberLeaveUseCase
+import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.ReadMemberUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MemberPort
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MessageQueuePort
 import dev.hoon.deepdive.heavytraffic.flitter.domain.member.Member
@@ -32,6 +34,7 @@ class MemberService(
             updatedAt = member.updatedAt,
         )
     }
+
     @Transactional
     override fun join(memberJoinRequest: MemberDto.JoinRequest): MemberDto.Response {
         // 유효성 체크
@@ -39,15 +42,16 @@ class MemberService(
         memberPort.getByEmail(memberJoinRequest.email)?.let { throw CannotJoinException("이미 사용중인 이메일입니다.") }
 
         try {
-            val member = with(memberJoinRequest) {
-                memberPort.create(
-                    Member(
-                        nickname = nickname,
-                        email = email,
-                        birthday = birthday,
+            val member =
+                with(memberJoinRequest) {
+                    memberPort.create(
+                        Member(
+                            nickname = nickname,
+                            email = email,
+                            birthday = birthday,
+                        ),
                     )
-                )
-            }
+                }
             return MemberDto.Response(
                 id = member.id,
                 nickname = member.nickname,
@@ -68,7 +72,10 @@ class MemberService(
         messageQueuePort.publishMemberLeaveEvent(memberId)
     }
 
-    private fun validateMember(memberId: UUID, thrower: (Exception) -> Exception) {
+    private fun validateMember(
+        memberId: UUID,
+        thrower: (Exception) -> Exception,
+    ) {
         try {
             memberPort.get(memberId)
         } catch (e: Exception) {
@@ -77,7 +84,10 @@ class MemberService(
     }
 
     @Transactional
-    override fun changeNickname(id: UUID, newNickname: String): MemberDto.Response {
+    override fun changeNickname(
+        id: UUID,
+        newNickname: String,
+    ): MemberDto.Response {
         memberPort.getByNickname(newNickname)?.let { throw CannotChangeNicknameException("이미 사용중인 닉네임입니다.") }
         val member = memberPort.get(id).changeNickname(newNickname)
         return MemberDto.Response(

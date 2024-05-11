@@ -5,5 +5,5 @@ import dev.hoon.deepdive.heavytraffic.flitter.core.exception.FlitterException
 
 class FlitterApiException(
     resultCode: Int,
-    resultMessage: String?
-): FlitterException(FlitterErrorCode.valueOf(resultCode), resultMessage)
+    resultMessage: String?,
+) : FlitterException(FlitterErrorCode.valueOf(resultCode), resultMessage)

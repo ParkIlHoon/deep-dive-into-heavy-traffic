@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out
 
 import java.util.*
@@ -5,6 +7,7 @@ import java.util.*
 /**
  * 포스트 좋아요 포트
  */
+@SuppressWarnings("kotlin:S6517")
 interface PostLikePort {
     /**
      * 삭제

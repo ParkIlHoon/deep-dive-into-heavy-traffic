@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.dto
 
 import io.swagger.v3.oas.annotations.media.Schema
@@ -15,12 +17,10 @@ class MemberDto {
         @field:NotBlank(message = "닉네임을 입력해주세요")
         @Schema(title = "닉네임")
         val nickname: String,
-
         @field:NotBlank(message = "이메일을 입력해주세요")
         @field:Email(message = "이메일 형식으로 입력해주세요")
         @Schema(title = "이메일")
         val email: String,
-
         @field:NotNull(message = "생일을 입력해주세요")
         @field:PastOrPresent(message = "생일은 오늘 날짜 이전까지 입력가능합니다")
         @Schema(title = "생일")
@@ -40,6 +40,6 @@ class MemberDto {
     data class ChangeNicknameRequest(
         @field:NotBlank(message = "닉네임을 입력해주세요")
         @Schema(title = "닉네임")
-        val nickname: String
+        val nickname: String,
     )
 }

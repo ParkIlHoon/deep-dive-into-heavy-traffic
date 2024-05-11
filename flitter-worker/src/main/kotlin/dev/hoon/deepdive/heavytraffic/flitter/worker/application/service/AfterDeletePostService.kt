@@ -1,8 +1,10 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.worker.application.service
 
+import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in`.AfterDeletePostProcessor
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.PostLikePort
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.TimelinePort
-import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in`.AfterDeletePostProcessor
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*

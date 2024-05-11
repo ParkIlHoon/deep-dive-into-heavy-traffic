@@ -9,4 +9,9 @@ class TimelineDto {
         val postId: UUID,
         val postedAt: LocalDateTime
     )
+
+    data class DeleteRequest(
+        val memberId: UUID,
+        val postId: UUID,
+    )
 }

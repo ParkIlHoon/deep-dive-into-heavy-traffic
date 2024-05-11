@@ -1,4 +1,6 @@
-package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in` // ktlint-disable package-name
+@file:Suppress("ktlint:standard:no-wildcard-imports", "ktlint:standard:package-name")
+
+package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`
 
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.dto.CursorRequest
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.dto.CursorResponse
@@ -19,5 +21,8 @@ fun interface ReadTimelineUseCase {
      * @throws CannotReadTimelineException 타임라인 조회 실패 예외
      */
     @Throws(CannotReadTimelineException::class)
-    fun read(memberId: UUID, cursor: CursorRequest): CursorResponse<TimelineDto.Response>
+    fun read(
+        memberId: UUID,
+        cursor: CursorRequest,
+    ): CursorResponse<TimelineDto.Response>
 }

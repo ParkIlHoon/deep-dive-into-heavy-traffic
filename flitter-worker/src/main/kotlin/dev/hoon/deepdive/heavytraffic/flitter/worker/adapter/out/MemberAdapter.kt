@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.out
 
 import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.dto.MemberDto
@@ -12,7 +14,7 @@ import java.util.*
 @Service
 @Transactional(readOnly = true)
 class MemberAdapter(
-    private val memberClient: MemberClient
+    private val memberClient: MemberClient,
 ) : MemberPort {
     override fun get(memberId: UUID): MemberDto.Response {
         val apiResponse = memberClient.getMember(memberId)

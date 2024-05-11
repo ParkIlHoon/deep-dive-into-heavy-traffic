@@ -1,4 +1,6 @@
-package dev.hoon.deepdive.heavytraffic.flitter.api.adapter.`in` // ktlint-disable package-name
+@file:Suppress("ktlint:standard:no-wildcard-imports", "ktlint:standard:package-name")
+
+package dev.hoon.deepdive.heavytraffic.flitter.api.adapter.`in`
 
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.dto.PostDto
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.*
@@ -27,26 +29,33 @@ class PostController(
 ) {
     @Operation(summary = "포스트 조회")
     @GetMapping
-    fun get(@RequestParam("writerId") writerId: UUID): ApiResponse<List<PostDto.Response>> =
-        ApiResponse.success(readPostUseCase.readAllByWriter(writerId))
+    fun get(
+        @RequestParam("writerId") writerId: UUID,
+    ): ApiResponse<List<PostDto.Response>> = ApiResponse.success(readPostUseCase.readAllByWriter(writerId))
 
     @Operation(summary = "작성")
     @PostMapping
-    fun write(@RequestBody writeRequest: PostDto.Request) =
-        ApiResponse.success(writePostUseCase.write(writeRequest))
+    fun write(
+        @RequestBody writeRequest: PostDto.Request,
+    ): ApiResponse<Unit> = ApiResponse.success(writePostUseCase.write(writeRequest))
 
     @Operation(summary = "삭제")
     @DeleteMapping("/{postId}")
-    fun delete(@PathVariable("postId") postId: UUID) =
-        ApiResponse.success(deletePostUseCase.delete(postId))
+    fun delete(
+        @PathVariable("postId") postId: UUID,
+    ): ApiResponse<Unit> = ApiResponse.success(deletePostUseCase.delete(postId))
 
     @Operation(summary = "좋아요")
     @PostMapping("/{postId}/likes/{memberId}")
-    fun like(@PathVariable("postId") postId: UUID, @PathVariable("memberId") memberId: UUID) =
-        ApiResponse.success(likePostUseCase.like(memberId, postId))
+    fun like(
+        @PathVariable("postId") postId: UUID,
+        @PathVariable("memberId") memberId: UUID,
+    ): ApiResponse<Unit> = ApiResponse.success(likePostUseCase.like(memberId, postId))
 
     @Operation(summary = "좋아요 취소")
     @DeleteMapping("/{postId}/likes/{memberId}")
-    fun unLike(@PathVariable("postId") postId: UUID, @PathVariable("memberId") memberId: UUID) =
-        ApiResponse.success(unlikePostUseCase.unLike(memberId, postId))
+    fun unLike(
+        @PathVariable("postId") postId: UUID,
+        @PathVariable("memberId") memberId: UUID,
+    ): ApiResponse<Unit> = ApiResponse.success(unlikePostUseCase.unLike(memberId, postId))
 }

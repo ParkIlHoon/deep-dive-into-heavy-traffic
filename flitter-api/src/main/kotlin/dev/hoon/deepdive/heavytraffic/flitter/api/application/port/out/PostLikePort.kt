@@ -1,7 +1,6 @@
 package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out
 
 import dev.hoon.deepdive.heavytraffic.flitter.domain.post.PostLike
-import java.util.*
 
 /**
  * 포스트 좋아요 포트

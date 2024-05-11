@@ -12,19 +12,24 @@ data class ApiResponse<T>(
         val successful: Boolean,
     ) {
         companion object {
-            fun success() = Header(
-                resultCode = 0,
-                resultMessage = "ok",
-                successful = true,
-            )
+            fun success() =
+                Header(
+                    resultCode = 0,
+                    resultMessage = "ok",
+                    successful = true,
+                )
 
-            fun fail(exception: FlitterException) = Header(
-                resultCode = exception.getErrorCode(),
-                resultMessage = exception.getErrorMessage(),
-                successful = false,
-            )
+            fun fail(exception: FlitterException) =
+                Header(
+                    resultCode = exception.getErrorCode(),
+                    resultMessage = exception.getErrorMessage(),
+                    successful = false,
+                )
 
-            fun fail(resultCode: Int, resultMessage: String) = Header(
+            fun fail(
+                resultCode: Int,
+                resultMessage: String,
+            ) = Header(
                 resultCode = resultCode,
                 resultMessage = resultMessage,
                 successful = false,

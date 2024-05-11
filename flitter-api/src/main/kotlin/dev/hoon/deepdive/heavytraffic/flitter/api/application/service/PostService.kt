@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.api.application.service
 
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.dto.PostDto
@@ -26,14 +28,16 @@ class PostService(
 ) : ReadPostUseCase, WritePostUseCase, DeletePostUseCase, LikePostUseCase, UnlikePostUseCase {
     override fun readAllByWriter(writerId: UUID): List<PostDto.Response> =
         postPort.getByWriter(writerId)
-            .map { PostDto.Response(
-                id = it.id,
-                writerId = it.writerId,
-                contents = it.contents,
-                like = it.like,
-                createdAt = it.createdAt,
-                updatedAt = it.updatedAt
-            ) }
+            .map {
+                PostDto.Response(
+                    id = it.id,
+                    writerId = it.writerId,
+                    contents = it.contents,
+                    like = it.like,
+                    createdAt = it.createdAt,
+                    updatedAt = it.updatedAt,
+                )
+            }
 
     @Transactional
     override fun write(postDto: PostDto.Request) {
@@ -51,7 +55,10 @@ class PostService(
     }
 
     @Transactional
-    override fun like(memberId: UUID, postId: UUID) {
+    override fun like(
+        memberId: UUID,
+        postId: UUID,
+    ) {
         validateMember(memberId = memberId) { CannotLikePostException(it) }
         validatePost(postId = postId) { CannotLikePostException(it) }
 
@@ -60,7 +67,10 @@ class PostService(
     }
 
     @Transactional
-    override fun unLike(memberId: UUID, postId: UUID) {
+    override fun unLike(
+        memberId: UUID,
+        postId: UUID,
+    ) {
         validateMember(memberId = memberId) { CannotUnLikePostException(it) }
         validatePost(postId = postId) { CannotLikePostException(it) }
 
@@ -68,7 +78,10 @@ class PostService(
         postLikePort.delete(PostLike(post = post, memberId = memberId))
     }
 
-    private fun validateMember(memberId: UUID, thrower: (Exception) -> Exception) {
+    private fun validateMember(
+        memberId: UUID,
+        thrower: (Exception) -> Exception,
+    ) {
         try {
             memberPort.get(memberId)
         } catch (e: Exception) {
@@ -76,7 +89,10 @@ class PostService(
         }
     }
 
-    private fun validatePost(postId: UUID, thrower: (Exception) -> Exception) {
+    private fun validatePost(
+        postId: UUID,
+        thrower: (Exception) -> Exception,
+    ) {
         try {
             postPort.get(postId)
         } catch (e: Exception) {

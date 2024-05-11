@@ -14,4 +14,7 @@ class CannotFollowException : FlitterException {
 /**
  * 언팔로우 실패 예외
  */
-class CannotUnFollowException(cause: Throwable) : FlitterException(FlitterErrorCode.CANNOT_UNFOLLOW, cause)
+class CannotUnFollowException : FlitterException {
+    constructor(cause: Throwable) : super(FlitterErrorCode.CANNOT_UNFOLLOW, cause)
+    constructor(message: String, cause: Throwable) : super(FlitterErrorCode.CANNOT_UNFOLLOW, message, cause)
+}

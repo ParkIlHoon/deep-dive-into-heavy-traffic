@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:package-name")
+
 package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`
 
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.dto.PostDto

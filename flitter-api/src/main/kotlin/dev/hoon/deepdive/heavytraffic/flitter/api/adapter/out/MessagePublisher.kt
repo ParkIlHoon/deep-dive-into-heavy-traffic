@@ -15,19 +15,45 @@ import java.util.UUID
 class MessagePublisher(
     private val rabbitTemplate: RabbitTemplate,
 ) : MessageQueuePort {
-    override fun publishPostWroteEvent(postId: UUID, writerId: UUID, postedAt: LocalDateTime) {
-        rabbitTemplate.convertAndSend(MessageQueueConstants.EXCHANGE_DIRECT, MessageQueueConstants.POST_WROTE_ROUTING_KEY, PostWroteEvent(postId, writerId, postedAt))
+    override fun publishPostWroteEvent(
+        postId: UUID,
+        writerId: UUID,
+        postedAt: LocalDateTime,
+    ) {
+        rabbitTemplate.convertAndSend(
+            MessageQueueConstants.EXCHANGE_DIRECT,
+            MessageQueueConstants.POST_WROTE_ROUTING_KEY,
+            PostWroteEvent(postId, writerId, postedAt),
+        )
     }
 
-    override fun publishFollowEvent(followerMemberId: UUID, memberId: UUID) {
-        rabbitTemplate.convertAndSend(MessageQueueConstants.EXCHANGE_DIRECT, MessageQueueConstants.FOLLOW_ROUTING_KEY, FollowEvent(followerMemberId, memberId))
+    override fun publishFollowEvent(
+        followerMemberId: UUID,
+        memberId: UUID,
+    ) {
+        rabbitTemplate.convertAndSend(
+            MessageQueueConstants.EXCHANGE_DIRECT,
+            MessageQueueConstants.FOLLOW_ROUTING_KEY,
+            FollowEvent(followerMemberId, memberId),
+        )
     }
 
-    override fun publishUnFollowEvent(followerId: UUID, followId: UUID) {
-        rabbitTemplate.convertAndSend(MessageQueueConstants.EXCHANGE_DIRECT, MessageQueueConstants.UNFOLLOW_ROUTING_KEY, UnFollowEvent(followerId, followId))
+    override fun publishUnFollowEvent(
+        followerMemberId: UUID,
+        memberId: UUID,
+    ) {
+        rabbitTemplate.convertAndSend(
+            MessageQueueConstants.EXCHANGE_DIRECT,
+            MessageQueueConstants.UNFOLLOW_ROUTING_KEY,
+            UnFollowEvent(followerMemberId, memberId),
+        )
     }
 
     override fun publishMemberLeaveEvent(memberId: UUID) {
-        rabbitTemplate.convertAndSend(MessageQueueConstants.EXCHANGE_DIRECT, MessageQueueConstants.MEMBER_LEAVE_ROUTING_KEY, MemberLeaveEvent(memberId))
+        rabbitTemplate.convertAndSend(
+            MessageQueueConstants.EXCHANGE_DIRECT,
+            MessageQueueConstants.MEMBER_LEAVE_ROUTING_KEY,
+            MemberLeaveEvent(memberId),
+        )
     }
 }
