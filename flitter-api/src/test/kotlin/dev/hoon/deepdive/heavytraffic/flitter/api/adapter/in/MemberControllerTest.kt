@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.api.adapter.`in`
 
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.dto.MemberDto
@@ -19,34 +21,38 @@ import java.time.LocalDateTime
 
 @ExtendWith(MockitoExtension::class)
 class MemberControllerTest {
-
     @Mock
     private lateinit var memberLeaveUseCase: MemberLeaveUseCase
+
     @Mock
     private lateinit var readMemberUseCase: ReadMemberUseCase
+
     @Mock
     private lateinit var memberChangeNicknameUseCase: MemberChangeNicknameUseCase
 
     @Test
     fun `join success`() {
         // given
-        val mockRequest = MemberDto.JoinRequest(
-            nickname = "nickname",
-            email = "foo@flitter.hoon.dev",
-            birthday = LocalDate.now()
-        )
-        val mockResponse = MemberDto.Response(
-            id = IdGenerator.generate(),
-            nickname = mockRequest.nickname,
-            email = mockRequest.email,
-            birthday = mockRequest.birthday,
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
-        )
+        val mockRequest =
+            MemberDto.JoinRequest(
+                nickname = "nickname",
+                email = "foo@flitter.hoon.dev",
+                birthday = LocalDate.now(),
+            )
+        val mockResponse =
+            MemberDto.Response(
+                id = IdGenerator.generate(),
+                nickname = mockRequest.nickname,
+                email = mockRequest.email,
+                birthday = mockRequest.birthday,
+                createdAt = LocalDateTime.now(),
+                updatedAt = LocalDateTime.now(),
+            )
 
-        val memberJoinUseCase = mock<MemberJoinUseCase>() {
-            on { join(anyVararg(MemberDto.JoinRequest::class)) } doReturn mockResponse
-        }
+        val memberJoinUseCase =
+            mock<MemberJoinUseCase> {
+                on { join(anyVararg(MemberDto.JoinRequest::class)) } doReturn mockResponse
+            }
         val memberController = MemberController(memberJoinUseCase, readMemberUseCase, memberChangeNicknameUseCase, memberLeaveUseCase)
 
         // when
