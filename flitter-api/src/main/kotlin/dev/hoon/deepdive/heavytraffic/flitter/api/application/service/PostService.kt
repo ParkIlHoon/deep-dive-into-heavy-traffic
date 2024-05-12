@@ -5,10 +5,8 @@ package dev.hoon.deepdive.heavytraffic.flitter.api.application.service
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.dto.PostDto
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotDeletePostException
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotLikePostException
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotUnLikePostException
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotWritePostException
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.*
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MemberPort
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MessageQueuePort
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.PostLikePort
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.PostPort
@@ -23,7 +21,6 @@ import java.util.*
 class PostService(
     private val postPort: PostPort,
     private val postLikePort: PostLikePort,
-    private val memberPort: MemberPort,
     private val messageQueuePort: MessageQueuePort,
 ) : ReadPostUseCase, WritePostUseCase, DeletePostUseCase, LikePostUseCase, UnlikePostUseCase {
     override fun readAllByWriter(writerId: UUID): List<PostDto.Response> =
@@ -40,11 +37,26 @@ class PostService(
             }
 
     @Transactional
-    override fun write(postDto: PostDto.Request) {
-        validateMember(memberId = postDto.memberId) { CannotWritePostException(it) }
-
-        postPort.create(Post(writerId = postDto.memberId, contents = postDto.contents))
-            .let { messageQueuePort.publishPostWroteEvent(postId = it.id, writerId = it.writerId, postedAt = it.createdAt) }
+    override fun write(postDto: PostDto.Request): PostDto.Response {
+        try {
+            return postPort.create(Post(writerId = postDto.memberId, contents = postDto.contents))
+                .let {
+                    messageQueuePort.publishPostWroteEvent(postId = it.id, writerId = it.writerId, postedAt = it.createdAt)
+                    it
+                }
+                .let {
+                    PostDto.Response(
+                        id = it.id,
+                        writerId = it.writerId,
+                        contents = it.contents,
+                        like = it.like,
+                        createdAt = it.createdAt,
+                        updatedAt = it.updatedAt,
+                    )
+                }
+        } catch (e: Exception) {
+            throw CannotWritePostException(e)
+        }
     }
 
     @Transactional
@@ -59,7 +71,6 @@ class PostService(
         memberId: UUID,
         postId: UUID,
     ) {
-        validateMember(memberId = memberId) { CannotLikePostException(it) }
         validatePost(postId = postId) { CannotLikePostException(it) }
 
         val post = postPort.get(postId)
@@ -71,22 +82,10 @@ class PostService(
         memberId: UUID,
         postId: UUID,
     ) {
-        validateMember(memberId = memberId) { CannotUnLikePostException(it) }
         validatePost(postId = postId) { CannotLikePostException(it) }
 
         val post = postPort.get(postId)
         postLikePort.delete(PostLike(post = post, memberId = memberId))
-    }
-
-    private fun validateMember(
-        memberId: UUID,
-        thrower: (Exception) -> Exception,
-    ) {
-        try {
-            memberPort.get(memberId)
-        } catch (e: Exception) {
-            throw thrower(e)
-        }
     }
 
     private fun validatePost(
