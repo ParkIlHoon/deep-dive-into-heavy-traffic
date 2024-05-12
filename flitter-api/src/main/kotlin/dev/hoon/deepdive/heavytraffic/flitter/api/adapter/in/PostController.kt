@@ -7,6 +7,7 @@ import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.*
 import dev.hoon.deepdive.heavytraffic.flitter.core.dto.ApiResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -36,8 +37,8 @@ class PostController(
     @Operation(summary = "작성")
     @PostMapping
     fun write(
-        @RequestBody writeRequest: PostDto.Request,
-    ): ApiResponse<Unit> = ApiResponse.success(writePostUseCase.write(writeRequest))
+        @Valid @RequestBody writeRequest: PostDto.Request,
+    ): ApiResponse<PostDto.Response> = ApiResponse.success(writePostUseCase.write(writeRequest))
 
     @Operation(summary = "삭제")
     @DeleteMapping("/{postId}")

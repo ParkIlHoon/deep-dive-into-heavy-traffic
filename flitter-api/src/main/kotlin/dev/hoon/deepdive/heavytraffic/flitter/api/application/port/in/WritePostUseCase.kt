@@ -16,5 +16,5 @@ fun interface WritePostUseCase {
      * @throws CannotWritePostException 포스트 작성 실패 예외
      */
     @Throws(CannotWritePostException::class)
-    fun write(postDto: PostDto.Request)
+    fun write(postDto: PostDto.Request): PostDto.Response
 }

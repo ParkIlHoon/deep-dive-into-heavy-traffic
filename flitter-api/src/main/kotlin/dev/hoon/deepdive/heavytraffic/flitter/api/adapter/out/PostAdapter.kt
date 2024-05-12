@@ -4,6 +4,8 @@ package dev.hoon.deepdive.heavytraffic.flitter.api.adapter.out
 
 import dev.hoon.deepdive.heavytraffic.flitter.api.adapter.out.repository.PostLikeRepository
 import dev.hoon.deepdive.heavytraffic.flitter.api.adapter.out.repository.PostRepository
+import dev.hoon.deepdive.heavytraffic.flitter.api.adapter.out.repository.spec.PostSpecs
+import dev.hoon.deepdive.heavytraffic.flitter.api.adapter.out.repository.spec.SpecBuilder
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.PostNotFoundException
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.PostLikePort
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.PostPort
@@ -30,9 +32,11 @@ class PostAdapter(
 
     override fun get(id: UUID): Post = postRepository.findById(id) ?: throw PostNotFoundException("존재하지 않는 포스트입니다. id = $id")
 
-    override fun get(ids: List<UUID>): List<Post> = postRepository.findAllByIdIn(ids)
+    override fun get(ids: List<UUID>): List<Post> =
+        postRepository.findAll(SpecBuilder.builder(Post::class.java).and(PostSpecs.postIdIn(ids)).toSpec())
 
-    override fun getByWriter(writerId: UUID): List<Post> = postRepository.findAllByWriterId(writerId)
+    override fun getByWriter(writerId: UUID): List<Post> =
+        postRepository.findAll(SpecBuilder.builder(Post::class.java).and(PostSpecs.writerId(writerId)).toSpec())
 
     @Transactional
     override fun delete(id: UUID) = postRepository.deleteById(id)
