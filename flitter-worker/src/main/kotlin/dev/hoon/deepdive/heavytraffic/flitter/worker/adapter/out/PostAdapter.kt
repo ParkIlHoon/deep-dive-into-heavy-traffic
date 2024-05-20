@@ -35,11 +35,17 @@ class PostAdapter(
 
     @Transactional
     override fun deleteByWriter(writerId: UUID) {
-        postClient.deletePostsByWriter(writerId)
+        val apiResponse = postClient.deletePostsByWriter(writerId)
+        if (!apiResponse.header.successful) {
+            throw FlitterApiException(apiResponse.header.resultCode, apiResponse.header.resultMessage)
+        }
     }
 
     @Transactional
     override fun deleteAllByMemberId(memberId: UUID) {
-        postClient.unlikePostsByMember(memberId)
+        val apiResponse = postClient.unlikePostsByMember(memberId)
+        if (!apiResponse.header.successful) {
+            throw FlitterApiException(apiResponse.header.resultCode, apiResponse.header.resultMessage)
+        }
     }
 }
