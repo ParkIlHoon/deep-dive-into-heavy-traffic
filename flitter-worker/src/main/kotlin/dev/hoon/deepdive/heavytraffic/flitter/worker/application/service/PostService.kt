@@ -4,7 +4,7 @@ package dev.hoon.deepdive.heavytraffic.flitter.worker.application.service
 
 import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.dto.TimelineDto
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.exception.CannotWritePostException
-import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in`.AfterWritePostProcessor
+import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in`.PostWroteUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.FollowPort
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.MemberPort
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.PostPort
@@ -16,14 +16,14 @@ import java.util.*
 
 @Service
 @Transactional(readOnly = true)
-class AfterWritePostService(
+class PostService(
     private val postPort: PostPort,
     private val memberPort: MemberPort,
     private val followPort: FollowPort,
     private val timelinePort: TimelinePort,
-) : AfterWritePostProcessor {
+) : PostWroteUseCase {
     @Transactional
-    override fun execute(
+    override fun afterPostWrote(
         postId: UUID,
         writerId: UUID,
         postedAt: LocalDateTime,

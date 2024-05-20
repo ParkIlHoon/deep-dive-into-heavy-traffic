@@ -8,7 +8,7 @@ import java.util.UUID
 /**
  * 포스트 작성 후처리
  */
-fun interface AfterWritePostProcessor {
+fun interface PostWroteUseCase {
     /**
      * 실행
      *
@@ -18,7 +18,7 @@ fun interface AfterWritePostProcessor {
      * @param writerId 작성자 회원 아이디
      * @param postedAt 포스팅 일시
      */
-    fun execute(
+    fun afterPostWrote(
         postId: UUID,
         writerId: UUID,
         postedAt: LocalDateTime,

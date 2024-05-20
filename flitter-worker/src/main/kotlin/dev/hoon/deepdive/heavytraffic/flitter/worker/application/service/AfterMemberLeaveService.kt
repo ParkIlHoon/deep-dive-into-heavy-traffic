@@ -45,7 +45,7 @@ class AfterMemberLeaveService(
 
     private fun deleteFollowing(memberId: UUID) = followPort.delete(memberId)
 
-    private fun deletePostLike(memberId: UUID) = postLikePort.deleteByMemberId(memberId)
+    private fun deletePostLike(memberId: UUID) = postLikePort.deleteAllByMemberId(memberId)
 
     private fun deletePost(memberId: UUID) = postPort.deleteByWriter(memberId)
 

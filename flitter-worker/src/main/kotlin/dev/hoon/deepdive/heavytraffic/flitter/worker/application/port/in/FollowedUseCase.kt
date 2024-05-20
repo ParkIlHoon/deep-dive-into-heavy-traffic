@@ -8,7 +8,7 @@ import java.util.UUID
 /**
  * 팔로우 유스 케이스
  */
-fun interface FollowUseCase {
+fun interface FollowedUseCase {
     /**
      * 팔로우 후처리 작업 실행
      *
@@ -19,7 +19,7 @@ fun interface FollowUseCase {
      * @throws CannotFollowException 팔로우 후처리 작업 실패 시
      */
     @Throws(CannotFollowException::class)
-    fun executeFollowAfterTask(
+    fun afterFollowed(
         followerMemberId: UUID,
         memberId: UUID,
     )

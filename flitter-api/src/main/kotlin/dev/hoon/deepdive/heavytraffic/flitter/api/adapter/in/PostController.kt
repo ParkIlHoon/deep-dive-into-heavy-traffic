@@ -6,6 +6,7 @@ import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.dto.PostDto
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.*
 import dev.hoon.deepdive.heavytraffic.flitter.core.dto.ApiResponse
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -46,6 +47,12 @@ class PostController(
         @PathVariable("postId") postId: UUID,
     ): ApiResponse<Unit> = ApiResponse.success(deletePostUseCase.delete(postId))
 
+    @Operation(summary = "작성자 기준 삭제")
+    @DeleteMapping
+    fun deleteAllByWriter(
+        @Parameter(description = "작성자 아이디") @RequestParam("writerId") writerId: UUID,
+    ): ApiResponse<Unit> = ApiResponse.success(deletePostUseCase.deleteAllByWriter(writerId))
+
     @Operation(summary = "좋아요")
     @PostMapping("/{postId}/likes/{memberId}")
     fun like(
@@ -59,4 +66,10 @@ class PostController(
         @PathVariable("postId") postId: UUID,
         @PathVariable("memberId") memberId: UUID,
     ): ApiResponse<Unit> = ApiResponse.success(unlikePostUseCase.unLike(memberId, postId))
+
+    @Operation(summary = "특정 멤버의 전체 좋아요 취소")
+    @DeleteMapping("/likes")
+    fun unLikeAllByMember(
+        @RequestParam("memberId") memberId: UUID,
+    ): ApiResponse<Unit> = ApiResponse.success(unlikePostUseCase.unLikeAllByMember(memberId))
 }

@@ -7,7 +7,7 @@ import java.util.UUID
 /**
  * 언팔로우 유스 케이스
  */
-fun interface UnFollowUseCase {
+fun interface UnFollowedUseCase {
     /**
      * 실행
      *
@@ -16,7 +16,7 @@ fun interface UnFollowUseCase {
      * @param followerMemberId 팔로워 회원 아이디
      * @param memberId 팔로우 회원 아이디
      */
-    fun executeUnFollowAfterTask(
+    fun afterUnFollowed(
         followerMemberId: UUID,
         memberId: UUID,
     )

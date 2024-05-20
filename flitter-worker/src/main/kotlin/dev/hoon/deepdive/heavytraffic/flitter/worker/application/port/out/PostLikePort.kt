@@ -14,5 +14,5 @@ interface PostLikePort {
      *
      * @param memberId 회원 아이디
      */
-    fun deleteByMemberId(memberId: UUID)
+    fun deleteAllByMemberId(memberId: UUID)
 }

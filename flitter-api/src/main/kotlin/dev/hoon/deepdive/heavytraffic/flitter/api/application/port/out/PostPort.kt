@@ -49,5 +49,12 @@ interface PostPort {
      *
      * @param id 삭제할 포스트 아이디
      */
-    fun delete(id: UUID)
+    fun delete(id: UUID): Long
+
+    /**
+     * 작성자 기준 삭제
+     *
+     * @param writerId 삭제할 포스트 작성자 아이디
+     */
+    fun deleteAllByWriter(writerId: UUID): Long
 }

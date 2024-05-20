@@ -4,7 +4,7 @@ package dev.hoon.deepdive.heavytraffic.flitter.worker.application.service
 
 import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.dto.TimelineDto
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.exception.CannotFollowException
-import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in`.FollowUseCase
+import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in`.FollowedUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.MemberPort
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.PostPort
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.TimelinePort
@@ -14,13 +14,13 @@ import java.util.*
 
 @Service
 @Transactional(readOnly = true)
-class FollowService(
+class FollowedService(
     private val memberPort: MemberPort,
     private val postPort: PostPort,
     private val timelinePort: TimelinePort,
-) : FollowUseCase {
+) : FollowedUseCase {
     @Transactional
-    override fun executeFollowAfterTask(
+    override fun afterFollowed(
         followerMemberId: UUID,
         memberId: UUID,
     ) {

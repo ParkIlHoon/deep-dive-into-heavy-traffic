@@ -67,6 +67,11 @@ class PostService(
     }
 
     @Transactional
+    override fun deleteAllByWriter(writerId: UUID) {
+        postPort.deleteAllByWriter(writerId)
+    }
+
+    @Transactional
     override fun like(
         memberId: UUID,
         postId: UUID,
@@ -86,6 +91,11 @@ class PostService(
 
         val post = postPort.get(postId)
         postLikePort.delete(PostLike(post = post, memberId = memberId))
+    }
+
+    @Transactional
+    override fun unLikeAllByMember(memberId: UUID) {
+        postLikePort.deleteAllByMember(memberId)
     }
 
     private fun validatePost(

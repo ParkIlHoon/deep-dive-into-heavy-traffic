@@ -2,7 +2,6 @@
 
 package dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out
 
-import dev.hoon.deepdive.heavytraffic.flitter.domain.post.Post
 import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.dto.PostDto
 import java.util.*
 
@@ -16,7 +15,7 @@ interface PostPort {
      * @param id 조회할 아이디
      * @return 아이디에 해당하는 포스트
      */
-    fun get(id: UUID): Post
+    fun get(id: UUID): PostDto.Response
 
     /**
      * 조회

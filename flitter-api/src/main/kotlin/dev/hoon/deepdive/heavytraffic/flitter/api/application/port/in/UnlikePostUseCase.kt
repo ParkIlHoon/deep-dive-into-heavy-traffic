@@ -5,7 +5,7 @@ package dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotUnLikePostException
 import java.util.*
 
-fun interface UnlikePostUseCase {
+interface UnlikePostUseCase {
     /**
      * 좋아요 취소
      *
@@ -18,4 +18,7 @@ fun interface UnlikePostUseCase {
         memberId: UUID,
         postId: UUID,
     )
+
+    @Throws(CannotUnLikePostException::class)
+    fun unLikeAllByMember(memberId: UUID)
 }

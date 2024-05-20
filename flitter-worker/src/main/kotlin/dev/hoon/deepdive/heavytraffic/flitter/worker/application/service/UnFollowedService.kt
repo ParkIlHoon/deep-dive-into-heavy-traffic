@@ -4,7 +4,7 @@ package dev.hoon.deepdive.heavytraffic.flitter.worker.application.service
 
 import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.dto.TimelineDto
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.exception.CannotUnFollowException
-import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in`.UnFollowUseCase
+import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in`.UnFollowedUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.MemberPort
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.PostPort
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.TimelinePort
@@ -14,13 +14,13 @@ import java.util.*
 
 @Service
 @Transactional(readOnly = true)
-class UnFollowService(
+class UnFollowedService(
     private val memberPort: MemberPort,
     private val postPort: PostPort,
     private val timelinePort: TimelinePort,
-) : UnFollowUseCase {
+) : UnFollowedUseCase {
     @Transactional
-    override fun executeUnFollowAfterTask(
+    override fun afterUnFollowed(
         followerMemberId: UUID,
         memberId: UUID,
     ) {

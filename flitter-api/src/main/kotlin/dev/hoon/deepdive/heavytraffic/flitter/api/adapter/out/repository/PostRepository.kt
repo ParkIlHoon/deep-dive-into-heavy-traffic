@@ -13,5 +13,7 @@ interface PostRepository : JpaRepository<Post, UUIDPrimaryKey> {
 
     fun findAll(spec: Specification<Post>): List<Post>
 
-    fun deleteById(id: UUID)
+    fun deleteById(id: UUID): Long
+
+    fun delete(spec: Specification<Post>): Long
 }

@@ -8,7 +8,10 @@ import java.util.*
 /**
  * 포스트 삭제 유스 케이스
  */
-fun interface DeletePostUseCase {
+interface DeletePostUseCase {
     @Throws(CannotDeletePostException::class)
     fun delete(postId: UUID)
+
+    @Throws(CannotDeletePostException::class)
+    fun deleteAllByWriter(writerId: UUID)
 }

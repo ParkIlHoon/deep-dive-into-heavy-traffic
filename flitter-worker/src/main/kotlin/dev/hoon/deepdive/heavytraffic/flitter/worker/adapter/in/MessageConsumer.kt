@@ -14,29 +14,9 @@ import org.springframework.stereotype.Service
 
 @Service
 class MessageConsumer(
-    private val afterWritePostProcessor: AfterWritePostProcessor,
     private val afterDeletePostProcessor: AfterDeletePostProcessor,
     private val afterMemberLeaveProcessor: AfterMemberLeaveProcessor,
 ) {
-    @RabbitListener(
-        bindings = [
-            QueueBinding(
-                value = Queue(value = MessageQueueConstants.POST_WROTE_QUEUE),
-                exchange = Exchange(value = MessageQueueConstants.EXCHANGE_DIRECT),
-                key = [MessageQueueConstants.POST_WROTE_ROUTING_KEY],
-            ),
-        ],
-    )
-    fun consumePostWroteEvent(
-        @Payload postWroteEvent: PostWroteEvent,
-    ) {
-        afterWritePostProcessor.execute(
-            postId = postWroteEvent.postId,
-            writerId = postWroteEvent.writerId,
-            postedAt = postWroteEvent.postedAt,
-        )
-    }
-
     @RabbitListener(
         bindings = [
             QueueBinding(
