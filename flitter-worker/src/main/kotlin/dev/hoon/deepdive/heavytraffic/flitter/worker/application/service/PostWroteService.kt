@@ -16,7 +16,7 @@ import java.util.*
 
 @Service
 @Transactional(readOnly = true)
-class PostService(
+class PostWroteService(
     private val postPort: PostPort,
     private val memberPort: MemberPort,
     private val followPort: FollowPort,
