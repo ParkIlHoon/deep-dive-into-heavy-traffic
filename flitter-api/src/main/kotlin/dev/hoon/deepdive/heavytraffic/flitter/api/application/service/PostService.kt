@@ -3,10 +3,7 @@
 package dev.hoon.deepdive.heavytraffic.flitter.api.application.service
 
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.dto.PostDto
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotDeletePostException
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotLikePostException
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotUnLikePostException
-import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotWritePostException
+import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.*
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.*
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MessageQueuePort
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.PostLikePort
@@ -62,9 +59,12 @@ class PostService(
 
     @Transactional
     override fun delete(postId: UUID) {
-        validatePost(postId = postId) { CannotDeletePostException(it) }
-
-        postPort.delete(postId)
+        try {
+            postPort.get(id = postId)
+                .let { postPort.delete(it.id) }
+        } catch (e: Exception) {
+            throw CannotDeletePostException(e)
+        }
     }
 
     @Transactional
@@ -77,13 +77,11 @@ class PostService(
         postId: UUID,
         memberId: UUID,
     ) {
-        validatePost(postId = postId) { CannotLikePostException(it) }
         try {
-            val post = postPort.get(postId)
-            postLikePort.create(PostLike(post = post, memberId = memberId))
-                .let {
-                    messageQueuePort.publishPostLikeEvent(it.post.id, it.memberId, it.createdAt)
-                }
+            postPort.get(id = postId)
+                .run { PostLike(post = this, memberId = memberId) }
+                .let { postLikePort.create(it) }
+                .let { messageQueuePort.publishPostLikeEvent(it.post.id, it.memberId, it.createdAt) }
         } catch (e: Exception) {
             throw CannotLikePostException(e)
         }
@@ -94,10 +92,10 @@ class PostService(
         postId: UUID,
         memberId: UUID,
     ) {
-        validatePost(postId = postId) { CannotLikePostException(it) }
         try {
-            val post = postPort.get(postId)
-            postLikePort.delete(PostLike(post = post, memberId = memberId))
+            postPort.get(id = postId)
+                .run { PostLike(post = this, memberId = memberId) }
+                .let { postLikePort.delete(it) }
         } catch (e: Exception) {
             throw CannotUnLikePostException(e)
         }
@@ -106,16 +104,5 @@ class PostService(
     @Transactional
     override fun unLikeAllByMember(memberId: UUID) {
         postLikePort.deleteAllByMember(memberId)
-    }
-
-    private fun validatePost(
-        postId: UUID,
-        thrower: (Exception) -> Exception,
-    ) {
-        try {
-            postPort.get(postId)
-        } catch (e: Exception) {
-            throw thrower(e)
-        }
     }
 }

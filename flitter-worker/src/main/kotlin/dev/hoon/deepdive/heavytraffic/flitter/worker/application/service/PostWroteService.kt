@@ -3,7 +3,6 @@
 package dev.hoon.deepdive.heavytraffic.flitter.worker.application.service
 
 import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.dto.TimelineDto
-import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.exception.CannotWritePostException
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in`.PostWroteUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.FollowPort
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.MemberPort
@@ -29,36 +28,14 @@ class PostWroteService(
         postedAt: LocalDateTime,
     ) {
         // 1. 포스트와 작성자 유효성 검증
-        validatePost(postId) { CannotWritePostException(it) }
-        validateMember(writerId) { CannotWritePostException(it) }
+        val post = postPort.get(id = postId)
+        val writer = memberPort.get(memberId = writerId)
 
         // 2. 작성자 팔로워 조회
-        val followerIds = followPort.getByFollowMemberId(writerId).map { it.followerMemberId }
+        val followerIds = followPort.getByFollowMemberId(writer.id).map { it.followerMemberId }
 
         // 3. 타임라인 생성
-        val timelines = followerIds.map { TimelineDto.CreateRequest(memberId = it, postId = postId, postedAt = postedAt) }
+        val timelines = followerIds.map { TimelineDto.CreateRequest(memberId = it, postId = post.id, postedAt = post.createdAt) }
         timelinePort.createTimelines(timelines)
-    }
-
-    private fun validateMember(
-        memberId: UUID,
-        thrower: (Exception) -> Exception,
-    ) {
-        try {
-            memberPort.get(memberId)
-        } catch (e: Exception) {
-            throw thrower(e)
-        }
-    }
-
-    private fun validatePost(
-        postId: UUID,
-        thrower: (Exception) -> Exception,
-    ) {
-        try {
-            postPort.get(postId)
-        } catch (e: Exception) {
-            throw thrower(e)
-        }
     }
 }

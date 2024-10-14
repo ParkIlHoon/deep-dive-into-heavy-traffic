@@ -25,30 +25,19 @@ class UnFollowedService(
         memberId: UUID,
     ) {
         // 1. 팔로워 유효성 체크
-        validateMember(followerMemberId) { CannotUnFollowException("유효하지 않은 팔로워입니다.", it) }
-        validateMember(memberId) { CannotUnFollowException("유효하지 않은 언팔로우 대상입니다.", it) }
+        val follower = memberPort.get(followerMemberId)
+        val member = memberPort.get(memberId)
 
         try {
             // 2. 언팔로우 대상 회원 포스트 조회
-            val deleteTargets =
-                postPort.getByWriter(memberId)
-                    .map { TimelineDto.DeleteRequest(memberId = followerMemberId, postId = it.id) }
-
-            // 3. 타임라인에서 해당 포스트 제거
-            timelinePort.deleteTimelines(deleteTargets)
+            postPort.getByWriter(member.id)
+                .map { TimelineDto.DeleteRequest(memberId = follower.id, postId = it.id) }
+                .let {
+                    // 3. 타임라인에서 해당 포스트 제거
+                    timelinePort.deleteTimelines(it)
+                }
         } catch (e: Exception) {
             throw CannotUnFollowException(e)
-        }
-    }
-
-    private fun validateMember(
-        memberId: UUID,
-        thrower: (Exception) -> Exception,
-    ) {
-        try {
-            memberPort.get(memberId)
-        } catch (e: Exception) {
-            throw thrower(e)
         }
     }
 }

@@ -25,30 +25,19 @@ class FollowedService(
         memberId: UUID,
     ) {
         // 1. 회원 유효성 체크
-        validateMember(followerMemberId) { CannotFollowException("유효하지 않은 팔로워입니다.", it) }
-        validateMember(memberId) { CannotFollowException("유효하지 않은 팔로우 대상입니다.", it) }
+        val follower = memberPort.get(followerMemberId)
+        val member = memberPort.get(memberId)
 
         try {
             // 2. 팔로우 대상 회원 포스트 조회
-            val timelines =
-                postPort.getByWriter(memberId)
-                    .map { TimelineDto.CreateRequest(memberId = followerMemberId, postId = it.id, postedAt = it.createdAt) }
-
-            // 3. 팔로워의 타임라인에 포스트 추가
-            timelinePort.createTimelines(timelines)
+            postPort.getByWriter(member.id)
+                .map { TimelineDto.CreateRequest(memberId = follower.id, postId = it.id, postedAt = it.createdAt) }
+                .let {
+                    // 3. 팔로워의 타임라인에 포스트 추가
+                    timelinePort.createTimelines(it)
+                }
         } catch (e: Exception) {
             throw CannotFollowException(e)
-        }
-    }
-
-    private fun validateMember(
-        memberId: UUID,
-        thrower: (Exception) -> Exception,
-    ) {
-        try {
-            memberPort.get(memberId)
-        } catch (e: Exception) {
-            throw thrower(e)
         }
     }
 }

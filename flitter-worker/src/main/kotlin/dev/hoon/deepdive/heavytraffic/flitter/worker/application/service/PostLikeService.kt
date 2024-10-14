@@ -1,7 +1,5 @@
 package dev.hoon.deepdive.heavytraffic.flitter.worker.application.service
 
-import dev.hoon.deepdive.heavytraffic.flitter.worker.adapter.dto.PostDto
-import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.exception.CannotLikePostException
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.`in`.PostLikedUseCase
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.MemberPort
 import dev.hoon.deepdive.heavytraffic.flitter.worker.application.port.out.PostLikePort
@@ -25,22 +23,11 @@ class PostLikeService(
         likedAt: LocalDateTime,
     ) {
         // 1. 포스트 검증
-        val post = validatePost(postId) { CannotLikePostException(it) }
+        val post = postPort.get(id = postId)
 
         // 2. 좋아요 회원 닉네임
         val nickname = memberPort.get(memberId).nickname
 
         // TODO 좋아요 알림 발송
-    }
-
-    private fun validatePost(
-        postId: UUID,
-        thrower: (Exception) -> Exception,
-    ): PostDto.Response {
-        try {
-            return postPort.get(postId)
-        } catch (e: Exception) {
-            throw thrower(e)
-        }
     }
 }

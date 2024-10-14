@@ -21,27 +21,18 @@ class AfterMemberLeaveService(
 ) : AfterMemberLeaveProcessor {
     @Transactional
     override fun execute(memberId: UUID) {
-        // 1. 탈퇴 회원의 작성글을 참조하는 타임라인 제거
-        deleteFollowerTimelines(memberId)
-
-        // 2. 탈퇴 회원을 팔로우하는 팔로잉 제거
-        deleteFollowing(memberId)
-
-        // 3. 탈퇴 회원이 누른 좋아요 제거
-        deletePostLike(memberId)
-
-        // 4. 탈퇴 회원의 작성글 제거
-        deletePost(memberId)
-
-        // 5. 탈퇴 회원의 타임라인 제거
-        deleteTimeline(memberId)
+        memberId
+            .also(this::deleteFollowerTimelines)
+            .also(this::deleteFollowing)
+            .also(this::deletePostLike)
+            .also(this::deletePost)
+            .also(this::deleteTimeline)
     }
 
-    private fun deleteFollowerTimelines(memberId: UUID) {
+    private fun deleteFollowerTimelines(memberId: UUID) =
         postPort.getByWriter(memberId)
             .mapNotNull { it.id }
             .let { timelinePort.deleteAllByPostIdIn(it) }
-    }
 
     private fun deleteFollowing(memberId: UUID) = followPort.delete(memberId)
 
