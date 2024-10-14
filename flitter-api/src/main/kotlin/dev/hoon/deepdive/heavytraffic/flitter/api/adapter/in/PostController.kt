@@ -65,7 +65,7 @@ class PostController(
     fun unLike(
         @PathVariable("postId") postId: UUID,
         @PathVariable("memberId") memberId: UUID,
-    ): ApiResponse<Unit> = ApiResponse.success(unlikePostUseCase.unLike(memberId, postId))
+    ): ApiResponse<Unit> = ApiResponse.success(unlikePostUseCase.unLike(postId, memberId))
 
     @Operation(summary = "특정 멤버의 전체 좋아요 취소")
     @DeleteMapping("/likes")

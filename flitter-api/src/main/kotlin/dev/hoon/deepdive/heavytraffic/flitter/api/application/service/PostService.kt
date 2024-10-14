@@ -5,6 +5,7 @@ package dev.hoon.deepdive.heavytraffic.flitter.api.application.service
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.dto.PostDto
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotDeletePostException
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotLikePostException
+import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotUnLikePostException
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.exception.CannotWritePostException
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.`in`.*
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MessageQueuePort
@@ -90,13 +91,16 @@ class PostService(
 
     @Transactional
     override fun unLike(
-        memberId: UUID,
         postId: UUID,
+        memberId: UUID,
     ) {
         validatePost(postId = postId) { CannotLikePostException(it) }
-
-        val post = postPort.get(postId)
-        postLikePort.delete(PostLike(post = post, memberId = memberId))
+        try {
+            val post = postPort.get(postId)
+            postLikePort.delete(PostLike(post = post, memberId = memberId))
+        } catch (e: Exception) {
+            throw CannotUnLikePostException(e)
+        }
     }
 
     @Transactional
