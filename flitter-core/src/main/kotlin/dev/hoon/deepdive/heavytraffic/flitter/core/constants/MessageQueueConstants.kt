@@ -18,5 +18,8 @@ class MessageQueueConstants {
 
         const val MEMBER_LEAVE_QUEUE = "queue.member-leave"
         const val MEMBER_LEAVE_ROUTING_KEY = "member-leave"
+
+        const val POST_LIKE_QUEUE = "queue.post-like"
+        const val POST_LIKE_ROUTING_KEY = "post-like"
     }
 }

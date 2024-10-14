@@ -58,7 +58,7 @@ class PostController(
     fun like(
         @PathVariable("postId") postId: UUID,
         @PathVariable("memberId") memberId: UUID,
-    ): ApiResponse<Unit> = ApiResponse.success(likePostUseCase.like(memberId, postId))
+    ): ApiResponse<Unit> = ApiResponse.success(likePostUseCase.like(postId, memberId))
 
     @Operation(summary = "좋아요 취소")
     @DeleteMapping("/{postId}/likes/{memberId}")
