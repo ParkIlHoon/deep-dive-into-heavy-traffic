@@ -12,13 +12,13 @@ fun interface LikePostUseCase {
     /**
      * 좋아요
      *
-     * @param memberId 회원 아이디
      * @param postId 좋아요할 포스트 아이디
+     * @param memberId 회원 아이디
      * @throws CannotLikePostException 좋아요 실패 시
      */
     @Throws(CannotLikePostException::class)
     fun like(
-        memberId: UUID,
         postId: UUID,
+        memberId: UUID,
     )
 }

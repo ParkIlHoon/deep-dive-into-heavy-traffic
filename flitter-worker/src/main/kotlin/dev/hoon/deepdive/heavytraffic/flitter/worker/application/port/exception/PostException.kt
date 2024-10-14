@@ -12,3 +12,8 @@ class PostNotFoundException(message: String) : FlitterException(FlitterErrorCode
  * 포스트 작성 실패 예외
  */
 class CannotWritePostException(cause: Throwable) : FlitterException(FlitterErrorCode.CANNOT_WRITE_POST, cause)
+
+/**
+ * 포스트 좋아요 실패 예외
+ */
+class CannotLikePostException(cause: Throwable) : FlitterException(FlitterErrorCode.CANNOT_LIKE_POST, cause)

@@ -1,11 +1,10 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package dev.hoon.deepdive.heavytraffic.flitter.api.adapter.out
 
 import dev.hoon.deepdive.heavytraffic.flitter.api.application.port.out.MessageQueuePort
 import dev.hoon.deepdive.heavytraffic.flitter.core.constants.MessageQueueConstants
-import dev.hoon.deepdive.heavytraffic.flitter.core.event.FollowEvent
-import dev.hoon.deepdive.heavytraffic.flitter.core.event.MemberLeaveEvent
-import dev.hoon.deepdive.heavytraffic.flitter.core.event.PostWroteEvent
-import dev.hoon.deepdive.heavytraffic.flitter.core.event.UnFollowEvent
+import dev.hoon.deepdive.heavytraffic.flitter.core.event.*
 import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
@@ -54,6 +53,18 @@ class MessagePublisher(
             MessageQueueConstants.EXCHANGE_DIRECT,
             MessageQueueConstants.MEMBER_LEAVE_ROUTING_KEY,
             MemberLeaveEvent(memberId),
+        )
+    }
+
+    override fun publishPostLikeEvent(
+        postId: UUID,
+        memberId: UUID,
+        likedAt: LocalDateTime,
+    ) {
+        rabbitTemplate.convertAndSend(
+            MessageQueueConstants.EXCHANGE_DIRECT,
+            MessageQueueConstants.POST_LIKE_ROUTING_KEY,
+            PostLikeEvent(postId, memberId, likedAt),
         )
     }
 }

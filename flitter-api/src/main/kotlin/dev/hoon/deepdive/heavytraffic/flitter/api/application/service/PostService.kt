@@ -73,13 +73,19 @@ class PostService(
 
     @Transactional
     override fun like(
-        memberId: UUID,
         postId: UUID,
+        memberId: UUID,
     ) {
         validatePost(postId = postId) { CannotLikePostException(it) }
-
-        val post = postPort.get(postId)
-        postLikePort.create(PostLike(post = post, memberId = memberId))
+        try {
+            val post = postPort.get(postId)
+            postLikePort.create(PostLike(post = post, memberId = memberId))
+                .let {
+                    messageQueuePort.publishPostLikeEvent(it.post.id, it.memberId, it.createdAt)
+                }
+        } catch (e: Exception) {
+            throw CannotLikePostException(e)
+        }
     }
 
     @Transactional

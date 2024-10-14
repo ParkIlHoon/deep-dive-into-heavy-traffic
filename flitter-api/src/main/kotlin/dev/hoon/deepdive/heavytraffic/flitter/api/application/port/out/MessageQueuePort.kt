@@ -48,4 +48,17 @@ interface MessageQueuePort {
      * @param memberId 탈퇴 회원 아이디
      */
     fun publishMemberLeaveEvent(memberId: UUID)
+
+    /**
+     * 포스트 좋아요 이벤트 발행
+     *
+     * @param postId 좋아요를 누른 포스트 아이디
+     * @param memberId 좋아요을 누른 멤버 아이디
+     * @param likedAt 좋아요를 누른 시간
+     */
+    fun publishPostLikeEvent(
+        postId: UUID,
+        memberId: UUID,
+        likedAt: LocalDateTime,
+    )
 }
